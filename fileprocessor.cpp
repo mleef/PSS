@@ -74,6 +74,18 @@ std::vector<Sequence> FileProcessor::readFASTA(const char * f) {
 
 }
 
+void FileProcessor::writeFASTA(std::vector<Sequence> sequences) {
+
+		std::ofstream file("out.fa");
+		for(int i = 0; i < sequences.size(); i++) {
+			file << ">" << sequences.at(i).getName() << " " << sequences.at(i).getDescription() << std::endl;
+    		file << sequences.at(i).getSeq() << std::endl;	
+		
+		}
+		file.close();
+		
+
+} 
 
 ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mps) {
 	std::ifstream f1(pgf);
@@ -162,17 +174,21 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 	
 }
 
+void FileProcessor::processBLAST(const char * b) {
+	std::ifstream f1(b);
+	std::string str;
+	std::string probe_set_id;
+	std::string probe_id;
+	std::string seq;
+    std::size_t found;
+    std::vector<std::string> curLine;
+    
+    ProbeSetMap probesets;
+    ProbeSet ps = ProbeSet("-1");
+    
+    while (std::getline(f1, str)){
+    }
+
+}
 
 
-void FileProcessor::writeFASTA(std::vector<Sequence> sequences) {
-
-		std::ofstream file("out.fa");
-		for(int i = 0; i < sequences.size(); i++) {
-			file << ">" << sequences.at(i).getName() << " " << sequences.at(i).getDescription() << std::endl;
-    		file << sequences.at(i).getSeq() << std::endl;	
-		
-		}
-		file.close();
-		
-
-} 

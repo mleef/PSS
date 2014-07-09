@@ -35,6 +35,7 @@ class FileProcessor
 		std::vector<Sequence> readFASTA(const char * f);
 		void writeFASTA(std::vector<Sequence> sequences);
 		ProbeSetMap processLibraryFiles(const char * pgf, const char * mps);
+		void processBLAST(const char * b);
 
 
 
