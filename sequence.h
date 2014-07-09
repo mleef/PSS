@@ -23,6 +23,7 @@ class Sequence
 		Sequence(std::string n, std::string d, std::string s);
 		void kmerize();
 		void complement();
+		void reverse();
 		std::string getName();
 		std::string getSeq();
 		std::string getDescription();

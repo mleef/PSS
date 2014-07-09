@@ -6,7 +6,8 @@ Sequence::Sequence(std::string n, std::string d, std::string s) {
 	description_ = d;
 	seq_ = s;
 	//complement();
-	kmerize();
+	//kmerize();
+	//reverse();
 }
 
 std::string Sequence::getName() {
@@ -57,6 +58,26 @@ void Sequence::complement() {
 	
 	seq_ = newSeq;		
 		
+}
+
+void Sequence::reverse() {
+
+	int low = 0;
+	int high = seq_.length() - 1;
+	
+	while(low < high) {
+		char a = seq_[low];
+		char b = seq_[high];
+		
+		seq_[high] = a;
+		seq_[low] = b;
+		
+		low++;
+		high--;
+		
+	}
+
+
 }
 	
 
