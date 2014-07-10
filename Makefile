@@ -27,9 +27,11 @@ build_pss: m1.o sequence.o probe.o probeset.o fileprocessor.o
 
 build_fasta: m2.o sequence.o probe.o probeset.o fileprocessor.o
 	g++ -g -o build_fasta m2.o sequence.o probe.o probeset.o fileprocessor.o
+	rm *.o
 
 process_blast: m3.o sequence.o probe.o probeset.o fileprocessor.o
 	g++ -g -o process_blast m3.o sequence.o probe.o probeset.o fileprocessor.o
+	rm *.o
 	
 clean:
-	rm build_pss build_fasta
+	rm build_pss build_fasta process_blast

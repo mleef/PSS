@@ -1,9 +1,6 @@
 #include "fileprocessor.h"
 
-FileProcessor::FileProcessor() {
-
-
-}
+FileProcessor::FileProcessor() {}
 
 
 std::vector<std::string> & FileProcessor::split(const std::string &s, char delim, std::vector<std::string> &elems) {
@@ -132,6 +129,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 	std::vector<std::string> listPS;
 	
 	std::ifstream f2(mps);
+	
 	while (std::getline(f2, str)){
 		found = str.find("#%");
 		if(found == std::string::npos) {
@@ -177,17 +175,58 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 void FileProcessor::processBLAST(const char * b) {
 	std::ifstream f1(b);
 	std::string str;
+	std::size_t found;
+	
 	std::string probe_set_id;
-	std::string probe_id;
-	std::string seq;
-    std::size_t found;
+	
     std::vector<std::string> curLine;
-    
-    ProbeSetMap probesets;
-    ProbeSet ps = ProbeSet("-1");
+    std::vector<std::string> ids;
+    std::vector<bLine> lines;
+	
+	bLine line;
+	ProbeSetCount map;
     
     while (std::getline(f1, str)){
+    	found = str.find("#");
+    	
+		if(found == std::string::npos) {
+			curLine = split(str,'\t');
+			
+			line.query_id = curLine.at(0);
+			ids = split(curLine.at(1),'-');
+			line.tc_id = ids.at(0);
+			line.probe_set_id = ids.at(1);
+			probe_set_id = ids.at(1);
+			line.probe_id = ids.at(2);
+			line.perc_identity = curLine.at(2);
+			line.length = curLine.at(3);
+			line.mismatches = curLine.at(4);
+			line.gaps = curLine.at(5);
+			line.q_start = curLine.at(6);
+			line.q_end = curLine.at(7);
+			line.s_start = curLine.at(8);
+			line.s_end = curLine.at(9);
+			line.evalue = curLine.at(10);
+			line.score = curLine.at(11);
+			
+			
+			ProbeSetCount::iterator it = map.find(probe_set_id);
+			if (it != map.end()) {
+				it->second.push_back(line);
+			}
+			
+			else {
+				lines.push_back(line);
+				map.insert(CountPair(probe_set_id, lines));
+				lines.clear();
+			}
+			
+		}
     }
+    
+    for(ProbeSetCount::iterator iterator = map.begin(); iterator != map.end(); iterator++) {
+    	std::cout << iterator->first << ": " << iterator->second.size() << std::endl;
+	}
 
 }
 
