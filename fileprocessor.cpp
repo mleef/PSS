@@ -172,7 +172,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 	
 }
 
-void FileProcessor::processBLAST(const char * b) {
+void FileProcessor::processBLAST(const char * b, const char * pss) {
 	std::ifstream f1(b);
 	std::string str;
 	std::size_t found;
@@ -196,8 +196,9 @@ void FileProcessor::processBLAST(const char * b) {
 			ids = split(curLine.at(1),'-');
 			line.tc_id = ids.at(0);
 			line.probe_set_id = ids.at(1);
+			line.total_probes = atoi(ids.at(2).c_str());
 			probe_set_id = ids.at(1);
-			line.probe_id = ids.at(2);
+			line.probe_id = ids.at(3);
 			line.perc_identity = curLine.at(2);
 			line.length = curLine.at(3);
 			line.mismatches = curLine.at(4);
@@ -223,11 +224,85 @@ void FileProcessor::processBLAST(const char * b) {
 			
 		}
     }
-    
-    for(ProbeSetCount::iterator iterator = map.begin(); iterator != map.end(); iterator++) {
-    	std::cout << iterator->first << ": " << iterator->second.size() << std::endl;
-	}
+ 
+//sorts map by probe hits   
+//     int maxCount = 0;
+//     std::string remove;
+//     CheckMap checkedProbeSets;
+//     check_iter checker;
+//     std::vector<CountPair> sortedProbeSets;
+//     CountPair pair;
+//     
+//     for(int i = 0; i < map.size(); i++) {
+//     	for(cp_iter iterator = map.begin(); iterator != map.end(); iterator++) {
+//     		if(iterator->second.size() > maxCount && checkedProbeSets.find(iterator->first) == checkedProbeSets.end()) {
+//     			remove = iterator->first;
+//     			maxCount = iterator->second.size();
+//     			pair.first = iterator->first;
+//     			pair.second = iterator->second;
+//     		}
+// 		}
+// 		
+// 		checkedProbeSets.insert(CheckPair(remove, true));
+// 		sortedProbeSets.push_back(pair);
+// 		maxCount = 0;
+// 		
+// 	}
+	for(cp_iter iterator = map.begin(); iterator != map.end(); iterator++) {
+		int size = iterator->second.size();
+    	for(int i = 0; i < size; i++) {
+    		iterator->second.at(i).probe_hits = size;	
+    		iterator->second.at(i).percent = static_cast<double>(iterator->second.at(i).probe_hits)/static_cast<double>(iterator->second.at(i).total_probes) * 100;
+    	}
+    	
+    	std::cout << iterator->first << " " << iterator->second.at(0).probe_hits << "/" << iterator->second.at(0).total_probes << " " << iterator->second.at(0).percent << "%" << std::endl;
+    }
+	
+	
 
 }
 
 
+// void FileProcessor::calculateProbeSetScores(ProbeSetCount ps, const char * pss) {
+// 	std::ifstream file(pss);
+// 	std::string str;
+// 	std::size_t found;
+// 	std::vector<std::string> curLine;
+// 	
+// 	int numFound = 0;
+// 	int total = ps.size();
+// 	
+// 
+// 	double percent = 0.0;
+// 	
+// 	
+// 	while (std::getline(file, str)){
+// 		curLine = split(str,'\t');
+// 		if(curLine.size() > 0) {
+// 			if(curLine.at(0).length() > 0) {
+// 				cp_iter found = ps.find(curLine.at(1));
+// 				if(found != ps.end()) {
+// 					int size = found->second.size();
+// 					for(int i = 0; i < size; i++) {
+// 						found->second.at(i).total_probes = atoi(curLine.at(2).c_str());
+// 						found->second.at(i).percent = static_cast<double>(found->second.at(i).probe_hits)/static_cast<double>(found->second.at(i).total_probes) * 100;
+// 						percent += static_cast<double>(atoi(found->second.at(i).perc_identity.c_str()));
+// 					}
+// 					percent = percent / size;
+// 					std::cout << found->first << "\t" << found->second.at(0).probe_hits << "/" << found->second.at(0).total_probes << " " << found->second.at(0).percent << "%" << " Average Probe Set Identity: " << percent << std::endl;
+// 					percent = 0.0;
+// 					numFound++;
+// 					if(numFound == ps.size()) {
+// 						break;
+// 					}
+// 				}
+// 			}
+// 		}
+//     
+//     }
+// 	
+// 	
+// 	
+// }
+// 
+// 

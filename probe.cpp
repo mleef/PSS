@@ -19,9 +19,9 @@ void Probe::printFASTA() {
 	std::cout << seq_ << std::endl;
 }
 
-void Probe::setTCID(std::string tc_id) {
+void Probe::setTCID(std::string tc_id, int count) {
 	tc_id_ = tc_id;
-	id_ = tc_id_ + "-" + probe_set_id_ + "-" + probe_id_;
+	id_ = tc_id_ + "-" + probe_set_id_ + "-" + std::to_string(count) + "-" + probe_id_;
 }
 
 void Probe::reverse() {

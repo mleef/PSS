@@ -27,6 +27,9 @@ struct bLine {
 	std::string s_end;
 	std::string evalue;
 	std::string score;
+	int total_probes;
+	int probe_hits;
+	double percent;
 };
 
 typedef std::map<std::string, ProbeSet> ProbeSetMap;
@@ -35,6 +38,11 @@ typedef std::map<std::string, ProbeSet>::iterator ps_iter;
 
 typedef std::map<std::string, std::vector<bLine> > ProbeSetCount;
 typedef std::pair<std::string, std::vector<bLine> > CountPair;
+typedef std::map<std::string, std::vector<bLine> >::iterator cp_iter;
+
+typedef std::map<std::string, bool> CheckMap;
+typedef std::pair<std::string, bool> CheckPair;
+typedef std::map<std::string, bool>::iterator check_iter;
 
 
 class FileProcessor
@@ -53,7 +61,8 @@ class FileProcessor
 		std::vector<Sequence> readFASTA(const char * f);
 		void writeFASTA(std::vector<Sequence> sequences);
 		ProbeSetMap processLibraryFiles(const char * pgf, const char * mps);
-		void processBLAST(const char * b);
+		void processBLAST(const char * b, const char * pss);
+		//void calculateProbeSetScores(ProbeSetCount ps, const char * pss);
 
 
 

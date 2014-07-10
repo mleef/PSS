@@ -24,7 +24,7 @@ class Probe
 	public:
 		Probe(std::string pid, std::string s, std::string psid);
 		std::string getPID() {return probe_id_;};
-		void setTCID(std::string tc_id);
+		void setTCID(std::string tc_id, int count);
 		void printProbe();
 		void printFASTA();
 		void reverse();

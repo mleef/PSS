@@ -1,6 +1,10 @@
 #include "probeset.h"
 
 
+ProbeSet::ProbeSet() {
+	probe_set_id_ = ""; 
+	probe_count_ = 0;
+}
 
 
 ProbeSet::ProbeSet(std::string id) {
@@ -17,7 +21,7 @@ void ProbeSet::setTCID(std::string id) {
 	tc_id_ = id;
 	for(it_type iterator = probes.begin(); iterator != probes.end(); iterator++) {
     // iterator->first = key
-    	iterator->second.setTCID(tc_id_);
+    	iterator->second.setTCID(tc_id_, probe_count_);
     // Repeat if you also want to iterate through the second map.
 	}	
 }

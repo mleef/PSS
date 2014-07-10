@@ -25,6 +25,7 @@ class ProbeSet
 	
 	public:
 		ProbeSet(std::string id);
+		ProbeSet();
 		void setTCID(std::string id);
 		void setPSID(std::string id){probe_set_id_ = id;};
 		std::string getPSID(){return probe_set_id_;};
