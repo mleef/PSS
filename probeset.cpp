@@ -41,3 +41,9 @@ void ProbeSet::printFASTA() {
 	}
 	
 }
+
+void ProbeSet::setProbeCounts(int counts) {
+	for(it_type iterator = probes.begin(); iterator != probes.end(); iterator++) {
+    	iterator->second.setProbeCounts(counts);
+	}	
+}

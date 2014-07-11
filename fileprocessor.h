@@ -27,7 +27,8 @@ struct bLine {
 	std::string s_end;
 	std::string evalue;
 	std::string score;
-	int total_probes;
+	int probes_in_probeset;
+	int probes_in_tc;
 	int probe_hits;
 	double percent;
 };
@@ -36,13 +37,17 @@ typedef std::map<std::string, ProbeSet> ProbeSetMap;
 typedef std::pair<std::string, ProbeSet> ProbeSetPair;
 typedef std::map<std::string, ProbeSet>::iterator ps_iter;
 
-typedef std::map<std::string, std::vector<bLine> > ProbeSetCount;
-typedef std::pair<std::string, std::vector<bLine> > CountPair;
+typedef std::map<std::string, std::vector<bLine> > ProbeSetLine;
+typedef std::pair<std::string, std::vector<bLine> > LinePair;
 typedef std::map<std::string, std::vector<bLine> >::iterator cp_iter;
 
 typedef std::map<std::string, bool> CheckMap;
 typedef std::pair<std::string, bool> CheckPair;
 typedef std::map<std::string, bool>::iterator check_iter;
+
+typedef std::map<std::string, std::vector<ProbeSet> > TranscriptClusterMap;
+typedef std::pair<std::string, std::vector<ProbeSet> > TranscriptClusterPair;
+typedef std::map<std::string, std::vector<ProbeSet> >::iterator tc_iter;
 
 
 class FileProcessor
@@ -61,8 +66,8 @@ class FileProcessor
 		std::vector<Sequence> readFASTA(const char * f);
 		void writeFASTA(std::vector<Sequence> sequences);
 		ProbeSetMap processLibraryFiles(const char * pgf, const char * mps);
-		void processBLAST(const char * b, const char * pss);
-		//void calculateProbeSetScores(ProbeSetCount ps, const char * pss);
+		void processBLAST(const char * b, bool exon);
+		void outputHTML(std::string query_id, ProbeSetLine map, bool exon);
 
 
 

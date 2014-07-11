@@ -17,6 +17,8 @@ class Probe
 		std::string probe_set_id_;
 		std::string tc_id_;
 		std::string id_;
+		int probes_in_probeset_;
+		int probes_in_tc_;
 	
 	
 	
@@ -25,6 +27,7 @@ class Probe
 		Probe(std::string pid, std::string s, std::string psid);
 		std::string getPID() {return probe_id_;};
 		void setTCID(std::string tc_id, int count);
+		void setProbeCounts(int counts);
 		void printProbe();
 		void printFASTA();
 		void reverse();

@@ -30,8 +30,11 @@ class ProbeSet
 		void setPSID(std::string id){probe_set_id_ = id;};
 		std::string getPSID(){return probe_set_id_;};
 		void addProbe(Probe p);
+		int getProbeCount(){return probe_count_;};
+		void setProbeCounts(int counts);
 		void printProbeSet();
 		void printFASTA();
+		
 
 
 

@@ -3,7 +3,7 @@
 
 int main (int argc, char *argv[]) {
     FileProcessor fp = FileProcessor();
-    fp.processBLAST(argv[1], true);
+    fp.processBLAST(argv[1], false);
 
 }
 
