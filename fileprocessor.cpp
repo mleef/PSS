@@ -213,7 +213,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 }
 
 void FileProcessor::processBLAST(const char * b, bool exon) {
-
+	styleHeadings();
 	std::ifstream f1(b);
 	std::string str;
 	std::size_t found;
@@ -313,9 +313,12 @@ void FileProcessor::processBLAST(const char * b, bool exon) {
 }
 
 void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon) {
-
+	
 	std::string header1;
 	std::string header2;
+	
+	std::string pk = "712";
+	
 	if(exon) {
 		header1 = "Probe Set ID";
 		header2 = "Probe Hits/Probes in Probe Set";
@@ -334,6 +337,8 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
     std::cout << "<th>Hit Percentage</th>" << std::endl;
 	std::cout << "</tr>" << std::endl;
     std::cout << "</thead>" << std::endl;
+    
+    
 	
 	for(cp_iter iterator = map.begin(); iterator != map.end(); iterator++) {
 		int size = iterator->second.size();
@@ -373,10 +378,10 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		}
 		checkedProbeSets.insert(CheckPair(remove, true));
 		if(exon) {
-			std::cout << "<tr><td>" << pair.first << "</td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr>" << std::endl;
+			std::cout << "<tr><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_probe_set.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr>" << std::endl;
 		}
 		else {
-			std::cout << "<tr><td>" << pair.first << "</td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr>" << std::endl;		
+			std::cout << "<tr><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_transcript.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr>" << std::endl;		
 		}
 		//sortedProbeSets.push_back(pair);
 		maxCount = 0;
@@ -384,6 +389,66 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	
 	std::cout << "</table>" << std::endl;
 }	
+
+void FileProcessor::styleHeadings() {
+	std::cout << "<style>" << std::endl;
+	std::cout << "table" << std::endl;
+	std::cout << "{" << std::endl;
+	std::cout << "font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;" << std::endl;
+	std::cout << "font-size: 12px;" << std::endl;
+	std::cout << "margin: 45px;" << std::endl;
+	std::cout << "width: 550px;" << std::endl;
+	//std::cout << "margin: 0px auto;" << std::endl;
+	std::cout << "border-collapse: collapse;" << std::endl;
+	std::cout << "}" << std::endl;
+	std::cout << "th" << std::endl;
+	std::cout << "{" << std::endl;
+	std::cout << "text-align: center;" << std::endl;
+	std::cout << "font-size: 13px;" << std::endl;
+	std::cout << "font-weight: normal;" << std::endl;
+	std::cout << "padding: 8px;" << std::endl;
+	std::cout << "background: #b9c9fe;" << std::endl;
+	std::cout << "border-top: 4px solid #aabcfe;" << std::endl;
+	std::cout << "border-bottom: 1px solid #fff;" << std::endl;
+	std::cout << "color: #039;" << std::endl;
+	std::cout << "}" << std::endl;
+
+	std::cout << "td" << std::endl;
+	std::cout << "{" << std::endl;
+	std::cout << "text-align: center;" << std::endl;
+	std::cout << "padding: 8px;" << std::endl;
+	std::cout << "background: #e8edff;" << std::endl;
+	std::cout << "border-bottom: 1px solid #fff;" << std::endl;
+	std::cout << "color: #669;" << std::endl;
+	std::cout << "border-top: 1px solid transparent;" << std::endl;
+	std::cout << "}" << std::endl;
+
+	std::cout << "tr:hover td" << std::endl;
+	std::cout << "{" << std::endl;
+	std::cout << "background: #d0dafd;" << std::endl;
+	std::cout << "color: #339;" << std::endl;
+	std::cout << "}" << std::endl;
+
+	std::cout << "caption" << std::endl;
+	std::cout << "{" << std::endl;
+	std::cout << "margin-bottom: 5px;" << std::endl;
+	std::cout << "text-transform: lowercase;" << std::endl;
+	std::cout << "font-size: 160%;" << std::endl;
+	std::cout << "padding: 5px;" << std::endl;
+	std::cout << "letter-spacing: .2px;" << std::endl;
+	std::cout << "font-weight: bold;" << std::endl;
+	std::cout << "}" << std::endl;
+
+	std::cout << "#good {" << std::endl;
+	std::cout << "color: #32CD32;" << std::endl;
+	std::cout << "}" << std::endl;
+
+	std::cout << "#bad {" << std::endl;
+	std::cout << "color: red;" << std::endl;
+	std::cout << "}" << std::endl;
+
+	std::cout << "</style>" << std::endl;
+}
 	
 
 
