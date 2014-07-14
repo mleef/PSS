@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="alternate" type="application/json+oembed" href="https://www.jotform.com/oembed/?format=json&amp;url=http%3A%2F%2Fwww.jotform.com%2Fform%2F41884646115156" title="oEmbed Form"><link rel="alternate" type="text/xml+oembed" href="https://www.jotform.com/oembed/?format=xml&amp;url=http%3A%2F%2Fwww.jotform.com%2Fform%2F41884646115156" title="oEmbed Form">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="HandheldFriendly" content="true" />
+<title>Probe Set Search</title>
+<link rel="shortcut icon" href="http://www.google.com/s2/favicons?domain=www.affymetrix.com">
+<link type="text/css" rel="stylesheet" href="css/styles/form.css?v3.2.2656"/>
+<link href="css/calendarview.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="http://max.jotfor.ms/css/styles/nova.css" />
+<link type="text/css" media="print" rel="stylesheet" href="http://max.jotfor.ms/css/printForm.css?3.2.2656" />
+<!-- Include the heartcode canvasloader js file -->
+<script src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+
+<style type="text/css">
+    .form-label-left{
+        width:150px !important;
+    }
+    .form-line{
+        padding-top:12px;
+        padding-bottom:12px;
+    }
+    .form-label-right{
+        width:150px !important;
+    }
+    .form-all{
+        width:590px;
+        color:Black !important;
+        font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans','Verdana','Tahoma','sans-serif';
+        font-size:14px;
+    }
+
+    #centered{
+      width: 600px;
+      text-align: left;
+      border: 0px;
+      padding: 0;
+      margin: 0 auto;
+    }
+
+    #status
+    {
+      position:absolute;
+      margin-left:-230px;
+      bottom:100px;
+      left:50%;
+      font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans','Verdana','Tahoma','sans-serif';
+    }
+
+    }
+</style>
+
+</head>
+<body>
+<div id="centered">
+<form id="main" action="/upload" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+  <input type="hidden" name="formID" value="41884646115156" />
+  <div class="form-all">
+    <ul class="form-section">
+      <li class="form-line" id="id_9">    
+        <div id="cid_9" class="form-input-wide">
+          <img alt="" class="form-image" border="0" src="http://www.jotform.com/uploads/guest_41878110102040/form_files/affymetrix2014.jpg" height="128" width="531" />
+        </div>
+      </li>
+      <li id="cid_1" class="form-input-wide">
+        <div class="form-header-group">
+          <h2 id="header_1" class="form-header">
+            Probe Set Search
+          </h2>
+          <div id="subHeader_1" class="form-subHeader">
+            Upload sequences below for detailed probe set coverage information
+          </div>
+        </div>
+      </li>
+      <li class="form-line" id="id_8">
+        <label class="form-label form-label-left form-label-auto" id="label_8" for="input_8">
+          Chip Design
+          <span class="form-required">
+            *
+          </span>
+        </label>
+        <div id="cid_8" class="form-input">
+          <select class="form-dropdown validate[required]" style="width:150px" id="input_8" name="q8_chipDesign">
+            <option value="">  </option>
+            <option value="1"> Human Gene 1.0 ST Array </option>
+            <option value="2"> Human Gene 2.0 ST Array </option>
+          </select>
+        </div>
+      </li>
+      <li class="form-line" id="id_10">
+        <label class="form-label form-label-left form-label-auto" id="label_10" for="input_10">
+          FASTA files here
+          <span class="form-required">
+            *
+          </span>
+        </label>
+        <div id="cid_10" class="form-input">
+          <div class="qq-uploader-buttonText-value">
+            Upload a File
+          </div>
+          <input class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple" file-accept="" file-maxsize="1048576" file-limit="0" />
+        </div>
+      </li>
+      <li class="form-line" id="id_2">
+        <div id="cid_2" class="form-input-wide">
+          <div style="margin-left:156px" class="form-buttons-wrapper">
+            <button id="input_2" type="submit" class="form-submit-button">
+              Submit query
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <input type="hidden" id="simple_spc" name="simple_spc" value="41884646115156" />
+  <script type="text/javascript">
+  document.getElementById("si" + "mple" + "_spc").value = "41884646115156-41884646115156";
+  </script>
+    <!-- Create a div which will be the canvasloader wrapper -->  
+  <div id="canvasloader-container" class="wrapper"></div>
+    
+  <!-- This script creates a new CanvasLoader instance and places it in the wrapper div -->
+  <script type="text/javascript">
+    var cl = new CanvasLoader('canvasloader-container');
+    cl.setColor('#ff0000'); // default is '#000000'
+    cl.setDiameter(78); // default is 40
+    cl.setSpeed(3); // default is 2
+    cl.setFPS(30); // default is 24
+
+    $("#main").submit(function (event) {
+      cl.show(); // Hidden by default
+      var myVar=setInterval(function(){statusCheck()},500);
+
+      function statusCheck() {
+        $.get("/status", function (data) {
+            response = JSON.parse(data)
+            if(response["percentage"]) {
+              $("#status").text(response["step"] + "..." + response["percentage"] + "% complete")
+            }
+            
+            else {
+              $("#status").text(response["step"])
+            }
+        })
+      }
+    })
+
+    
+    
+    // This bit is only for positioning - not necessary
+      var loaderObj = document.getElementById("canvasLoader");
+      loaderObj.style.position = "absolute";
+      loaderObj.style["top"] = 550 + "px";
+      loaderObj.style["left"] = 630 + "px";
+    </script>
+
+</div>
+<div id="status"></div>
+</body>
+
+</html>
