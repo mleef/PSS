@@ -1,4 +1,8 @@
-#include "fileprocessor.h"
+/* 
+   Execution file for the "gene_html" binary.
+*/
+
+#include "../files/fileprocessor.h"
 
 
 int main (int argc, char *argv[]) {

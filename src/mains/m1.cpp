@@ -1,5 +1,8 @@
-#include "fileprocessor.h"
+/* 
+   Execution file for the "build_pss" binary
+*/
 
+#include "../files/fileprocessor.h"
 
 int main (int argc, char *argv[]) {
    
@@ -7,7 +10,7 @@ int main (int argc, char *argv[]) {
     ProbeSetMap probesets = fp.processLibraryFiles(argv[1], argv[2]);
     
     for(ps_iter iterator = probesets.begin(); iterator != probesets.end(); iterator++) {
-    	iterator->second.printFASTA();
+    	iterator->second.printProbeSet();
 	}	
 	
 

@@ -1,3 +1,10 @@
+/* 
+   Header file for the probe set class. Probe set objects are data representations of Affymetrix probe sets and 
+   include information such as various IDs (transcript cluster, probe set, probe) as well as a mapping of all
+   probes contained in the set (probe name -> probe object). These objects are mainly used to organize the probes' 
+   information before building the unique PSS ID's. 
+*/
+
 #ifndef PROBESET_H
 #define PROBESET_H
 
@@ -34,13 +41,6 @@ class ProbeSet
 		void setProbeCounts(int counts);
 		void printProbeSet();
 		void printFASTA();
-		
-
-
-
-
-
-
 };
 
 #endif

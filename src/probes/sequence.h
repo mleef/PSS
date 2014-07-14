@@ -1,3 +1,8 @@
+/* 
+   Header file for the sequence class. This is a vestige from an early build of the program, acts as 
+   a less sophisticated version of the probe object.
+*/
+
 #ifndef SEQUENCE_H
 #define SEQUENCE_H
 

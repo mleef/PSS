@@ -1,3 +1,10 @@
+/* 
+   Header file for the probe class. Probe objects are data representations of Affymetrix probes and 
+   include information such as various IDs (transcript cluster, probe set, probe) as well as the raw
+   probe sequence. The building of the probe's id_ (PSS ID) parameter is vital to the rest of the program, as it
+   makes accessing information very quick (as it can be parsed directly from the BLAST output)
+*/
+
 #ifndef PROBE_H
 #define PROBE_H
 
