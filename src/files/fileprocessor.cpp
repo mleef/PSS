@@ -257,6 +257,9 @@ void FileProcessor::processBLAST(const char * b, bool exon) {
 	ProbeSetLine map;
 	ProbeSetLine tc_map;
 	
+	bool psLeft = true;
+	bool tcLeft = true;
+	
 	
 	// Read in BLAST output
     while (std::getline(f1, str)){
@@ -270,13 +273,15 @@ void FileProcessor::processBLAST(const char * b, bool exon) {
 			// End of lines for specific query, output the HTML formatted version of the current mapping and move on
 			if(curQuery != "-1" && prevQuery != "-1" && curQuery != prevQuery) {
 				if(exon) {
-					outputHTML(prevQuery, map, true);
+					outputHTML(prevQuery, map, true, psLeft);
 					map.clear();	
+					psLeft = !psLeft;
 				}
 				
 				else {
-					outputHTML(prevQuery, tc_map, false);
+					outputHTML(prevQuery, tc_map, false, tcLeft);
 					tc_map.clear();	
+					tcLeft = !tcLeft;
 				}	
 			}
 			
@@ -337,20 +342,22 @@ void FileProcessor::processBLAST(const char * b, bool exon) {
     
     // Output last query list to HTML format
     if(exon) {
-    	outputHTML(curQuery, map, true);
+    	outputHTML(curQuery, map, true, psLeft);
     }
     else {
-    	outputHTML(curQuery, tc_map, false);
+    	outputHTML(curQuery, tc_map, false, tcLeft);
     }
     
 		
 }
 
 // Creates the tables for exon/gene level viewing by the user
-void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon) {
+void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon, bool left) {
 	
 	std::string header1;
 	std::string header2;
+	
+	std::string tableDeclaration;
 	
 	std::string pk = "712";
 	
@@ -363,7 +370,15 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		header2 = "Probe Hits/Probes in Transcript Cluster";
 	}
 	
-	std::cout << "<table>" << std::endl;
+	if(left) {
+		tableDeclaration = "<table id='left'>";
+	}
+	
+	else {
+		tableDeclaration = "<table id='right'>";
+	}
+	
+	std::cout << tableDeclaration << std::endl;
 	std::cout << "<caption>" << query_id << "</caption>" << std::endl;
 	std::cout << "<thead>" << std::endl;
 	std::cout << "<tr>" << std::endl;
@@ -439,8 +454,8 @@ void FileProcessor::styleHeadings() {
 	std::cout << "{" << std::endl;
 	std::cout << "font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;" << std::endl;
 	std::cout << "font-size: 12px;" << std::endl;
-	std::cout << "margin: 45px;" << std::endl;
-	std::cout << "width: 550px;" << std::endl;
+	std::cout << "margin: 0 auto;" << std::endl;
+	std::cout << "width: 100%" << std::endl;
 	//std::cout << "margin: 0px auto;" << std::endl;
 	std::cout << "border-collapse: collapse;" << std::endl;
 	std::cout << "}" << std::endl;
@@ -470,6 +485,22 @@ void FileProcessor::styleHeadings() {
 	std::cout << "{" << std::endl;
 	std::cout << "background: #d0dafd;" << std::endl;
 	std::cout << "color: #339;" << std::endl;
+	std::cout << "}" << std::endl;
+	
+	std::cout << "#left" << std::endl;
+	std::cout << "{" << std::endl;
+	std::cout << "clear: left;" << std::endl;
+	std::cout << "float: left;" << std::endl;
+	std::cout << "width: 550px;" << std::endl;
+	std::cout << "margin-left: 10%" << std::endl;
+	std::cout << "}" << std::endl;
+	
+	std::cout << "#right" << std::endl;
+	std::cout << "{" << std::endl;
+	std::cout << "clear: right;" << std::endl;
+	std::cout << "float: right;" << std::endl;
+	std::cout << "width: 550px;" << std::endl;
+	std::cout << "margin-right: 10%" << std::endl;
 	std::cout << "}" << std::endl;
 
 	std::cout << "caption" << std::endl;

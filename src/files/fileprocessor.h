@@ -81,7 +81,7 @@ class FileProcessor
 		void writeFASTA(std::vector<Sequence> sequences);
 		ProbeSetMap processLibraryFiles(const char * pgf, const char * mps);
 		void processBLAST(const char * b, bool exon);
-		void outputHTML(std::string query_id, ProbeSetLine map, bool exon);
+		void outputHTML(std::string query_id, ProbeSetLine map, bool exon, bool left);
 		void styleHeadings();
 
 
