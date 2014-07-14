@@ -239,7 +239,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 // IDs to a list of lines that represent hits on that probe set/transcript cluster. The bool
 // parameter is used to adjust method for exon/gene level analysis. 
 void FileProcessor::processBLAST(const char * b, bool exon) {
-	styleHeadings();
+	//styleHeadings();
 	std::ifstream f1(b);
 	std::string str;
 	std::size_t found;
@@ -371,17 +371,18 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	}
 	
 	if(left) {
-		tableDeclaration = "<table id='left'>";
+		tableDeclaration = "<table class='maintable' id='left'>";
 	}
 	
 	else {
-		tableDeclaration = "<table id='right'>";
+		tableDeclaration = "<table class='maintable' id='right'>";
 	}
 	
 	std::cout << tableDeclaration << std::endl;
 	std::cout << "<caption>" << query_id << "</caption>" << std::endl;
 	std::cout << "<thead>" << std::endl;
 	std::cout << "<tr>" << std::endl;
+	std::cout << "<th></th>" << std::endl;
     std::cout << "<th>" << header1 << "</th>" << std::endl;
     std::cout << "<th>" << header2 << "</th>" << std::endl;
     std::cout << "<th>Hit Percentage</th>" << std::endl;
@@ -433,11 +434,17 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		
 		// Output table row
 		// TODO: Create href mappings between designs and pks for proper urls
+		
+		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th></tr>";
+		for(int m = 0; m < pair.second.size(); m++) {
+			probeLines += "<tr id='nc'><td id='nc'>" + pair.second.at(m).probe_id + "</td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td>";
+		}
+		
 		if(exon) {
-			std::cout << "<tr><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_probe_set.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr>" << std::endl;
+			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_probe_set.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>" << std::endl;
 		}
 		else {
-			std::cout << "<tr><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_transcript.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr>" << std::endl;		
+			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_transcript.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>"  << std::endl;		
 		}
 		//sortedProbeSets.push_back(pair);
 		maxCount = 0;
