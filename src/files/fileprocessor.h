@@ -80,9 +80,8 @@ class FileProcessor
 		std::vector<Sequence> readFASTA(const char * f);
 		void writeFASTA(std::vector<Sequence> sequences);
 		ProbeSetMap processLibraryFiles(const char * pgf, const char * mps);
-		void processBLAST(const char * b, bool exon);
-		void outputHTML(std::string query_id, ProbeSetLine map, bool exon, bool left);
-		void styleHeadings();
+		void processBLAST(const char * b, bool exon, std::string id);
+		void outputHTML(std::string query_id, ProbeSetLine map, bool exon, std::string id);
 
 
 

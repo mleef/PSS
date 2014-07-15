@@ -92,8 +92,8 @@
           </span>
         </label>
         <div id="cid_8" class="form-input">
-          <select class="form-dropdown validate[required]" style="width:150px" id="input_8" name="q8_chipDesign">
-            <option value="">  </option>
+          <select required class="form-dropdown validate[required]" style="width:150px" id="input_8" name="q8_chipDesign">
+            <option value="">Select design</option>
             <option value="4"> Human Gene 1.0 ST Array </option>
             <option value="712"> Human Gene 2.0 ST Array </option>
           </select>
@@ -107,10 +107,8 @@
           </span>
         </label>
         <div id="cid_10" class="form-input">
-          <div class="qq-uploader-buttonText-value">
-            Upload a File
-          </div>
-          <input style = "margin-left: 90px" class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple" file-accept="" file-maxsize="1048576" file-limit="0" />
+
+          <input style = "margin-left: 90px" class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple" file-accept="" file-maxsize="1048576" file-limit="0" required/>
         </div>
       </li>
       <li class="form-line" id="id_2">

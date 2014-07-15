@@ -213,7 +213,6 @@
 	window.scrollReveal = new scrollReveal(config);
 	$(document).ready(function(){
 		$(".ui-tabs").tabs();
-
 		 $("td[colspan=4]").find("table").hide();
 		 
     	$(".maintable").click(function(event) {
@@ -236,6 +235,18 @@
     	});
 
 	});
+
+	function viewport()
+	{
+		var e = window
+		, a = 'inner';
+		if ( !( 'innerWidth' in window ) )
+			{
+			a = 'client';
+			e = document.documentElement || document.body;
+			}
+		return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
+	}
 
 
 </script>

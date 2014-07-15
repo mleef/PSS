@@ -238,7 +238,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 // Reads in BLAST output in tab format and creates a mapping from probe set/transcript cluster
 // IDs to a list of lines that represent hits on that probe set/transcript cluster. The bool
 // parameter is used to adjust method for exon/gene level analysis. 
-void FileProcessor::processBLAST(const char * b, bool exon) {
+void FileProcessor::processBLAST(const char * b, bool exon, std::string id) {
 	//styleHeadings();
 	std::ifstream f1(b);
 	std::string str;
@@ -256,9 +256,7 @@ void FileProcessor::processBLAST(const char * b, bool exon) {
 	bLine line;
 	ProbeSetLine map;
 	ProbeSetLine tc_map;
-	
-	bool psLeft = true;
-	bool tcLeft = true;
+
 	
 	
 	// Read in BLAST output
@@ -273,15 +271,13 @@ void FileProcessor::processBLAST(const char * b, bool exon) {
 			// End of lines for specific query, output the HTML formatted version of the current mapping and move on
 			if(curQuery != "-1" && prevQuery != "-1" && curQuery != prevQuery) {
 				if(exon) {
-					outputHTML(prevQuery, map, true, psLeft);
+					outputHTML(prevQuery, map, true, id);
 					map.clear();	
-					psLeft = !psLeft;
 				}
 				
 				else {
-					outputHTML(prevQuery, tc_map, false, tcLeft);
+					outputHTML(prevQuery, tc_map, false, id);
 					tc_map.clear();	
-					tcLeft = !tcLeft;
 				}	
 			}
 			
@@ -342,24 +338,27 @@ void FileProcessor::processBLAST(const char * b, bool exon) {
     
     // Output last query list to HTML format
     if(exon) {
-    	outputHTML(curQuery, map, true, psLeft);
+    	outputHTML(curQuery, map, true, id);
     }
     else {
-    	outputHTML(curQuery, tc_map, false, tcLeft);
+    	outputHTML(curQuery, tc_map, false, id);
     }
     
 		
 }
 
 // Creates the tables for exon/gene level viewing by the user
-void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon, bool left) {
+void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon, std::string id) {
 	
 	std::string header1;
 	std::string header2;
 	
-	std::string tableDeclaration;
+	std::string tableDeclaration = "<table class='maintable'>";
 	
-	std::string pk = "712";
+	std::string baseURL = "https://www.affymetrix.com/analysis/netaffx/";
+	std::string psExtension = "exon/wtgene_probe_set.affx?pk=";
+	std::string tcExtension = "exon/wtgene_transcript.affx?pk=";
+	std::string pk = id;
 	
 	if(exon) {
 		header1 = "Probe Set ID";
@@ -370,13 +369,6 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		header2 = "Probe Hits/Probes in Transcript Cluster";
 	}
 	
-	if(left) {
-		tableDeclaration = "<table class='maintable' id='left'>";
-	}
-	
-	else {
-		tableDeclaration = "<table class='maintable' id='right'>";
-	}
 	
 	//std::cout << "<div data-scroll-reveal>" << std::endl;
 	std::cout << tableDeclaration << std::endl;
@@ -442,10 +434,11 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		}
 		
 		if(exon) {
-			std::cout << "<tr data-scroll-reveal><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_probe_set.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>" << std::endl;
+			//tr data-scroll-reveal TODO: animate rows downward instead of just upward
+			std::cout << "<tr><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>" << std::endl;
 		}
 		else {
-			std::cout << "<tr data-scroll-reveal><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_transcript.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>"  << std::endl;		
+			std::cout << "<tr><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>"  << std::endl;		
 		}
 		//sortedProbeSets.push_back(pair);
 		maxCount = 0;
@@ -455,83 +448,6 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	//std::cout << "</div>" << std::endl;	
 }	
 
-
-// Creates styling for exon/gene level tables
-void FileProcessor::styleHeadings() {
-	std::cout << "<style>" << std::endl;
-	std::cout << "table" << std::endl;
-	std::cout << "{" << std::endl;
-	std::cout << "font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;" << std::endl;
-	std::cout << "font-size: 12px;" << std::endl;
-	std::cout << "margin: 0 auto;" << std::endl;
-	std::cout << "width: 100%" << std::endl;
-	//std::cout << "margin: 0px auto;" << std::endl;
-	std::cout << "border-collapse: collapse;" << std::endl;
-	std::cout << "}" << std::endl;
-	std::cout << "th" << std::endl;
-	std::cout << "{" << std::endl;
-	std::cout << "text-align: center;" << std::endl;
-	std::cout << "font-size: 13px;" << std::endl;
-	std::cout << "font-weight: normal;" << std::endl;
-	std::cout << "padding: 8px;" << std::endl;
-	std::cout << "background: #b9c9fe;" << std::endl;
-	std::cout << "border-top: 4px solid #aabcfe;" << std::endl;
-	std::cout << "border-bottom: 1px solid #fff;" << std::endl;
-	std::cout << "color: #039;" << std::endl;
-	std::cout << "}" << std::endl;
-
-	std::cout << "td" << std::endl;
-	std::cout << "{" << std::endl;
-	std::cout << "text-align: center;" << std::endl;
-	std::cout << "padding: 8px;" << std::endl;
-	std::cout << "background: #e8edff;" << std::endl;
-	std::cout << "border-bottom: 1px solid #fff;" << std::endl;
-	std::cout << "color: #669;" << std::endl;
-	std::cout << "border-top: 1px solid transparent;" << std::endl;
-	std::cout << "}" << std::endl;
-
-	std::cout << "tr:hover td" << std::endl;
-	std::cout << "{" << std::endl;
-	std::cout << "background: #d0dafd;" << std::endl;
-	std::cout << "color: #339;" << std::endl;
-	std::cout << "}" << std::endl;
-	
-	std::cout << "#left" << std::endl;
-	std::cout << "{" << std::endl;
-	std::cout << "clear: left;" << std::endl;
-	std::cout << "float: left;" << std::endl;
-	std::cout << "width: 550px;" << std::endl;
-	std::cout << "margin-left: 10%" << std::endl;
-	std::cout << "}" << std::endl;
-	
-	std::cout << "#right" << std::endl;
-	std::cout << "{" << std::endl;
-	std::cout << "clear: right;" << std::endl;
-	std::cout << "float: right;" << std::endl;
-	std::cout << "width: 550px;" << std::endl;
-	std::cout << "margin-right: 10%" << std::endl;
-	std::cout << "}" << std::endl;
-
-	std::cout << "caption" << std::endl;
-	std::cout << "{" << std::endl;
-	std::cout << "margin-bottom: 5px;" << std::endl;
-	std::cout << "text-transform: lowercase;" << std::endl;
-	std::cout << "font-size: 160%;" << std::endl;
-	std::cout << "padding: 5px;" << std::endl;
-	std::cout << "letter-spacing: .2px;" << std::endl;
-	std::cout << "font-weight: bold;" << std::endl;
-	std::cout << "}" << std::endl;
-
-	std::cout << "#good {" << std::endl;
-	std::cout << "color: #32CD32;" << std::endl;
-	std::cout << "}" << std::endl;
-
-	std::cout << "#bad {" << std::endl;
-	std::cout << "color: red;" << std::endl;
-	std::cout << "}" << std::endl;
-
-	std::cout << "</style>" << std::endl;
-}
 	
 
 
