@@ -34,6 +34,8 @@
         width:150px !important;
     }
     .form-all{
+        margin: left auto;
+        margin: right auto;
         width:590px;
         color:Black !important;
         font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans','Verdana','Tahoma','sans-serif';
@@ -42,7 +44,8 @@
 
     #centered{
       width: 600px;
-      text-align: left;
+      height: 600px;
+      text-align: center;
       border: 0px;
       padding: 0;
       margin: 0 auto;
@@ -51,10 +54,8 @@
 
     #status
     {
-      position:absolute;
-      margin-left:-230px;
-      bottom:100px;
-      left:50%;
+      display: inline-block;
+      position:relative;
       font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans','Verdana','Tahoma','sans-serif';
     }
 
@@ -109,12 +110,12 @@
           <div class="qq-uploader-buttonText-value">
             Upload a File
           </div>
-          <input class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple" file-accept="" file-maxsize="1048576" file-limit="0" />
+          <input style = "margin-left: 90px" class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple" file-accept="" file-maxsize="1048576" file-limit="0" />
         </div>
       </li>
       <li class="form-line" id="id_2">
         <div id="cid_2" class="form-input-wide">
-          <div style="margin-left:156px" class="form-buttons-wrapper">
+          <div class="form-buttons-wrapper">
             <button id="input_2" type="submit" class="form-submit-button">
               Submit query
             </button>
@@ -122,14 +123,14 @@
         </div>
       </li>
     </ul>
+
+
   </div>
-  <input type="hidden" id="simple_spc" name="simple_spc" value="41884646115156" />
-  <script type="text/javascript">
-  document.getElementById("si" + "mple" + "_spc").value = "41884646115156-41884646115156";
-  </script>
+  </form>
     <!-- Create a div which will be the canvasloader wrapper -->  
-  <div id="canvasloader-container" class="wrapper"></div>
-    
+
+   <div id="status"></div>
+   <div id="canvasloader-container" class="wrapper"></div>
   <!-- This script creates a new CanvasLoader instance and places it in the wrapper div -->
   <script type="text/javascript">
     var cl = new CanvasLoader('canvasloader-container');
@@ -137,13 +138,18 @@
     cl.setDiameter(78); // default is 40
     cl.setSpeed(3); // default is 2
     cl.setFPS(30); // default is 24
+    var first = true
 
     $("#main").submit(function (event) {
-      cl.show(); // Hidden by default
+      //cl.show(); // Hidden by default
       var myVar=setInterval(function(){statusCheck()},500);
 
       function statusCheck() {
         $.get("/status", function (data) {
+            if(first) {
+              cl.show()
+              first = false
+            }
             response = JSON.parse(data)
             if(response["percentage"]) {
               $("#status").text(response["step"] + "..." + response["percentage"] + "% complete")
@@ -160,13 +166,12 @@
     
     // This bit is only for positioning - not necessary
       var loaderObj = document.getElementById("canvasLoader");
-      loaderObj.style.position = "absolute";
-      loaderObj.style["top"] = 550 + "px";
-      loaderObj.style["left"] = 630 + "px";
+      loaderObj.style.position = "relative";
+      loaderObj.style["top"] = 10 + "px";
+      loaderObj.style["left"] = 0 + "px";
     </script>
-
 </div>
-<div id="status"></div>
+
 </body>
 
 </html>
