@@ -63,14 +63,6 @@ typedef std::map<std::string, std::vector<ProbeSet> > TranscriptClusterMap;
 typedef std::pair<std::string, std::vector<ProbeSet> > TranscriptClusterPair;
 typedef std::map<std::string, std::vector<ProbeSet> >::iterator tc_iter;
 
-
-// Mapping, pair, and iterator from pair of transcript cluster/probe set id to list of BLAST output lines
-// typedef std::pair<std::string, std::string> pstc;
-// typedef std::map<pstc, std::vector<bLine> > tuplemap;
-// typedef std::pair<pstc, std::vector<bLine> > tuplepair;
-// typedef std::map<pstc, std::vector<bLine> >::iterator tuple_iter;
-
-
 class FileProcessor
 {
 
@@ -87,7 +79,8 @@ class FileProcessor
 		std::vector<Sequence> readFASTA(const char * f);
 		void writeFASTA(std::vector<Sequence> sequences);
 		ProbeSetMap processLibraryFiles(const char * pgf, const char * mps);
-		void processBLAST(const char * b, bool exon, std::string id);
+		void processBLASTTabs(const char * b, bool exon, std::string id);
+		void processBLASTAlignments(const char * b);
 		void outputHTML(std::string query_id, ProbeSetLine map, bool exon, std::string id);
 
 

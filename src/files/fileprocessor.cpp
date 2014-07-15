@@ -238,7 +238,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 // Reads in BLAST output in tab format and creates a mapping from probe set/transcript cluster
 // IDs to a list of lines that represent hits on that probe set/transcript cluster. The bool
 // parameter is used to adjust method for exon/gene level analysis. 
-void FileProcessor::processBLAST(const char * b, bool exon, std::string id) {
+void FileProcessor::processBLASTTabs(const char * b, bool exon, std::string id) {
 	//styleHeadings();
 	std::ifstream f1(b);
 	std::string str;
@@ -427,9 +427,9 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
     
     for(int i = 0; i < map.size(); i++) {
     	for(cp_iter iterator = map.begin(); iterator != map.end(); iterator++) {
-    		if(iterator->second.size() > maxCount && checkedProbeSets.find(iterator->first) == checkedProbeSets.end()) {
+    		if(iterator->second.at(0).probe_hits > maxCount && checkedProbeSets.find(iterator->first) == checkedProbeSets.end()) {
     			remove = iterator->first;
-    			maxCount = iterator->second.size();
+    			maxCount = iterator->second.at(0).probe_hits;
     			pair.first = iterator->first;
     			pair.second = iterator->second;
     		}
@@ -467,6 +467,11 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	std::cout << "</table>" << std::endl;
 	std::cout << "</div>" << std::endl;	
 }	
+
+
+void FileProcessor::processBLASTAlignments(const char * b) {
+
+}
 
 	
 
