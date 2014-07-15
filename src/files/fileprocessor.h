@@ -64,6 +64,13 @@ typedef std::pair<std::string, std::vector<ProbeSet> > TranscriptClusterPair;
 typedef std::map<std::string, std::vector<ProbeSet> >::iterator tc_iter;
 
 
+// Mapping, pair, and iterator from pair of transcript cluster/probe set id to list of BLAST output lines
+// typedef std::pair<std::string, std::string> pstc;
+// typedef std::map<pstc, std::vector<bLine> > tuplemap;
+// typedef std::pair<pstc, std::vector<bLine> > tuplepair;
+// typedef std::map<pstc, std::vector<bLine> >::iterator tuple_iter;
+
+
 class FileProcessor
 {
 

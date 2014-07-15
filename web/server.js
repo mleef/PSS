@@ -59,8 +59,7 @@ var databaseSelector = function (num) {
 // BLAST query sequence -> Transform output into HTML and tab spaced -> Process the output and join HTML files -> Return to client -> Cleanup used files
 var exonBlast = function(file_name, file1, html1, res) {
 	status = {"step" : "(2/4) Querying sequences against probe database..."}
-	console.log(blast + 'blastn' + ' -query ' + save + file_name + ' -db ' + cur_db + ' -num_threads 4 -outfmt 11 -task blastn-short -out ' + file1)
-	var exonBlast = exec(blast + 'blastn' + ' -query ' + save + file_name + ' -db ' + cur_db + ' -num_threads 4 -outfmt 11 -task blastn-short -out ' + file1, function (error, stdout, stderr) {
+	var exonBlast = exec(blast + 'blastn' + ' -query ' + save + file_name + ' -db ' + cur_db + ' -num_threads 4 -outfmt 11 -word_size 7 -gapopen 5 -gapextend 2 -reward 1 -penalty -1 -out ' + file1, function (error, stdout, stderr) {
 			console.log(stdout)
 			console.log(error)
 			console.log(stderr)

@@ -220,7 +220,8 @@
 </div>
 
 <script type="text/javascript">
-	//$("td[colspan=4]").find("table").hide();
+	//TODO: big tables still leak out when page loads
+	$("td[colspan=4]").find("table").hide();
 	      var config = {
               enter: 'top',
               move: '50px',
@@ -232,8 +233,7 @@
             };
 	window.scrollReveal = new scrollReveal(config);
 	$(document).ready(function(){
-		//$(".ui-tabs").tabs();
-		//  When user clicks on tab, this code will be executed
+		//sleep(500)
     	$("#tabs li").click(function() {
 	        //  First remove class "active" from currently active tab
 	        $("#tabs li").removeClass('active');
@@ -254,7 +254,14 @@
 	        return false;
     	});
 
-		$("td[colspan=4]").find("table").hide();
+		function sleep(milliseconds) {
+		  var start = new Date().getTime();
+		  for (var i = 0; i < 1e7; i++) {
+		    if ((new Date().getTime() - start) > milliseconds){
+		      break;
+		    }
+		  }
+		}
 		 
     	$(".maintable").click(function(event) {
 	        event.stopPropagation();

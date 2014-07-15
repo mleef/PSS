@@ -254,6 +254,9 @@ void FileProcessor::processBLAST(const char * b, bool exon, std::string id) {
 	std::string curQuery = "-1";
 	std::string prevQuery = "-1";
 	bLine line;
+	
+	
+	//TODO: Determine if multiple same ID probes in probe set is a bad thing, same probe set, different transcript clusters
 	ProbeSetLine map;
 	ProbeSetLine tc_map;
 
@@ -384,18 +387,34 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
     std::cout << "</thead>" << std::endl;
     
     
+    CheckMap seen;
+    check_iter ci;
+    int uniqueProbes = 0;
+    
 	// Calculate the hit percentage and store that information in each line obect
 	for(cp_iter iterator = map.begin(); iterator != map.end(); iterator++) {
 		int size = iterator->second.size();
+		// Calculate unique probe hits
+		for(int i = 0; i < size; i++) {
+			ci = seen.find(iterator->second.at(i).probe_id);
+			if(ci == seen.end()) {
+				uniqueProbes++;
+				seen.insert(CheckPair(iterator->second.at(i).probe_id, true));
+			}
+		}
+		
     	for(int i = 0; i < size; i++) {
-    		iterator->second.at(i).probe_hits = size;	
+    		iterator->second.at(i).probe_hits = uniqueProbes;	
     		if(exon) {
     			iterator->second.at(i).percent = static_cast<double>(iterator->second.at(i).probe_hits)/static_cast<double>(iterator->second.at(i).probes_in_probeset) * 100;
     		}
     		else {
     		    iterator->second.at(i).percent = static_cast<double>(iterator->second.at(i).probe_hits)/static_cast<double>(iterator->second.at(i).probes_in_tc) * 100;
     		}
-    	}  	
+    	}
+    	
+    	seen.clear();  	
+    	uniqueProbes = 0;
     }
  
  	// Print the map in order of hit count
