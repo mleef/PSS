@@ -371,6 +371,7 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	
 	
 	//std::cout << "<div data-scroll-reveal>" << std::endl;
+	std::cout << "<div id='tablecontainer'>" << std::endl;
 	std::cout << tableDeclaration << std::endl;
 	std::cout << "<caption>" << query_id << "</caption>" << std::endl;
 	std::cout << "<thead>" << std::endl;
@@ -445,7 +446,7 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	}
 	
 	std::cout << "</table>" << std::endl;
-	//std::cout << "</div>" << std::endl;	
+	std::cout << "</div>" << std::endl;	
 }	
 
 	

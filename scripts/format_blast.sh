@@ -21,6 +21,9 @@ $blastformat -archive $file1 -html -out $html1
 # Convert archive to tab spaced file with comments
 $blastformat -archive $file1 -outfmt 7 -out $out
 
+# Convert archive to god knows what
+$blastformat -archive $file1 -outfmt 1 -out $results/out
+
 # Perform exon level analysis of BLAST results
 $exon_html $out $pk > $html1'.exon'
 
