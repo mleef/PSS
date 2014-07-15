@@ -214,12 +214,14 @@
 	$(document).ready(function(){
 		$(".ui-tabs").tabs();
 
-		
+		 $("td[colspan=4]").find("table").hide();
+		 
     	$(".maintable").click(function(event) {
 	        event.stopPropagation();
 	        var $target = $(event.target);
 	        var id = event.target.id
 	        if(id != 'nc' && id != 'nopad') {
+	        	$target.show()
 		        if ( $target.closest(".maintable td").attr("colspan") > 1 ) {
 		            $target.slideUp(5);
 		            $target.closest("tr").prev().find("td:first").html("+");

@@ -442,10 +442,10 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		}
 		
 		if(exon) {
-			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_probe_set.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td style='display:none' id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>" << std::endl;
+			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_probe_set.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>" << std::endl;
 		}
 		else {
-			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_transcript.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td style='display:none' id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>"  << std::endl;		
+			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_transcript.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>"  << std::endl;		
 		}
 		//sortedProbeSets.push_back(pair);
 		maxCount = 0;
