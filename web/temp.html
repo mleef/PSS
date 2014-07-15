@@ -2,9 +2,11 @@
 <head>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+<script src='js/scrollReveal.js'></script>
 <title>Search Results</title>
 <link rel="shortcut icon" href="http://www.google.com/s2/favicons?domain=www.affymetrix.com">
 <style>
+
 	.ui-tabs {
 		zoom: 1;
 		font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans','Verdana','Tahoma','sans-serif';
@@ -51,6 +53,7 @@
 		clear: both;
 		border: 2px #ccc solid;
 		padding: 10px;
+
 	}
 	.ui-tabs .ui-tabs-hide {
 		display: none;
@@ -60,8 +63,8 @@
 	{
 		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 		font-size: 12px;
-		margin: 45px;
-		width: 100%;
+		margin: 0 auto;
+		width: 60%;
 		margin: 0 auto;
 		border-collapse: collapse;
 	}
@@ -144,7 +147,7 @@
 		color: red;
 	}
 
-	#left {
+	#lefft {
 		clear: left;
 		float: left;
 		width: 40%;
@@ -152,7 +155,7 @@
 
 	}
 
-	#right {
+	#rigght {
 		clear: right;
 		float: right;
 		width: 40%;
@@ -192,16 +195,26 @@
 		<div style="clear: both;"></div>
 	</div>
 	<div id="tabs-4" class="ui-tabs-panel">
-		
 		<div style="clear: both;"></div>
 	</div>
 </div>
 
 <script type="text/javascript">
+	//$("td[colspan=4]").find("table").hide();
+	      var config = {
+              enter: 'bottom',
+              move: '100px',
+              over: '.5s',
+              easing: 'ease-in-out',
+              viewportFactor: 0.6,
+              reset: true,
+              init: true
+            };
+	window.scrollReveal = new scrollReveal(config);
 	$(document).ready(function(){
 		$(".ui-tabs").tabs();
 
-		 $("td[colspan=4]").find("table").hide();
+		
     	$(".maintable").click(function(event) {
 	        event.stopPropagation();
 	        var $target = $(event.target);

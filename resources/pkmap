@@ -1,0 +1,261 @@
+array_id	array_set_id	array_name	description	tech	deep_link_name	release_date	released	entity	array_type	probe_match_name	export_legal_note	gff_dir	has_cnv	probe_alignment_table	template	part_numbers	design_schema
+1	0	Human Exon 1.0 ST	Human Exon Array	exon	HuEx-1_0-st-v2	2005-09-26	1	huexon-st	HuEx-1_0-st-v2	1.dbm	NULL	/nfs/netaffx/chipdes/HuEx-1_0-st-v2/gff-hg16/	NULL	NULL		NULL	NULL
+2	0	Mouse Exon 1.0 ST	Mouse Exon Array	exon	MoEx-1_0-st-v1	2006-03-15	1	moexon-st	MoEx-1_0-st-v1	2.dbm	NULL	/nfs/netaffx/chipdes/MoEx-1_0-st-v1/gff-mm5/	NULL	NULL		NULL	mm10_exon10
+3	0	Rat Exon 1.0 ST	Rat Exon Array	exon	RaEx-1_0-st-v1	2006-03-15	1	raexon-st	RaEx-1_0-st-v1	3.dbm	NULL	/nfs/netaffx/chipdes/RaEx-1_0-st-v1/gff-rn3/	NULL	NULL		NULL	rn5_exon10
+4	0	Human Gene 1.0 ST	Human Gene 1 Array	gene	HuGene-1_0-st-v1	2007-03-01	1	hugene-1_0-st-v1	HuGene-1_0-st-v1	4.dbm	NULL	/nfs/netaffx/chipdes/HuGene-1_0-st-v1/gff-hg18/	NULL	NULL		NULL	hg19_gene10
+5	0	Mouse Gene 1.0 ST	Mouse Gene 1 Array	gene	MoGene-1_0-st-v1	2007-09-10	1	mogene-1_0-st-v1	MoGene-1_0-st-v1	5.dbm	NULL	/nfs/netaffx/chipdes/MoGene-1_0-st-v1/gff-mm8/	NULL	NULL		NULL	mm9_gene10
+6	0	Rat Gene 1.0 ST	Rat Gene 1 Array	gene	RaGene-1_0-st-v1	2007-09-10	1	ragene-1_0-st-v1	RaGene-1_0-st-v1	6.dbm	NULL	/nfs/netaffx/chipdes/RaGene-1_0-st-v1/gff-rn4/	NULL	NULL		NULL	rn4_gene10
+8	0	AG	Arabidopsis Genome Array	expression	ARABIDOPSIS	2004-01-01	1	atgenome1	AG	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+9	0	DrosGenome1	Drosophila 1 Array	expression	DROSOPHILA	0000-00-00	1	fly	DrosGenome1	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+10	0	Ecoli	E. coli Genome Sense Array	expression	ECOLI	0000-00-00	1	ecolisense	Ecoli	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+15	2	HG-U133A	Human Genome U133A Array	expression	U133	0000-00-00	1	hgu133	HG-U133A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+16	2	HG-U133B	Human Genome U133B Array	expression	U133	0000-00-00	1	hgu133	HG-U133B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+112	0	HG_U95A	Human Genome U95A Array	expression	NULL	0000-00-00	1	hgu95	HG_U95A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+113	0	HG_U95Av2	Human Genome U95Av2 Array	expression	U95	0000-00-00	1	hgu95	HG_U95Av2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+114	0	HG_U95B	Human Genome U95B Array	expression	U95	0000-00-00	1	hgu95	HG_U95B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+115	0	HG_U95C	Human Genome U95C Array	expression	U95	0000-00-00	1	hgu95	HG_U95C	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+116	0	HG_U95D	Human Genome U95D Array	expression	U95	0000-00-00	1	hgu95	HG_U95D	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+117	0	HG_U95E	Human Genome U95E Array	expression	U95	0000-00-00	1	hgu95	HG_U95E	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+119	0	Hu35KsubA	Hu35KsubA Array	expression	U35K	0000-00-00	1	hu35k	Hu35KsubA	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+120	0	Hu35KsubB	Hu35KsubB Array	expression	U35K	0000-00-00	1	hu35k	Hu35KsubB	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+121	0	Hu35KsubC	Hu35KsubC Array	expression	U35K	0000-00-00	1	hu35k	Hu35KsubC	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+122	0	Hu35KsubD	Hu35KsubD Array	expression	U35K	0000-00-00	1	hu35k	Hu35KsubD	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+131	0	Hu6800	HumanGeneFL Array	expression	HUGENEFL	0000-00-00	1	hugenefl	Hu6800	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+136	0	HC_G110	Human Cancer Biology Array	expression	HUMAN_CANCER	0000-00-00	1	hcg110	HC_G110	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+137	0	MG_U74A	Murine Genome U74A Array	expression	NULL	0000-00-00	1	NULL	MG_U74A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+139	4	MG_U74Av2	Murine Genome U74Av2 Array	expression	U74	0000-00-00	1	mgu74	MG_U74Av2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+140	0	MG_U74B	Murine Genome U74B Array	expression	NULL	0000-00-00	1	NULL	MG_U74B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+141	4	MG_U74Bv2	Murine Genome U74Bv2 Array	expression	U74	0000-00-00	1	mgu74	MG_U74Bv2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+142	0	MG_U74C	Murine Genome U74C Array	expression	NULL	0000-00-00	1	NULL	MG_U74C	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+143	4	MG_U74Cv2	Murine Genome U74Cv2 Array	expression	U74	0000-00-00	1	mgu74	MG_U74Cv2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+144	0	Mu11KsubA	Mu11KsubA Array	expression	MURINE_11K	0000-00-00	1	mu11k	Mu11KsubA	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+145	0	Mu11KsubB	Mu11KsubB Array	expression	MURINE_11K	0000-00-00	1	mu11k	Mu11KsubB	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+146	0	Mu19KsubA	Mu19KsubA Array	expression	MURINE_19K	0000-00-00	1	mu19k	Mu19KsubA	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+147	0	Mu19KsubB	Mu19KsubB Array	expression	MURINE_19K	0000-00-00	1	mu19k	Mu19KsubB	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+148	0	Mu19KsubC	Mu19KsubC Array	expression	MURINE_19K	0000-00-00	1	mu19k	Mu19KsubC	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+154	0	Pae_G1a	P. aeruginosa Genome Array	expression	P_AERUGINOSA	0000-00-00	1	paeruginosa	Pae_G1a	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+156	3	RG_U34A	Rat Genome U34A Array	expression	RAT_GENOME	0000-00-00	1	rgu34	RG_U34A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+157	3	RG_U34B	Rat Genome U34B Array	expression	RAT_GENOME	0000-00-00	1	rgu34	RG_U34B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+158	3	RG_U34C	Rat Genome U34C Array	expression	RAT_GENOME	0000-00-00	1	rgu34	RG_U34C	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+159	0	RN_U34	Rat Neurobiology U34 Array	expression	RAT_NEURO	0000-00-00	1	rnu34	RN_U34	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+162	0	RT_U34	Rat Toxicology U34 Array	expression	RAT_TOXICOLOGY	0000-00-00	1	rtu34	RT_U34	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+167	0	Test2	Test 2 chip Array	expression	NULL	0000-00-00	0	NULL	Test2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+168	0	Test3	GeneChip TEST3 Array	expression	TEST3	0000-00-00	0	test3	Test3	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+173	0	YG_S98	Yeast Genome S98 Array	expression	YEAST	0000-00-00	1	yeast	YG_S98	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+279	0	ATH1-121501	Arabidopsis ATH1-121501 Genome Array	expression	ARABIDOPSIS_ATH1	0000-00-00	1	arab	ATH1-121501	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+280	0	Celegans	C. elegans Genome Array	expression	C_ELEGANS	0000-00-00	1	celegans	Celegans	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+281	0	HG-Focus	Human Genome Focus Array	expression	HG_FOCUS	0000-00-00	1	focus	HG-Focus	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+282	0	Ecoli_ASv2	E. coli Genome Antisense Array	expression	ECOLI_ANTISENSE	0000-00-00	1	ecoliantisense	Ecoli_ASv2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+284	5	RAE230A	Rat Genome RAE230A Array	expression	RAE230	0000-00-00	1	rae230	RAE230A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+285	5	RAE230B	Rat Genome RAE230B Array	expression	RAE230	0000-00-00	1	rae230	RAE230B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+286	6	MOE430A	Mouse Genome MOE430A Array	expression	MOE430	0000-00-00	1	moe430	MOE430A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+287	6	MOE430B	Mouse Genome MOE430B Array	expression	MOE430	0000-00-00	1	moe430	MOE430B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+288	0	Bsubtilis	Bsubtilis Genome Array	expression	BSUBTILIS	0000-00-00	1	bsubtilis	Bsubtilis	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+289	0	Barley1	Barley Genome Array	expression	BARLEY	0000-00-00	1	barley1	Barley1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+290	0	HG-U133_Plus_2	Human Genome U133 Plus 2.0 Array	expression	U133PLUS	0000-00-00	1	hg-u133-plus	HG-U133_Plus_2	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+291	0	Mouse430_2	Mouse Genome 430 2.0 Array	expression	MOUSE430_2	0000-00-00	1	moe430-20	Mouse430_2	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+292	0	Mouse430A_2	Mouse Genome 430A 2.0 Array	expression	MOUSE430A_2	0000-00-00	1	moe430A-20	Mouse430A_2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+293	0	HG-U133A_2	Human Genome U133A 2.0 Array	expression	HG-U133A_2	0000-00-00	1	hgu133-20	HG-U133A_2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+294	0	Zebrafish	Zebrafish Array	expression	ZEBRAFISH	0000-00-00	1	zebrafish	Zebrafish	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+295	0	Canine	Canine Array	expression	Canine	0000-00-00	1	canine	Canine	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+296	0	Xenopus_laevis	Xenopus laevis Array	expression	Xenopus_laevis	0000-00-00	1	xenopus	Xenopus_laevis	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+297	0	U133_X3P	U133 X3P Array	expression	U133_X3P	0000-00-00	1	x3p	U133_X3P	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+298	0	S_aureus	S. aureus Array	expression	S_aureus	0000-00-00	1	saureus	S_aureus	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+299	0	Plasmodium_Anopheles	Plasmodium Anopheles Array	expression	Plasmodium_Anopheles	0000-00-00	1	plasmodium	Plasmodium_Anopheles	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+300	0	Rat230_2	Rat Expression Array 230 2.0 Array	expression	RAT230_2	0000-00-00	1	rat230-20	Rat230_2	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+301	0	Vitis_Vinifera	Vitis Vinifera Array	expression	Vitis_Vinifera	0000-00-00	1	grape	Vitis_Vinifera	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+302	0	Drosophila_2	Drosophila 2 Array	expression	Drosophila_2	0000-00-00	1	fly-20	Drosophila_2	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+303	0	Soybean	Soybean Array	expression	Soybean	0000-00-00	1	soy	Soybean	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+304	0	Bovine	Bovine Array	expression	Bovine	0000-00-00	1	bovine	Bovine	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+305	0	Yeast_2	Yeast 2 Array	expression	Yeast_2	0000-00-00	1	yeast-20	Yeast_2	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+306	0	E_coli_2	E coli 2 Array	expression	E_coli_2	0000-00-00	1	ecoli-20	E_coli_2	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+307	0	wheat	Wheat Array	expression	wheat	0000-00-00	1	wheat	wheat	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+308	0	Rice	Rice Array	expression	Rice	0000-00-00	1	rice	Rice	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+309	0	Chicken	Chicken Array	expression	Chicken	0000-00-00	1	chicken	Chicken	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+310	0	Maize	Maize Array	expression	Maize	0000-00-00	1	maize	Maize	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+311	0	Porcine	Porcine Array	expression	Porcine	0000-00-00	1	porcine	Porcine	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+312	0	Sugar_Cane	Sugar Cane Genome Array	expression	Sugar_Cane	0000-00-00	1	sugarcane	Sugar_Cane	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+313	0	Tomato	Tomato Array	expression	Tomato	0000-00-00	1	tomato	Tomato	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+314	0	Medicago	Medicago truncutala Genome Array	expression	Medicago	0000-00-00	1	medicago	Medicago	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+315	0	Rhesus	Rhesus Genome Array	expression	Rhesus	0000-00-00	1	rhesus	Rhesus	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+316	0	Canine_2	Canine 2 Genome Array	expression	Canine_2	0000-00-00	1	canine-20	Canine_2	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+317	0	Poplar	Poplar Genome Array	expression	Poplar	0000-00-00	1	poplar	Poplar	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+318	0	Citrus	Citrus Genome Array	expression	Citrus	0000-00-00	1	citrus	Citrus	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+319	0	HT_HG-U133A	HT Human Genome U133A Array	expression	HT_HG-U133A	0000-00-00	1	ht_hg-u133_set	HT_HG-U133A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+320	0	HT_HG-U133_Plus_A	HT Human Genome U133 Plus Set Array	expression	HT_HG-U133_Plus_A	0000-00-00	0	NULL	HT_HG-U133_Plus_A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+321	0	HT_HG-U133_Plus_B	HT Human Genome U133 Plus Set Array	expression	HT_HG-U133_Plus_B	0000-00-00	0	NULL	HT_HG-U133_Plus_B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+322	0	HT_Rat230	HT Rat Genome 230 Array	expression	HT_Rat230	0000-00-00	0	NULL	HT_Rat230	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+323	0	HT_Rat-Focus	HT Rat Focus Array	expression	HT_Rat-Focus	0000-00-00	1	ht_rat-focus_set	HT_Rat-Focus	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+324	0	Cotton	Cotton Genome Array	expression	Cotton	0000-00-00	1	cotton	Cotton	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+325	0	RatToxFX	Rat Tox FX Array	expression	RatToxFX	0000-00-00	1	rtfx-10	RatToxFX	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+326	0	HT_HG-U133B	HT Human Genome U133B Array	expression	HT_HG-U133B	0000-00-00	1	ht_hg-u133_set	HT_HG-U133B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+327	0	HT_MG-430A	HT Mouse Genome MG-430A Array	expression	HT_MG-430A	0000-00-00	1	ht_mg-430_set	HT_MG-430A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+328	0	HT_MG-430B	HT Mouse Genome MG-430B Array	expression	HT_MG-430B	0000-00-00	1	ht_mg-430_set	HT_MG-430B	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+329	0	X_tropicalis	X tropicalis Array	expression	X_tropicalis	0000-00-00	1	X_tropicalis	X_tropicalis	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+330	0	Bovine_10KPanel_R1.5	Bovine 10KPanel R1.5 Array	mip	Bovine_10KPanel_R1.5	0000-00-00	0	appspecifcassays	Bovine_10KPanel_R1.5	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+331	0	Bovine_25KPanel_R3	Bovine 25KPanel R3 Array	mip	Bovine_25KPanel_R3	0000-00-00	0	appspecifcassays	Bovine_25KPanel_R3	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+332	0	cSNP I+II_20KPanel_R1.5	cSNP I+II 20KPanel R1.5 Array	mip	cSNP I+II_20KPanel_R1.5	0000-00-00	0	appspecifcassays	cSNP I+II_20KPanel_R1.5	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+333	0	cSNP_I_10KPanel_R1.5	cSNP I 10KPanel R1.5 Array	mip	cSNP_I_10KPanel_R1.5	0000-00-00	0	appspecifcassays	cSNP_I_10KPanel_R1.5	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+334	0	DMET_Panel	DMET Panel Array	mip	DMET_Panel	0000-00-00	0	appspecifcassays	DMET_Panel	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+335	0	GenomeWideSNP_5	GenomeWideSNP 5 Array	genotyping	GenomeWideSNP_5	0000-00-00	1	genomewidesnp_5	GenomeWideSNP_5	NULL	NULL	NULL	1	NULL		NULL	NULL
+336	0	GenomeWideSNP_6	GenomeWideSNP 6 Array	genotyping	GenomeWideSNP_6	0000-00-00	1	genomewidesnp_6	GenomeWideSNP_6	NULL	NULL	NULL	1	NULL		NULL	NULL
+337	0	HuGeneFocused50K	HuGeneFocused50K Array	mip	HuGeneFocused50K	0000-00-00	0	appspecifcassays	HuGeneFocused50K	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+338	0	HuGenomeWide50K	HuGenomeWide50K Array	mip	HuGenomeWide50K	0000-00-00	0	appspecifcassays	HuGenomeWide50K	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+339	0	Immune_and_Inflam_9KPanel_R1.5	Immune and Inflam 9KPanel R1.5 Array	mip	Immune_and_Inflam_9KPanel_R1.5	0000-00-00	0	appspecifcassays	Immune_and_Inflam_9KPanel_R1.5	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+340	0	MALD_3KPanel_R1.5	MALD 3KPanel R1.5 Array	mip	MALD_3KPanel_R1.5	0000-00-00	0	appspecifcassays	MALD_3KPanel_R1.5	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+341	0	Mapping10K_Xba131	Mapping10K Xba131 Array	genotyping	10K	0000-00-00	0	10k	Mapping10K_Xba131	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+342	0	Mapping10K_Xba142	Mapping10K Xba142 Array	genotyping	Mapping10K_Xba142	0000-00-00	0	10k-20	Mapping10K_Xba142	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+343	8	Mapping250K_Nsp	Mapping250K Nsp Array	genotyping	Mapping250K_Nsp	0000-00-00	0	500k	Mapping250K_Nsp	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+344	8	Mapping250K_Sty	Mapping250K Sty Array	genotyping	Mapping250K_Sty	0000-00-00	0	500k	Mapping250K_Sty	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+345	7	Mapping50K_Hind240	Mapping50K Hind240 Array	genotyping	Mapping50K_Hind240	0000-00-00	0	100k	Mapping50K_Hind240	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+346	7	Mapping50K_Xba240	Mapping50K Xba240 Array	genotyping	Mapping50K_Xba240	0000-00-00	0	100k	Mapping50K_Xba240	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+347	0	Mouse_5KPanel_R1.5	Mouse 5KPanel R1.5 Array	mip	Mouse_5KPanel_R1.5	0000-00-00	0	appspecifcassays	Mouse_5KPanel_R1.5	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+348	0	Rat_I_5KPanel_R1.5	Rat I 5KPanel R1.5 Array	mip	Rat_I_5KPanel_R1.5	0000-00-00	0	appspecifcassays	Rat_I_5KPanel_R1.5	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+349	0	HT_HG-U133_Plus_PM	HT Human Genome U133 Plus 2.0 Array	expression	HT_HG-U133_Plus_PM	0000-00-00	1	ht_hg-u133_pm_ap	HT_HG-U133_Plus_PM	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+350	0	HT_MG-430_PM	HT Mouse Genome 430 2.0 Array	expression	HT_MG-430_PM	0000-00-00	1	ht_mg-430_pm_ap	HT_MG-430_PM	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+351	0	HT_Rat230_PM	HT Rat Expression Array 230 2.0 PM Array	expression	HT_Rat230_PM	0000-00-00	1	ht_rg-230_pm_ap	HT_Rat230_PM	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+352	0	X_laevis_2	X laevis 2 Array	expression	X_laevis_2	0000-00-00	1	X_laevis_2	X_laevis_2	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+353	0	DMET_Plus	DMET Plus Panel Array	mip	DMET_Panel	0000-00-00	1	dmet_2	DMET_Plus	NULL	Use of the Software and Files. Affymetrix, Inc. authorizes you to use the DMET Plus Software ("Software") and any files used or generated by the software ("Files"), including but not limited to the content of the marker annotations file, the genotype-to-haplotype translation table and any other files used or generated by the software, only for uses not related to the commercial development of genotyping products for genotyping more than 100 polymorphisms analyzed by the Software or described in the Files ("Prohibited Commercial Purposes"), provided that you retain all copyright and other proprietary notices contained in the original Software and Files (together the "Materials") on any copies of the Materials. You may not modify the Materials in any way or reproduce, distribute or otherwise use them for any Prohibited Commercial Purpose. The Materials are copyrighted and any unauthorized use of the Materials may violate copyright, trademark, and other laws. If you breach any of these Terms, your authorization to use the Materials automatically terminates.	NULL	NULL	NULL		NULL	NULL
+354	NULL	Cytogenetics_Array	Cytogenetics_Array	genotyping	Cytogenetics_Array	2009-03-25	1	cytogenetics_array	Cytogenetics_Array	NULL	NULL	NULL	1	NULL		NULL	NULL
+356	NULL	HG-U219	Human Genome HG-U219 Array	expression	HG-U219	NULL	1	HG-U219	HG-U219	NULL	NULL	NULL	NULL	homo_sapiens_probe2genome_cons_overlap		NULL	NULL
+400	NULL	Human Gene 1.1 ST	Human Gene 1 Array	gene	HuGene-1_1-st-v1	2009-09-00	1	HuGene-1_1-st-v1,HuGene-1_1-st-v1_strip	HuGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL		550114, 550018, 550019	hg19_gene11
+500	NULL	Mouse Gene 1.1 ST	Mouse Gene 1 Array	gene	MoGene-1_1-st-v1	2009-09-00	1	MoGene-1_1-st-v1,MoGene-1_1-st-v1_strip	MoGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL		550115, 550038, 550039	NULL
+600	NULL	Rat Gene 1.1 ST	Rat Gene 1 Array	gene	RaGene-1_1-st-v1	2009-09-00	1	RaGene-1_1-st-v1,RaGene-1_1-st-v1_strip	RaGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL		550116, 550040, 550041	NULL
+601	NULL	MOUSEDIVm520650	Mouse Diversity Genotyping Array	genotyping	MOUSEDIVm520650	NULL	1	Mouse_Diversity_Array	MOUSEDIVm520650	NULL	NULL	NULL	1	NULL		NULL	NULL
+602	NULL	Axiom_GW_Hu_SNP.r2	Axiom GenomeWide Array r2 Array	genotyping	Axiom_GW_Hu_SNP.r2	NULL	0	AxiomGWAS_HuSNP_1	Axiom_GW_Hu_SNP.r2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+603	NULL	Cytogenetics310K_Array	Cytogenetics310K_Array	genotyping	Cytogenetics310K_Array	2009-10-15	0	appspecifcassays	Cytogenetics310K_Array	NULL	NULL	NULL	1	NULL		NULL	NULL
+605	NULL	Soybean Gene 1.0 ST	Soybean Gene 1 Array	gene	SoyGene-1_0-st-v1	NULL	1	soygene-1_0-st-v1,modelorg_1_1_array	SoyGene-1_0-st-v1	605.dbm	NULL	NULL	NULL	NULL	Recent	NULL	glyma1tm_gene10
+606	NULL	Axiom_GW_ASI_SNP.r2	Axiom GenomeWide ASI r2 Array	genotyping	Axiom_GW_ASI_SNP	NULL	0	AxiomGWAS_HuSNP_1	Axiom_GW_ASI_SNP.r2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+607	NULL	SARS-coronavirus	SARS-coronavirus Array	expression	SARS-coronavirus	NULL	0	sars	SARS-coronavirus	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+608	NULL	Ye6100subD	Ye6100subD Array	expression	Ye6100subD	NULL	1	ye6100	Ye6100subD	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+609	NULL	Ye6100subA	Ye6100subA Array	expression	Ye6100subA	NULL	1	ye6100	Ye6100subA	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+610	NULL	Ye6100subB	Ye6100subB Array	expression	Ye6100subB	NULL	1	ye6100	Ye6100subB	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+611	NULL	Ye6100subC	Ye6100subC Array	expression	Ye6100subC	NULL	1	ye6100	Ye6100subC	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+612	NULL	Mu6500subA	Mu6500subA Array	expression	Mu6500subA	NULL	1	mu6500	Mu6500subA	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+613	NULL	Mu6500subB	Mu6500subB Array	expression	Mu6500subB	NULL	1	mu6500	Mu6500subB	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+614	NULL	Mu6500subC	Mu6500subC Array	expression	Mu6500subC	NULL	1	mu6500	Mu6500subC	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+615	NULL	Mu6500subD	Mu6500subD Array	expression	Mu6500subD	NULL	1	mu6500	Mu6500subD	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+617	NULL	Citrus_SNP	Citrus SNP Array	genotyping	Citrus_SNP	NULL	1	NULL	Citrus_SNP	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+618	NULL	GenFlex	GenFlex Array	genotyping	GenFlex	NULL	0	genflex	GenFlex	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+619	NULL	HuSNP	HuSNP Array	genotyping	HuSNP	NULL	1	husnp	HuSNP	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+620	NULL	TAG_3	TAG 3 Array	mip	TAG_3	NULL	0	appspecifcassays	TAG_3	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+621	NULL	Sp20b_M_v04	Sp20b M v04 Array	tiling	Sp20b_M_v04	NULL	1	spombetiling	Sp20b_M_v04	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+622	NULL	At35b_M_v04	At35b M v04 Array	tiling	At35b_M_v04	NULL	1	arabtiling	At35b_M_v04	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+623	NULL	Ce25b_v02	Ce25b v02 Array	tiling	Ce25b_v02	NULL	1	celeganstiling	Ce25b_v02	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+624	NULL	Chrom21_22_v04	Chrom21 22 v04 Array	tiling	Chrom21_22_v04	NULL	1	chr2122	Chrom21_22_v04	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+625	NULL	Chrom21_22_2F_v01	Chrom21 22 2F v01 Array	tiling	Chrom21_22_2F_v01	NULL	1	chr2122-20	Chrom21_22_2F_v01	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+626	NULL	Dm35b_MF_v02	Dm35b MF v02 Array	tiling	Dm35b_MF_v02	NULL	1	dm35b_m_v02	Dm35b_MF_v02	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+627	NULL	ENCODE01_F_v04	ENCODE01 F v04 Array	tiling	ENCODE01_F_v04	NULL	1	encode	ENCODE01_F_v04	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+628	NULL	ENCODE_2F_v01	ENCODE 2F v01 Array	tiling	ENCODE_2F_v01	NULL	1	encode-20	ENCODE_2F_v01	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+629	NULL	Hs_PromP	Hs PromP Array	tiling	Hs_PromP	NULL	1	hupromoter	Hs_PromP	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+630	NULL	Hs35b_M	Hs35b M Array	tiling	Hs35b_M	NULL	1	hutiling	Hs35b_M	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+631	NULL	Hs35b_P	Hs35b P Array	tiling	Hs35b_P	NULL	1	hutiling-20	Hs35b_P	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+632	NULL	Mm_PromP	Mm PromP Array	tiling	Mm_PromP	NULL	1	mupromoter	Mm_PromP	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+633	NULL	Mm35b_M	Mm35b M Array	tiling	Mm35b_M	NULL	1	mutiling	Mm35b_M	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+634	NULL	Mm35b_P	Mm35b P Array	tiling	Mm35b_P	NULL	1	mutiling-20	Mm35b_P	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+635	NULL	Sc03b_MF_v04	Sc03b MF v04 Array	tiling	Sc03b_MF_v04	NULL	1	scerevidiaetiling	Sc03b_MF_v04	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+636	NULL	Dm_tiling2_MR_v01	Dm tiling2 MR v01 Array	tiling	Dm_tiling2_MR_v01	NULL	1	dm_tiling2_mr	Dm_tiling2_MR_v01	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+637	NULL	HT_GenomeWide_6_p1	GenomeWide 6 p1 Array	genotyping	HT_GenomeWide_6_p1	NULL	0	ht_genomewide_6	HT_GenomeWide_6_p1	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+638	NULL	HT_GenomeWide_6_p2	GenomeWide 6 p2 Array	genotyping	HT_GenomeWide_6_p2	NULL	0	ht_genomewide_6	HT_GenomeWide_6_p2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+639	NULL	HT_GenomeWide_6_p3	GenomeWide 6 p3 Array	genotyping	HT_GenomeWide_6_p3	NULL	0	ht_genomewide_6	HT_GenomeWide_6_p3	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+640	NULL	AutoFocus_Array	AutoFocus Array	expression	AutoFocus_Array	NULL	0	autofocus_array	AutoFocus_Array	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+641	NULL	FluidicsTest	FluidicsTest Array	expression	FluidicsTest	NULL	0	fluidicstest	FluidicsTest	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+645	NULL	Medicago Gene 1.0 ST	Medicago Gene 1 Array	gene	MedGene-1_0-st-v1	NULL	1	modelorg_1_1_array	MedGene-1_0-st-v1	645.dbm	NULL	NULL	NULL	NULL	Recent	NULL	mt3_gene10
+646	NULL	Axiom_GW_Bos_SNP_1	Axiom GW Bos SNP 1 Array	genotyping	Axiom_GW_Bos_SNP_1	NULL	1	AxiomGWAS_BOS_1	Axiom_GW_Bos_SNP_1	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+647	NULL	Axiom_GW_Hu_SNP	Axiom GenomeWide Human CEU Array	genotyping	Axiom_GW_Hu_SNP	NULL	1	AxiomGWAS_HuSNP_1	Axiom_GW_Hu_SNP	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+648	NULL	CytoScanHD_Array	CytoScan HD Array	genotyping	CytoScanHD_Array	2011-02-14	1	CytoScanHD_Array	CytoScanHD_Array	NULL	NULL	NULL	1	NULL		NULL	NULL
+649	NULL	Axiom_GW_ASI_SNP	Axiom GW ASI SNP Full Array	genotyping	Axiom_GW_ASI_SNP	NULL	1	AxiomGWAS_HuSNP_1	Axiom_GW_ASI_SNP	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+651	NULL	SNOWBALL Gene 1.0 ST	SNOWBALL Gene Array	gene	SNOWBALL	2011-07-11	0	SNOWBALL	SNOWBALL	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+652	NULL	PrimeView	Human Genome PrimeView Array	expression	PrimeView	NULL	1	PrimeView	PrimeView	NULL	NULL	NULL	NULL	homo_sapiens_probe2genome_cons_overlap	Recent	NULL	NULL
+653	NULL	Zebrafish Gene 1.0 ST	Zebrafish Gene 1 Array	gene	ZebGene-1_0-st-v1	NULL	1	modelorg_1_1_array	ZebGene-1_0-st-v1	653.dbm	NULL	NULL	NULL	NULL	Recent	NULL	zv9_gene10
+654	NULL	Bovine Gene 1.1 ST	Bovine Gene 1 Array	gene	BovGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	BovGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	umd3_gene11
+655	NULL	TestData-1_1-v1 Gene 1.0 ST	TestData-1_1-v1 Gene 1 Array	gene	???	NULL	0	modelorg_1_1_array	???	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+656	NULL	Bovine Gene 1.0 ST	Bovine Gene 1 Array	gene	BovGene-1_0-st-v1	2011-07-11	1	modelorg_1_1_array	BovGene-1_0-st-v1	656.dbm	NULL	NULL	NULL	NULL	Recent	NULL	umd3_gene10
+657	NULL	Zebrafish Gene 1.1 ST	Zebrafish Gene 1 Array	gene	ZebGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	ZebGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	zv9_gene11
+658	NULL	miRNA-2_0	miRNA-2 0 Array	mirna	miRNA-2_0	NULL	1	miRNAGalaxy	miRNA-2_0	miRNA-2_0	NULL	NULL	NULL	NULL		NULL	NULL
+659	NULL	miRNA-1_0	miRNA v1 Array	mirna	miRNA_v1	NULL	0	miRNAGalaxy	miRNA-1_0	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+660	NULL	miRNA-3_0	miRNA 3.0 Array	mirna	miRNA-3_0	NULL	1	miRNAGalaxy	miRNA-3_0	miRNA-3_0	NULL	NULL	NULL	NULL		NULL	NULL
+661	NULL	Arabidopsis Gene 1.0 ST	Arabidopsis Gene 1 Array	gene	AraGene-1_0-st-v1	NULL	1	modelorg_1_1_array	AraGene-1_0-st-v1	661.dbm	NULL	NULL	NULL	NULL	Recent	NULL	tair10_gene10
+662	NULL	Rhesus Gene 1.1 ST	Rhesus Gene 1 Array	gene	RheGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	RheGene-1_1-st-v1	662.dbm	NULL	NULL	NULL	NULL	Recent	NULL	rhemac2_gene11
+663	NULL	Porcine Gene 1.1 ST	Porcine Gene 1 Array	gene	PorGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	PorGene-1_1-st-v1	663.dbm	NULL	NULL	NULL	NULL	Recent	NULL	sscr2_gene11
+664	NULL	Chicken Gene 1.1 ST	Chicken Gene 1 Array	gene	ChiGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	ChiGene-1_1-st-v1	664.dbm	NULL	NULL	NULL	NULL	Recent	NULL	galgal3_gene11
+665	NULL	Canine Gene 1.1 ST	Canine Gene 1 Array	gene	CanGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	CanGene-1_1-st-v1	665.dbm	NULL	NULL	NULL	NULL	Recent	NULL	canfam2_gene11
+666	NULL	Marmoset Gene 1.1 ST	Marmoset Gene 1 Array	gene	MarGene-1_1-st-v1	0000-00-00	1	modelorg_1_1_strip	MarGene-1_1-st-v1	666.dbm	NULL	NULL	NULL	NULL	Recent	NULL	caljac3_gene11
+667	NULL	Equine Gene 1.0 ST	Equine Gene 1 Array	gene	EquGene-1_0-st-v1	2012-05-05	1	modelorg_1_1_array	EquGene-1_0-st-v1	667.dbm	NULL	NULL	NULL	NULL	Recent	NULL	equcab2_gene10
+668	NULL	Axiom_GW_EUR	Axiom GW EUR Array	genotyping	Axiom_GW_EUR	NULL	1	Axiom_World_arrays	Axiom_KP_UCSF_EUR	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+669	NULL	Axiom_GW_EAS	Axiom GW EAS Array	genotyping	Axiom_GW_EAS	NULL	1	Axiom_World_arrays	Axiom_KP_UCSF_EAS	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+670	NULL	Axiom_GW_AFR	Axiom GW AFR Array	genotyping	Axiom_GW_AFR	NULL	1	Axiom_World_arrays	Axiom_KP_UCSF_AFR	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+671	NULL	Axiom_GW_LAT	Axiom GW LAT Array	genotyping	Axiom_GW_LAT	NULL	1	Axiom_World_arrays	Axiom_KP_UCSF_LAT	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+672	NULL	Axiom_Exome_1A	Axiom Exome Array	genotyping	Axiom_Exome_1A	NULL	1	AxiomExome_plate	Axiom_Exome_1A	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+673	NULL	Axiom_GW_HuOrigin	Axiom GenomeWide HuOrigin Array	genotyping	Axiom_GW_HuOrigin	NULL	1	Axiom_GW_HuOrigin	Axiom_GW_HuOrigin	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+674	NULL	CytoScan750K_Array	CytoScan 750K Array	genotyping	CytoScan750K_Array	2011-02-14	1	CytoScan750K_Array	CytoScan750K_Array	NULL	NULL	NULL	1	NULL		NULL	NULL
+675	NULL	Axiom_GW_PanAFR	Axiom GenomeWide Human PanAFR Array	genotyping	Axiom_GW_PanAFR	NULL	1	AxiomGWAS_HuSNP_1	Axiom_GW_PanAFR	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+676	NULL	Axiom_GW_Hu-CHB_SNP	Axiom GenomeWide Human CHB Array	genotyping	Axiom_GW_Hu_SNP	NULL	1	AxiomGWAS_HuSNP_1	Axiom_GW_Hu-CHB_SNP	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+677	NULL	Axiom_GW_CHB2	Axiom GenomeWide Human CHB2 Array	genotyping	Axiom_GW_CHB2	NULL	1	AxiomGWAS_HuSNP_1	Axiom_GW_CHB2	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+678	NULL	Arabidopsis Gene 1.1 ST	Arabidopsis Gene 1 Array	gene	AraGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	AraGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+679	NULL	Canine Gene 1.0 ST	Canine Gene 1 Array	gene	CanGene-1_0-st-v1	NULL	1	modelorg_1_1_array	CanGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	canfam2_gene11
+680	NULL	Chicken Gene 1.0 ST	Chicken Gene 1 Array	gene	ChiGene-1_0-st-v1	NULL	1	modelorg_1_1_array	ChiGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	galgal3_gene11
+685	NULL	Equine Gene 1.1 ST	Equine Gene 1 Array	gene	EquGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	EquGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	equcab2_gene10
+686	NULL	Feline Gene 1.0 ST	Feline Gene 1 Array	gene	FelGene-1_0-st-v1	NULL	1	modelorg_1_1_array	FelGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	felcat3_gene11
+687	NULL	Feline Gene 1.1 ST	Feline Gene 1 Array	gene	FelGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	FelGene-1_1-st-v1	687.dbm	NULL	NULL	NULL	NULL	Recent	NULL	felcat3_gene11
+690	NULL	Marmoset Gene 1.0 ST	Marmoset Gene 1 Array	gene	MarGene-1_0-st-v1	NULL	1	modelorg_1_1_array	MarGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	caljac3_gene11
+691	NULL	Medicago Gene 1.1 ST	Medicago Gene 1 Array	gene	MedGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	MedGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+692	NULL	Sheep Gene 1.0 ST	Sheep Gene 1 Array	gene	OviGene-1_0-st-v1	2012-04-14	1	modelorg_1_0_array	OviGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	oar2_gene11
+693	NULL	Sheep Gene 1.1 ST	Sheep Gene 1 Array	gene	OviGene-1_1-st-v1	2012-04-14	1	modelorg_1_1_strip	OviGene-1_1-st-v1	693.dbm	NULL	/nfs/netaffx/wtLib/OviGene-1_1-st-v1/inputs/gff	NULL	NULL	Recent	NULL	oar2_gene11
+694	NULL	Porcine Gene 1.0 ST	Porcine Gene 1 Array	gene	PorGene-1_0-st-v1	NULL	1	modelorg_1_0_array	PorGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+695	NULL	RCn Gene 1.0 ST	RCn Gene 1 Array	gene	RCnGene-1_0-st-v1	2012-09-01	1	modelorg_1_1_array	RCnGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	bgi102808_gene10
+697	NULL	Rhesus Gene 1.0 ST	Rhesus Gene 1 Array	gene	RheGene-1_0-st-v1	NULL	1	modelorg_1_1_array	RheGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	rhemac2_gene10
+698	NULL	RJp Gene 1.0 ST	RJp Gene 1 Array	gene	RJpGene-1_0-st-v1	2012-09-01	1	modelorg_1_1_array	RJpGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	irgsp1_gene11
+700	NULL	RUS Gene 1.0 ST	RUS Gene 1 Array	gene	RUSGene-1_0-st-v1	2012-09-01	1	modelorg_1_1_array	RUSGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	rgap7_gene11
+702	NULL	Soy Gene 1.1 ST	Soy Gene 1 Array	gene	SoyGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	SoyGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	NULL
+703	NULL	Xcel	Xcel Array	expression	Xcel	NULL	1	xcel	Xcel	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+704	0	GeneProfilingArray	GeneProfilingArray	expression	GeneProfilingArray	0000-00-00	1	gene_profiling_array	GeneProfilingArray	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+705	NULL	Human Gene 2.0 ST	Human Gene 2 Array	gene	HuGene-2_0-st-v1	0000-00-00	1	hugene-1_0-st-v1	HuGene-2_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	hg19_gene21
+706	NULL	RCn Gene 1.1 ST	RCn Gene 1 Array	gene	RCnGene-1_1-st-v1	2012-09-01	1	modelorg_1_1_strip	RCnGene-1_1-st-v1	706.dbm	NULL	NULL	NULL	NULL	Recent	NULL	bgi102808_gene11
+707	NULL	RJp Gene 1.1 ST	RJp Gene 1 Array	gene	RJpGene-1_1-st-v1	2012-09-01	1	modelorg_1_1_strip	RJpGene-1_1-st-v1	707.dbm	NULL	NULL	NULL	NULL	Recent	NULL	irgsp1_gene11
+708	NULL	RUS Gene 1.1 ST	RUS Gene 1 Array	gene	RUSGene-1_1-st-v1	2012-09-01	1	modelorg_1_1_strip	RUSGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	rgap7_gene11
+709	NULL	Zebra Finch Gene 1.1 ST	Zebra Finch Gene 1 Array	gene	FinGene-1_1-st-v1	0000-00-00	1	modelorg_1_1_strip	FinGene-1_1-st-v1	709.dbm	NULL	NULL	NULL	NULL	Recent	NULL	taegut1_gene11
+710	NULL	Cynomologous Gene 1.1 ST	Cynomologous Gene 1 Array	gene	CynGene-1_1-st-v1	0000-00-00	1	modelorg_1_1_strip	CynGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	cm1_gene11
+711	NULL	Cynomologous-Rhesus Gene 1.1 ST	Cynomologous-Rhesus Gene 1 Array	gene	CyRGene-1_1-st-v1	0000-00-00	1	modelorg_1_1_strip	CyRGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	cyr1_gene11
+712	NULL	Human Gene 2.1 ST	Human Gene 2 Array	gene	HuGene-2_1-st-v1	2012-05-01	1	HuGene-1_1-st-v1,HuGene-1_1-st-v1_strip	HuGene-2_1-st-v1	712.dbm	NULL	NULL	NULL	NULL	Recent	NULL	hg19_gene21
+713	NULL	Axiom_Exome319	Axiom Exome319 Array	genotyping	Axiom_Exome319	NULL	1	AxiomExome_plate	Axiom_Exome319	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+714	NULL	Axiom_GW_GT_Chicken	Axiom Chicken Array	genotyping	Axiom_GW_GT_Chicken	NULL	1	Axiom_GW_Chicken	Axiom_GW_GT_Chicken	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+715	NULL	Mouse Gene 2.1 ST	Mouse Gene 2 Array	gene	MoGene-2_1-st-v1	2012-07-29	1	MoGene-1_1-st-v1,MoGene-1_1-st-v1_strip	MoGene-2_1-st-v1	715.dbm	NULL	NULL	NULL	NULL	Recent	NULL	mm10_gene21
+716	NULL	Mouse Gene 2.0 ST	Mouse Gene 2 Array	gene	MoGene-2_0-st-v1	2012-07-29	1	mogene-1_0-st-v1	MoGene-2_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	mm10_gene21
+717	NULL	Rat Gene 2.0 ST	Rat Gene 2 Array	gene	RaGene-2_0-st-v1	2012-07-29	1	ragene-1_0-st-v1	RaGene-2_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	rn4_gene21
+718	NULL	Rat Gene 2.1 ST	Rat Gene 2 Array	gene	RaGene-2_1-st-v1	2012-07-29	1	RaGene-1_1-st-v1,RaGene-1_1-st-v1_strip	RaGene-2_1-st-v1	718.dbm	NULL	NULL	NULL	NULL	Recent	NULL	rn4_gene21
+719	NULL	CHO Gene 2.1 ST	CHO Gene 2 Array	gene	NULL	2012-09-30	1	NULL	CHOGene-2_1-st-v1	719.dbm	NULL	NULL	NULL	NULL	Recent	NULL	crigri1_gene21
+720	NULL	CHO Gene 2.0 ST	CHO Gene 2 Array	gene	NULL	2012-09-30	1	NULL	CHOGene-2_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	crigri1_gene21
+721	NULL	Axiom_miRNA_TS	Axiom miRNA TS Array	genotyping	Axiom_miRNA_TS	NULL	1	Axiom_miRNA_TS	Axiom_miRNA_TS	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+722	NULL	C elegans Gene 1.1 ST	C elegans Gene 1 Array	gene	EleGene-1_1-st-v1	2012-12-10	1	modelorg_1_1_strip	EleGene-1_1-st-v1	722.dbm	NULL	NULL	NULL	NULL	Recent	NULL	ce6_gene11
+723	NULL	Drosophila Gene 1.1 ST	Drosophila Gene 1 Array	gene	DroGene-1_1-st-v1	2012-12-10	1	modelorg_1_1_strip	DroGene-1_1-st-v1	723.dbm	NULL	NULL	NULL	NULL	Recent	NULL	dm3_gene11
+724	NULL	miRNA-3_1	miRNA 3.1 Array	mirna	miRNA-3.x	NULL	1	mirna_array_strip	miRNA-3_1	NULL	NULL	NULL	NULL	NULL		NULL	NULL
+725	NULL	HTA-2_0	Human Whole Transcriptome Array (HTA)	xta	HTA-2_0	NULL	1	NULL	HTA-2_0	NULL	NULL	NULL	NULL	NULL	Recent	NULL	hg19_hta20
+726	NULL	Guinea Pig Gene 1.1	Guinea Pig Gene 1 Array	gene	GuiGene-1_1-st-v1	2013-05-15	1	modelorg_1_1_strip	GuiGene-1_1-st-v1	726.dbm	NULL	NULL	NULL	NULL	Recent	NULL	cavpor3_gene11
+727	0	Rabbit Gene 1.1	Rabbit Gene 1 Array	gene	RabGene-1_1-st-v1	2013-05-15	1	modelorg_1_1_strip	RabGene-1_1-st-v1	727.dbm	NULL	/nfs/netaffx/wtLib/RabGene-1_1-st-v1/inputs/gff	NULL	NULL	Recent	NULL	orycun2_gene11
+728	NULL	CytoScanDx_Array	CytoScan Dx Array	genotyping	CytoScanDx_Array	2013-05-22	0	CytoScanDx_Array	CytoScanDx_Array	NULL	NULL	NULL	1	NULL	NULL	NULL	NULL
+729	NULL	Drosophila Gene 1.0 ST	Drosophila Gene 1 Array	gene	DroGene-1_1-st-v1	2012-12-10	1	modelorg_1_1_array	DroGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	dm3_gene11
+730	NULL	C elegans Gene 1.0 ST	C elegans Gene 1 Array	gene	EleGene-1_0-st-v1	2012-12-10	1	modelorg_1_1_array	EleGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	ce6_gene11
+731	NULL	Guinea Pig Gene 1.0	Guinea Pig Gene 1 Array	gene	GuiGene-1_0-st-v1	2013-05-15	1	modelorg_1_1_array	GuiGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	cavpor3_gene11
+732	0	Rabbit Gene 1.0	Rabbit Gene 1 Array	gene	RabGene-1_0-st-v1	2013-05-15	1	modelorg_1_1_array	RabGene-1_0-st-v1	NULL	NULL	/nfs/netaffx/wtLib/RabGene-1_1-st-v1/inputs/gff	NULL	NULL	Recent	NULL	orycun2_gene11
+733	NULL	Axiom_BioBank1	Axiom BioBank1 Array	genotyping	Axiom_BioBank1	2013-06-01	1	Axiom_BioBank1	Axiom_BioBank1	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+734	NULL	miRNA-4_0	miRNA 4.0 Array	mirna	miRNA-4_0	NULL	1	miRNAGalaxy	miRNA-4_0	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+735	NULL	miRNA-4_1	miRNA 4.1 Array	mirna	miRNA-4_1	NULL	1	mirna_array_strip,mirna_array_plate	miRNA-4_1	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+736	NULL	Tomato Gene 1.1 ST	Tomato Gene 1 Array	gene	TomGene-1_1-st-v1	NULL	1	modelorg_1_1_strip	TomGene-1_1-st-v1	NULL	NULL	NULL	NULL	NULL	NULL	NULL	sl240_gene11
+737	NULL	OncoScan	OncoScan Array	genotyping	OncoScan	2014-04-07	1	OncoScan	OncoScan	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+738	NULL	MTA-1_0	Mouse Whole Transciptome Array (MTA)	xta	MTA-1_0	2014-06-01	1	mouse_transcriptome	MTA-1_0	NULL	NULL	NULL	NULL	NULL	Recent	NULL	mm10_xta10
+739	NULL	Zebra Finch Gene 1.0 ST	Zebra Finch Gene 1 Array	gene	FinGene-1_0-st-v1	0000-00-00	1	modelorg_1_1_array	FinGene-1_0-st-v1	709.dbm	NULL	NULL	NULL	NULL	Recent	NULL	taegut1_gene11
+740	NULL	Tomato Gene 1.0 ST	Tomato Gene 1 Array	gene	TomGene-1_0-st-v1	NULL	1	modelorg_1_1_array	TomGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	NULL	NULL	sl240_gene11
+741	NULL	Cynomologous-Rhesus Gene 1.0 ST	Cynomologous-Rhesus Gene 1 Array	gene	CyRGene-1_0-st-v1	0000-00-00	1	modelorg_1_1_array	CyRGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	cyr1_gene11
+742	NULL	Cynomologous Gene 1.0 ST	Cynomologous Gene 1 Array	gene	CynGene-1_0-st-v1	0000-00-00	1	modelorg_1_1_array	CynGene-1_0-st-v1	NULL	NULL	NULL	NULL	NULL	Recent	NULL	cm1_gene11
+743	NULL	Rice_SNPm520672F	Rice_SNPm520672F Array	genotyping	NULL	NULL	1	rice_44ksnp	Rice_SNPm520672F	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+746	NULL	Axiom_Buffalo	Axiom_Buffalo Array	genotyping	NULL	NULL	1	axiom_buffalo	Axiom_Buffalo	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+747	NULL	IStraw90	IStraw90 Array	genotyping	NULL	NULL	1	axiom_gw_strawberry	IStraw90	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+748	NULL	ssalar01	ssalar01 Array	genotyping	NULL	NULL	1	axiom_salmon	ssalar01	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+749	NULL	Axiom_Salmon	Axiom_Salmon Array	genotyping	NULL	NULL	1	axiom_salmon	Axiom_Salmon	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+750	NULL	Axiom_Maize600	Axiom_Maize600 Array	genotyping	NULL	NULL	1	axiom_maize	Axiom_Maize600	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+751	NULL	Axiom_UKB_WCSG	Axiom_UKB_WCSG Array	genotyping	NULL	NULL	1	axiom_biobank	Axiom_UKB_WCSG	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+752	NULL	Axiom_GhSNP	Axiom Cotton Array	genotyping	Axiom_GhSNP	2014-09-01	0	Axiom_GhSNP	Axiom_GhSNP	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+753	NULL	Axiom_O_my_50K	Axiom Trout Array	genotyping	Axiom_O_my_50K	2014-11-01	0	Axiom_O_my_50K	Axiom_O_my_50K	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+754	NULL	Axiom_SoyaSNP	Axiom Soybean Array	genotyping	Axiom_SoyaSNP	2014-10-01	0	Axiom_SoyaSNP	Axiom_SoyaSNP	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL
+755	NULL	Axiom_WagRhSNP	Axiom Rose Array	genotyping	Axiom_WagRhSNP	2014-12-01	0	Axiom_WagRhSNP	Axiom_WagRhSNP	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL

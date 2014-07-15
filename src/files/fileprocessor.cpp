@@ -378,6 +378,7 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		tableDeclaration = "<table class='maintable' id='right'>";
 	}
 	
+	std::cout << "<div data-scroll-reveal>" << std::endl;
 	std::cout << tableDeclaration << std::endl;
 	std::cout << "<caption>" << query_id << "</caption>" << std::endl;
 	std::cout << "<thead>" << std::endl;
@@ -435,22 +436,23 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		// Output table row
 		// TODO: Create href mappings between designs and pks for proper urls
 		
-		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th></tr>";
+		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>Evalue</th><th id='nc'>Bit Score</th></tr>";
 		for(int m = 0; m < pair.second.size(); m++) {
-			probeLines += "<tr id='nc'><td id='nc'>" + pair.second.at(m).probe_id + "</td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td>";
+			probeLines += "<tr id='nc'><td id='nc'>" + pair.second.at(m).probe_id + "</td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" +  pair.second.at(m).evalue + "</td><td id='nc'>" +  pair.second.at(m).score + "</td></tr>";
 		}
 		
 		if(exon) {
-			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_probe_set.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>" << std::endl;
+			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_probe_set.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td style='display:none' id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>" << std::endl;
 		}
 		else {
-			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_transcript.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>"  << std::endl;		
+			std::cout << "<tr><td>+</td><td><a href='https://www.affymetrix.com/analysis/netaffx/exon/wtgene_transcript.affx?pk=" << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td style='display:none' id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>"  << std::endl;		
 		}
 		//sortedProbeSets.push_back(pair);
 		maxCount = 0;
 	}
 	
 	std::cout << "</table>" << std::endl;
+	std::cout << "</div>" << std::endl;	
 }	
 
 
