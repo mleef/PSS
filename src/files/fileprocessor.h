@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <vector>
 #include <map>
+#include <cmath>
 #include "../probes/sequence.h"
 #include "../probes/probe.h"
 #include "../probes/probeset.h"

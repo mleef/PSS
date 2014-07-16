@@ -403,13 +403,16 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 			}
 		}
 		
+		
     	for(int i = 0; i < size; i++) {
     		iterator->second.at(i).probe_hits = uniqueProbes;	
     		if(exon) {
-    			iterator->second.at(i).percent = static_cast<double>(iterator->second.at(i).probe_hits)/static_cast<double>(iterator->second.at(i).probes_in_probeset) * 100;
+    			double p = static_cast<double>(iterator->second.at(i).probe_hits)/static_cast<double>(iterator->second.at(i).probes_in_probeset) * 100;
+    			iterator->second.at(i).percent = floor( p * 100.00 + 0.5 ) / 100.00;
     		}
     		else {
-    		    iterator->second.at(i).percent = static_cast<double>(iterator->second.at(i).probe_hits)/static_cast<double>(iterator->second.at(i).probes_in_tc) * 100;
+    		    double p = static_cast<double>(iterator->second.at(i).probe_hits)/static_cast<double>(iterator->second.at(i).probes_in_tc) * 100;
+    		    iterator->second.at(i).percent = floor( p * 100.00 + 0.5 ) / 100.00;
     		}
     	}
     	
@@ -470,6 +473,44 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 
 
 void FileProcessor::processBLASTAlignments(const char * b) {
+	std::ifstream f1(b);
+	std::string str;
+	std::size_t found;
+	
+	std::string probe_id;
+	std::string probe_set_id;
+	std::string tc_id;
+	
+    std::vector<std::string> curLine;
+    std::vector<std::string> ids;
+    std::vector<bLine> lines;
+	
+	std::string curQuery = "-1";
+	std::string prevQuery = "-1";
+	bLine line;
+	
+	std::string wordToFind = ">";
+
+	
+	
+	// Read in BLAST output
+    while (std::getline(f1, str)){
+    	found = str.find(wordToFind);
+    	
+    	// If not a comment
+		if(found == std::string::npos) {
+			
+			
+			
+		}
+
+			
+	}
+		
+	
+	
+	
+
 
 }
 
