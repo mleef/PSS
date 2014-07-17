@@ -32,6 +32,15 @@
 	        return false;
     	});
 
+    	$(".subtable a").click(function() {
+    		$("#tabs li").removeClass('active');
+    		$("#tab3").addClass("active");
+    		$(".tab_content").hide();
+    		var href = $(this).find("a").attr("href");
+    		$("#tab3").fadeIn("slow");
+    		$(document).scrollTop( href.offset().top );  
+    	})
+
 		function sleep(milliseconds) {
 		  var start = new Date().getTime();
 		  for (var i = 0; i < 1e7; i++) {

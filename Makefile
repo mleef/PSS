@@ -3,7 +3,7 @@ src=/Users/marc_leef/Desktop/Work/PSS/src
 
 
 
-all: sequence.o probe.o probeset.o fileprocessor.o m1.o m2.o m3.o m4.o build_pss build_fasta exon_html gene_html
+all: sequence.o probe.o probeset.o fileprocessor.o m1.o m2.o m3.o m4.o process_alignments build_fasta exon_html gene_html
 	rm *.o
 	
 m1.o: $(src)/mains/m1.cpp
@@ -30,8 +30,8 @@ probeset.o: $(src)/probes/probeset.cpp $(src)/probes/probeset.h
 fileprocessor.o: $(src)/files/fileprocessor.cpp $(src)/files/fileprocessor.h
 	g++ -g -c $(src)/files/fileprocessor.cpp
 
-build_pss: m1.o sequence.o probe.o probeset.o fileprocessor.o
-	g++ -g -o $(bin)/build_pss m1.o sequence.o probe.o probeset.o fileprocessor.o
+process_alignments: m1.o sequence.o probe.o probeset.o fileprocessor.o
+	g++ -g -o $(bin)/process_alignments m1.o sequence.o probe.o probeset.o fileprocessor.o
 
 build_fasta: m2.o sequence.o probe.o probeset.o fileprocessor.o
 	g++ -g -o $(bin)/build_fasta m2.o sequence.o probe.o probeset.o fileprocessor.o

@@ -27,7 +27,7 @@ function makeGraph(values, length, query_name) {
 
     var formatCount = d3.format(",.0f");
 
-    var margin = {top: 40, right: 30, bottom: 40, left: 30},
+    var margin = {top: 40, right: 30, bottom: 40, left: 40},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -63,6 +63,10 @@ function makeGraph(values, length, query_name) {
         .scale(x)
         .orient("bottom");
 
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
     var tip = d3.tip()
         .attr('class', 'd3-tip')
         .offset([-10, 0])
@@ -72,10 +76,10 @@ function makeGraph(values, length, query_name) {
       })
 
     var svg = d3.select("#tab4").append("svg")
-        .attr("width", width + margin.left + margin.right)
+        .attr("width", width + margin.left + margin.right + 30)
         .attr("height", height + margin.top + margin.bottom + 20)
       .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + (margin.left+30) + "," + margin.top + ")");
 
     svg.call(tip);
 
@@ -97,6 +101,10 @@ function makeGraph(values, length, query_name) {
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
     svg.append("text")
         .attr("x", (width / 2))             
         .attr("y", 0 - (margin.top / 2))
@@ -113,7 +121,7 @@ function makeGraph(values, length, query_name) {
 
    svg.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
+        .attr("y", 0 - margin.left - 15)
         .attr("x",0 - (height / 2))
         .attr("dy", "1em")
         .style("font-size", "20px") 

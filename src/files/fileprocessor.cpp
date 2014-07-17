@@ -238,7 +238,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 // Reads in BLAST output in tab format and creates a mapping from probe set/transcript cluster
 // IDs to a list of lines that represent hits on that probe set/transcript cluster. The bool
 // parameter is used to adjust method for exon/gene level analysis. 
-void FileProcessor::processBLASTTabs(const char * b, bool exon, std::string id) {
+void FileProcessor::processBLASTTabs(const char * b, ProbeScoreMap probes, bool exon, std::string id) {
 	//styleHeadings();
 	std::ifstream f1(b);
 	std::string str;
@@ -298,6 +298,18 @@ void FileProcessor::processBLASTTabs(const char * b, bool exon, std::string id) 
 			probe_set_id = ids.at(1);
 			line.probe_id = ids.at(2);
 			
+			// Get score and href link from calculated alignment map
+			pscore_iter it = probes.find(line.probe_id);
+			if(it != probes.end()) {
+				line.href = it->second.href;
+				line.hyb_score = it->second.hyb_score;
+				line.qseq = it->second.qseq;
+				line.hseq = it->second.hseq;
+				line.midline = it->second.midline;
+
+			}
+			
+			// Get remaining data
 			line.perc_identity = curLine.at(2);
 			line.length = curLine.at(3);
 			line.mismatches = curLine.at(4);
@@ -314,7 +326,9 @@ void FileProcessor::processBLASTTabs(const char * b, bool exon, std::string id) 
 			if(exon) {
 				ProbeSetLine::iterator it = map.find(probe_set_id);
 				if (it != map.end()) {
-					it->second.push_back(line);
+					if(line.hyb_score > 37) {
+						it->second.push_back(line);
+					}
 				}
 			
 				else {
@@ -459,10 +473,10 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		
 		// Output table row
 		// TODO: Create href mappings between designs and pks for proper urls
-		
-		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>Evalue</th><th id='nc'>Bit Score</th></tr>";
+		std::string hid;
+		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th></tr>";
 		for(int m = 0; m < pair.second.size(); m++) {
-			probeLines += "<tr id='nc'><td id='nc'>" + pair.second.at(m).probe_id + "</td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" +  pair.second.at(m).evalue + "</td><td id='nc'>" +  pair.second.at(m).score + "</td></tr>";
+			probeLines += "<tr id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) +  "</td></tr>";
 			probeLocations.push_back(pair.second.at(m).q_start);
 		}
 		
@@ -489,45 +503,149 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 
 
 
-void FileProcessor::processBLASTAlignments(const char * b) {
+ProbeScoreMap FileProcessor::processBLASTAlignments(const char * b) {
 	std::ifstream f1(b);
 	std::string str;
 	std::size_t found;
+	std::size_t fo1;
+	std::size_t fo2;
+	std::size_t flength;
 	
+	
+	std::string id;
 	std::string probe_id;
 	std::string probe_set_id;
 	std::string tc_id;
+	std::string href = "-1";
+	int start;
+	int stop;
+	int length = 0;
+	std::string qseq;
+	std::string hseq;
+	std::string midline;
 	
     std::vector<std::string> curLine;
     std::vector<std::string> ids;
-    std::vector<bLine> lines;
 	
-	std::string curQuery = "-1";
-	std::string prevQuery = "-1";
-	bLine line;
-	
-	std::string wordToFind = ">";
+	std::string wordToFind = "<Hit_id>";
 
+	std::string data;
+	
+	ProbeScoreMap probes;
 	
 	
-	// Read in BLAST output
+	// Read in BLAST XML output
     while (std::getline(f1, str)){
     	found = str.find(wordToFind);
     	
-    	// If not a comment
-		if(found == std::string::npos) {
+
+		if(found != std::string::npos) {
+			fo1 = str.find(">");
+			fo2 = str.find("</");	
+			flength = fo2 - fo1 - 1;	
+			data = str.substr(fo1 + 1, flength);
 			
 			
+			if(wordToFind == "<Hit_id>") {
+				if(href != "-1") {
+					alignment a;
+					int hscore = 0;
+					href = href.substr(4, href.length()-4);
+					std::size_t p = href.find("|");
+					href.replace(p, 1, ":");
+					if(start < stop) {
+						hscore = calculateHybScore(start, midline);
+					}
+					else {
+						hscore = calculateHybScore(stop, midline);
+					}
+					a.hyb_score = hscore;
+					a.href = href;
+					a.hseq = hseq;
+					a.qseq = qseq;
+					
+					
+					a.midline = midline;
+					probes.insert(ProbeScorePair(probe_id, a));
+					
+				}
+				href = data;
+				wordToFind = "<Hit_def>";
+			}
+			
+			else if(wordToFind == "<Hit_def>") {
+				id = data;
+				ids = split(data, '-');
+				tc_id = ids.at(0);
+				probe_set_id = ids.at(1);
+				probe_id = ids.at(2);
+				wordToFind = "<Hsp_hit-from>";	
+			}
+			
+			else if(wordToFind == "<Hsp_hit-from>") {
+				start = atoi(data.c_str());
+				wordToFind = "<Hsp_hit-to>";
+			}
+			
+			else if(wordToFind == "<Hsp_hit-to>") {
+				stop = atoi(data.c_str());
+				length = std::abs(stop - start);
+				wordToFind = "<Hsp_qseq>";
+			}
+			
+			else if(wordToFind == "<Hsp_qseq>") {
+				qseq = data;
+				wordToFind = "<Hsp_hseq>";
+			}
+			
+			else if(wordToFind == "<Hsp_hseq>") {
+				hseq = data;
+				wordToFind = "<Hsp_midline>";
+			}
+				
+			else if(wordToFind == "<Hsp_midline>") {
+				midline = data;
+				wordToFind = "<Hit_id>";
+			}
 			
 		}
 
-			
 	}
 		
 	
-	
+	return probes;
 	
 
+
+}
+
+
+int FileProcessor::calculateHybScore(int start, std::string midline) {
+	int score = 0;
+	int pos = start;
+	
+	for(int i = 0; i < midline.length(); i++) {
+		if(midline[i] == '|') {
+			score += hybHit(pos);
+		}
+		pos++;
+	}
+
+	return score;
+}
+
+int FileProcessor::hybHit(int pos) {
+
+
+	if((pos >= 1 && pos <= 5) || (pos >= 21 && pos <= 25)) {
+		return 1;
+	}
+	
+	if((pos >= 6 && pos <= 10) || (pos >= 16 && pos <= 20)) {
+		return 2;
+	}
+	
+	return 3;
 
 }
 

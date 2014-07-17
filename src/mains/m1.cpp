@@ -7,12 +7,10 @@
 int main (int argc, char *argv[]) {
    
     FileProcessor fp = FileProcessor();
-    ProbeSetMap probesets = fp.processLibraryFiles(argv[1], argv[2]);
-    
-    for(ps_iter iterator = probesets.begin(); iterator != probesets.end(); iterator++) {
-    	iterator->second.printProbeSet();
+	ProbeScoreMap probes = fp.processBLASTAlignments(argv[1]);
+	for(pscore_iter iterator = probes.begin(); iterator != probes.end(); iterator++) {
+    	std::cout << iterator->first << " " << iterator->second.href << " " << iterator->second.hyb_score << std::endl;
 	}	
-	
 
 }
 

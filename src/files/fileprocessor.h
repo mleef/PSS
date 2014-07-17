@@ -38,11 +38,25 @@ struct bLine {
 	std::string s_end;
 	std::string evalue;
 	std::string score;
+	int hyb_score;
+	std::string href;
+	std::string qseq;
+	std::string hseq;
+	std::string midline;
 	int probes_in_probeset;
 	int probes_in_tc;
 	int probe_hits;
 	double percent;
 };
+
+struct alignment {
+	std::string href;
+	std::string qseq;
+	std::string hseq;
+	std::string midline;
+	int hyb_score;
+};
+
 
 // Mapping, pair, and iterator from probe set name to probe set object
 typedef std::map<std::string, ProbeSet> ProbeSetMap;
@@ -64,6 +78,13 @@ typedef std::map<std::string, std::vector<ProbeSet> > TranscriptClusterMap;
 typedef std::pair<std::string, std::vector<ProbeSet> > TranscriptClusterPair;
 typedef std::map<std::string, std::vector<ProbeSet> >::iterator tc_iter;
 
+// Mapping, pair, and iterator from probe name to score/href link
+typedef std::map<std::string, alignment> ProbeScoreMap;
+typedef std::pair<std::string, alignment> ProbeScorePair;
+typedef std::map<std::string, alignment>::iterator pscore_iter;
+
+
+
 class FileProcessor
 {
 
@@ -80,9 +101,11 @@ class FileProcessor
 		std::vector<Sequence> readFASTA(const char * f);
 		void writeFASTA(std::vector<Sequence> sequences);
 		ProbeSetMap processLibraryFiles(const char * pgf, const char * mps);
-		void processBLASTTabs(const char * b, bool exon, std::string id);
-		void processBLASTAlignments(const char * b);
+		void processBLASTTabs(const char * b, ProbeScoreMap probes, bool exon, std::string id);
+		ProbeScoreMap processBLASTAlignments(const char * b);
 		void outputHTML(std::string query_id, ProbeSetLine map, bool exon, std::string id);
+		int calculateHybScore(int start, std::string midline);
+		int hybHit(int pos);
 
 
 

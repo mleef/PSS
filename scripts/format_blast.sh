@@ -8,12 +8,15 @@ web='/Users/marc_leef/Desktop/Work/PSS/web'
 gene_html='/Users/marc_leef/Desktop/Work/PSS/bin/gene_html'
 exon_html='/Users/marc_leef/Desktop/Work/PSS/bin/exon_html'
 results='/Users/marc_leef/Desktop/Work/data/Server/results'
+timestamp=$(date +%s)
 
 
 file1=$1
 html1=$2
 out=$3
 pk=$4
+
+
 
 # Convert archive to HTML format
 $blastformat -archive $file1 -html -out $html1
@@ -22,10 +25,14 @@ $blastformat -archive $file1 -html -out $html1
 $blastformat -archive $file1 -outfmt 7 -out $out
 
 # Convert archive to god knows what
-$blastformat -archive $file1 -outfmt 0 -out $results/out
+$blastformat -archive $file1 -outfmt 5 -out $results/out$timestamp
 
 # Perform exon level analysis of BLAST results
-$exon_html $out $pk > $html1'.exon'
+$exon_html $out $pk $results/out$timestamp > $html1'.exon'
 
 # Perform gene level analysis of BLAST results
-$gene_html $out $pk > $html1'.gene'
+$gene_html $out $pk $results/out$timestamp > $html1'.gene'
+
+
+
+rm $results/out$timestamp

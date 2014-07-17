@@ -7,7 +7,8 @@
 
 int main (int argc, char *argv[]) {
     FileProcessor fp = FileProcessor();
-    fp.processBLASTTabs(argv[1], true, argv[2]);
+	ProbeScoreMap probes = fp.processBLASTAlignments(argv[3]);
+    fp.processBLASTTabs(argv[1], probes, true, argv[2]);
 
 }
 
