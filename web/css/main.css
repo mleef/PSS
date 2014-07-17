@@ -1,0 +1,253 @@
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+	.bar {
+	  fill: steelblue;
+	  shape-rendering: crispEdges;
+	}
+
+	.bar:hover {
+	  fill: orangered ;
+	}
+
+
+
+	.bar text {
+ 	  fill: #fff;
+	}
+
+
+	.d3-tip {
+	  line-height: 1;
+	  font-weight: bold;
+	  padding: 12px;
+	  background: rgba(0, 0, 0, 0.8);
+	  color: #fff;
+	  border-radius: 2px;
+	}
+
+	/* Creates a small triangle extender for the tooltip */
+	.d3-tip:after {
+	  box-sizing: border-box;
+	  display: inline;
+	  font-size: 10px;
+	  width: 100%;
+	  line-height: 1;
+	  color: rgba(0, 0, 0, 0.8);
+	  content: "\25BC";
+	  position: absolute;
+	  text-align: center;
+	}
+
+	/* Style northward tooltips differently */
+	.d3-tip.n:after {
+	  margin: -1px 0 0 0;
+	  top: 100%;
+	  left: 0;
+	}
+
+	#tabs_wrapper {
+	    width: 100%;
+	}
+	#tabs_container {
+	    border-bottom: 1px solid #ccc;
+	}
+	#tabs {
+	    list-style: none;
+	    padding: 5px 0 4px 0;
+	    margin: 0 0 0 10px;
+	    font: 0.75em arial;
+	}
+	#tabs li {
+	    display: inline;
+	}
+	#tabs li a {
+	    border: 1px solid #ccc;
+	    padding: 4px 6px;
+	    text-decoration: none;
+	    background-color: #eeeeee;
+	    border-bottom: none;
+	    outline: none;
+	    border-radius: 5px 5px 0 0;
+	    -moz-border-radius: 5px 5px 0 0;
+	    -webkit-border-top-left-radius: 5px;
+	    -webkit-border-top-right-radius: 5px;
+	}
+	#tabs li a:hover {
+	    background-color: #dddddd;
+	    padding: 4px 6px;
+	}
+	#tabs li.active a {
+	    border-bottom: 1px solid #fff;
+	    background-color: #fff;
+	    padding: 4px 6px 5px 6px;
+	    border-bottom: none;
+	}
+	#tabs li.active a:hover {
+	    background-color: #eeeeee;
+	    padding: 4px 6px 5px 6px;
+	    border-bottom: none;
+	}
+	 
+	#tabs li a.icon_accept {
+	    background-image: url(accept.png);
+	    background-position: 5px;
+	    background-repeat: no-repeat;
+	    padding-left: 24px;
+	}
+	#tabs li a.icon_accept:hover {
+	    padding-left: 24px;
+	}
+	 
+	#tabs_content_container {
+	    border: 1px solid #ccc;
+	    border-top: none;
+	    padding: 10px;
+	    width: 100%;
+
+	}
+	.tab_content {
+	    display: none;
+	}
+
+
+	.maintable
+	{
+		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+		font-size: 12px;
+		margin: 0 auto;
+		width: 80%;
+		border-collapse: collapse;
+	}
+
+	.maintable th
+	{
+		text-align: center;
+		font-size: 13px;
+		font-weight: normal;
+		padding: 8px;
+		background: #b9c9fe;
+		border-top: 4px solid #aabcfe;
+		border-bottom: 1px solid #fff;
+		color: #039;
+	}
+
+	.maintable td
+	{
+		text-align: center;
+		padding: 8px;
+		background: #e8edff; 
+		border-bottom: 1px solid #fff;
+		color: #669;
+		border-top: 1px solid transparent;
+	}
+
+	.maintable tr:hover td:not(#nc)
+	{
+		background: #d0dafd;
+		color: #339;
+	}
+
+	.maintable caption
+	{
+		margin-bottom: 5px;
+	    text-transform: lowercase;
+	    font-size: 160%;
+	    padding: 5px;
+	    letter-spacing: .2px;
+	    font-weight: bold;
+	}
+
+	.subtable
+	{
+		margin: 0 auto;
+		border-collapse: collapse;
+		font-family: verdana,arial,sans-serif;
+		font-size:11px;
+		color:#333333;
+		border-width: 1px;
+		border-color: #666666;
+
+	}
+
+	.subtable th
+	{
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #666666;
+		background-color: #dedede;
+	}
+
+	.subtable td
+	{
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #666666;
+		background-color: #ffffff;
+
+	}
+
+	#good {
+		color: #32CD32;
+
+	}
+
+	#bad {
+		color: red;
+	}
+
+	#lefft {
+		clear: left;
+		float: left;
+		width: 40%;
+		margin-left: 5%;
+
+	}
+
+	#rigght {
+		clear: right;
+		float: right;
+		width: 40%;
+		margin-right: 5%;
+
+	}
+
+	#nopad {
+		padding-top: 0px;
+		padding-bottom: 0px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	#tablecontainer {
+	  border: 2px;
+      border-radius: 25px;
+      width: 50%;
+      margin: 0 auto;
+      background: #f1f1f1;
+      padding-bottom: 10;
+	}
+
+	svg {
+		border: 2px;
+      	border-radius: 25px;
+		display: block;
+		margin: 0 auto;
+	    background: #f1f1f1;
+        padding: 20 20 20 20;
+	}
+
+	#blast {
+	  border: 2px;
+      border-radius: 25px;
+      width: 50%;
+      margin: 0 auto;
+      background: #f1f1f1;
+      padding: 20 20 20 20;
+	}

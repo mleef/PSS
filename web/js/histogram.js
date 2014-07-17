@@ -1,20 +1,22 @@
 
-  var queryIDs = []
-  $("#tab1 caption").each(function() { queryIDs.push($(this).text()) });
+  var $ids = []
+  var ids = []
+  $("#tab1 #titles").each(function() { $ids.push($(this).text()) });
+  $("#tab1 caption").each(function() { ids.push($(this).text()) });
 
   //console.log(queryIDs)
 
-  queryIDs.forEach( function (element) {
-    //console.log(element.replace(/[&\/\\#,|+()$~%.'":*?<>{}]/g,'\\\\'))
+  for (i = 0; i < $ids.length; i++) { 
     var values = [];
-    $("#" + element + " p").each(function() { values.push($(this).text()) });
+    $("#" + $ids[i] + " p").each(function() { values.push($(this).text()) });
     //console.log("#" + element + " p")
     //console.log(values)
-    var text = $("#tab3 pre").text()
+    var text = $("#tab3 pre:eq(" + i + ")").text()
     var pos = text.search("Length")
     var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
-    makeGraph(values,len, element)
-  })
+    makeGraph(values,len, ids[i])
+  }
+
   
 
 
@@ -42,6 +44,7 @@ function makeGraph(values, length, query_name) {
     else if(length > 100) {
       length = Math.round(length/100)*100
     }
+
 
     var x = d3.scale.linear()
         .domain([0, length])

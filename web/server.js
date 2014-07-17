@@ -64,13 +64,13 @@ var exonBlast = function(file_name, file1, html1, res) {
 			console.log(error)
 			console.log(stderr)
 			status = {"step" : "(3/4) Analyzing results..."}
-			sleep.sleep(2)
+			//sleep.sleep(2)
 			exec(scripts + 'format_blast.sh ' + file1 + ' ' + html1 + ' ' + queries + file_name + '.tsv' + ' ' + design, function (error, stdout, stderr) {
 				console.log(stdout)
 				console.log(error)
 				console.log(stderr)
 				status = {"step" : "(4/4) Formatting output..."}
-				sleep.sleep(1)
+				//sleep.sleep(1)
 				exec('python ' + scripts + 'join_blasts.py ' + html1 + ' ' + web + 'temp.html > ' + web + 'output.html' , function (error, stdout, stderr) {
 					console.log(stdout)
 					console.log(error)
@@ -127,6 +127,8 @@ app.post("/upload",
 		        	cleanup([element.path])
 		        })
 	        })
+
+	        sleep.sleep(1)
 	        //console.log('python ' + scripts + 'line_breaks.py ' + outpath + ' > results' + timestamp)
 	        exec('python ' + scripts + 'line_breaks.py ' + outpath + ' > ' + save + 'results' + timestamp, function (error, stdout, stderr) {
 

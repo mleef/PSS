@@ -364,12 +364,12 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	std::string psExtension = "exon/wtgene_probe_set.affx?pk=";
 	std::string tcExtension = "exon/wtgene_transcript.affx?pk=";
 	std::string pk = id;
-	
-	query_id.erase(std::remove(query_id.begin(), query_id.end(), ':'), query_id.end());
-	query_id.erase(std::remove(query_id.begin(), query_id.end(), '.'), query_id.end());
-	query_id.erase(std::remove(query_id.begin(), query_id.end(), '-'), query_id.end());
-	query_id.erase(std::remove(query_id.begin(), query_id.end(), '|'), query_id.end());
-	query_id.erase(std::remove(query_id.begin(), query_id.end(), ' '), query_id.end());
+	std::string eqid = query_id;
+	eqid.erase(std::remove(eqid.begin(), eqid.end(), ':'), eqid.end());
+	eqid.erase(std::remove(eqid.begin(), eqid.end(), '.'), eqid.end());
+	eqid.erase(std::remove(eqid.begin(), eqid.end(), '-'), eqid.end());
+	eqid.erase(std::remove(eqid.begin(), eqid.end(), '|'), eqid.end());
+	eqid.erase(std::remove(eqid.begin(), eqid.end(), ' '), eqid.end());
 	
 	if(exon) {
 		header1 = "Probe Set ID";
@@ -382,6 +382,7 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	
 	
 	//std::cout << "<div data-scroll-reveal>" << std::endl;
+	std::cout << "<div id ='titles' style='display:none'>" << eqid << "</div>";
 	std::cout << "<div id='tablecontainer'>" << std::endl;
 	std::cout << tableDeclaration << std::endl;
 	std::cout << "<caption>" << query_id << "</caption>" << std::endl;
@@ -478,7 +479,7 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	
 	std::cout << "</table>" << std::endl;
 	std::cout << "</div>" << std::endl;	
-	std::cout << "<div id ='" << query_id << "' style='display:none'>";
+	std::cout << "<div id ='" << eqid << "' style='display:none'>";
 	for(int i = 0; i < probeLocations.size(); i++) {
 		std::cout << "<p>" << probeLocations.at(i) << "</p>";
 	
