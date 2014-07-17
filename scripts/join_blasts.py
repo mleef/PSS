@@ -19,7 +19,7 @@ def addFiles(f1,f2):
    	count = 0
    	
    	# find first tag to append to
-   	loc1 = out.find('f3">') + 5
+   	loc1 = out.find('"blast">') + 9
    	
    	s1 = ""
    	s2 = ""

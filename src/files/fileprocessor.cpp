@@ -356,12 +356,20 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	std::string header1;
 	std::string header2;
 	
+	std::vector<std::string> probeLocations;
+	
 	std::string tableDeclaration = "<table class='maintable'>";
 	
 	std::string baseURL = "https://www.affymetrix.com/analysis/netaffx/";
 	std::string psExtension = "exon/wtgene_probe_set.affx?pk=";
 	std::string tcExtension = "exon/wtgene_transcript.affx?pk=";
 	std::string pk = id;
+	
+	query_id.erase(std::remove(query_id.begin(), query_id.end(), ':'), query_id.end());
+	query_id.erase(std::remove(query_id.begin(), query_id.end(), '.'), query_id.end());
+	query_id.erase(std::remove(query_id.begin(), query_id.end(), '-'), query_id.end());
+	query_id.erase(std::remove(query_id.begin(), query_id.end(), '|'), query_id.end());
+	query_id.erase(std::remove(query_id.begin(), query_id.end(), ' '), query_id.end());
 	
 	if(exon) {
 		header1 = "Probe Set ID";
@@ -454,6 +462,7 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>Evalue</th><th id='nc'>Bit Score</th></tr>";
 		for(int m = 0; m < pair.second.size(); m++) {
 			probeLines += "<tr id='nc'><td id='nc'>" + pair.second.at(m).probe_id + "</td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" +  pair.second.at(m).evalue + "</td><td id='nc'>" +  pair.second.at(m).score + "</td></tr>";
+			probeLocations.push_back(pair.second.at(m).q_start);
 		}
 		
 		if(exon) {
@@ -469,7 +478,14 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	
 	std::cout << "</table>" << std::endl;
 	std::cout << "</div>" << std::endl;	
+	std::cout << "<div id ='" << query_id << "' style='display:none'>";
+	for(int i = 0; i < probeLocations.size(); i++) {
+		std::cout << "<p>" << probeLocations.at(i) << "</p>";
+	
+	}
+	std::cout << "</div>" << std::endl;
 }	
+
 
 
 void FileProcessor::processBLASTAlignments(const char * b) {
