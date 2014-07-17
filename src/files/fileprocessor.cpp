@@ -309,7 +309,7 @@ void FileProcessor::processBLASTTabs(const char * b, ProbeScoreMap probes, bool 
 
 			}
 			
-			// Get remaining data
+			
 			line.perc_identity = curLine.at(2);
 			line.length = curLine.at(3);
 			line.mismatches = curLine.at(4);
@@ -326,9 +326,7 @@ void FileProcessor::processBLASTTabs(const char * b, ProbeScoreMap probes, bool 
 			if(exon) {
 				ProbeSetLine::iterator it = map.find(probe_set_id);
 				if (it != map.end()) {
-					if(line.hyb_score > 37) {
-						it->second.push_back(line);
-					}
+					it->second.push_back(line);
 				}
 			
 				else {
@@ -421,7 +419,9 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		for(int i = 0; i < size; i++) {
 			ci = seen.find(iterator->second.at(i).probe_id);
 			if(ci == seen.end()) {
-				uniqueProbes++;
+				if(iterator->second.at(i).hyb_score > 37) {
+					uniqueProbes++;
+				}
 				seen.insert(CheckPair(iterator->second.at(i).probe_id, true));
 			}
 		}
@@ -461,6 +461,7 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
     		}
 		}
 		
+		
 		// Color code table cell based on hit percentage
 		std::string color = "";
 		if(pair.second.at(0).percent > 80.00) {
@@ -476,8 +477,10 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		std::string hid;
 		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th></tr>";
 		for(int m = 0; m < pair.second.size(); m++) {
-			probeLines += "<tr id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) +  "</td></tr>";
-			probeLocations.push_back(pair.second.at(m).q_start);
+			if(pair.second.at(m).hyb_score > 37) {
+				probeLines += "<tr id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) +  "</td></tr>";
+				probeLocations.push_back(pair.second.at(m).q_start);
+			}
 		}
 		
 		if(exon) {
@@ -499,7 +502,9 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	
 	}
 	std::cout << "</div>" << std::endl;
-}	
+}
+	
+
 
 
 
