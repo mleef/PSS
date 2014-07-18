@@ -1,6 +1,8 @@
 
   var graphs = []
-
+  var hyb_score = 38;
+  var bin_size = 10;
+  var show_bin;
   var $ids = []
   var ids = []
   $("#tab1 #titles").each(function() { $ids.push($(this).text()) });
@@ -16,12 +18,12 @@
     var text = $("#tab3 pre:eq(" + i + ")").text()
     var pos = text.search("Length")
     var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
-    makeGraph(values,len, ids[i])
+    makeGraph(values,len, ids[i], bin_size)
   }
 
 
 
-function makeGraph(values, length, query_name) {
+function makeGraph(values, length, query_name, bin_size) {
    
     var formatCount = d3.format(",.0f");
 
@@ -51,11 +53,11 @@ function makeGraph(values, length, query_name) {
 
     // Generate a histogram using twenty uniformly-spaced bins.
     var data = d3.layout.histogram()
-        .bins(x.ticks(20))
+        .bins(x.ticks(bin_size))
         (values);
 
     var y = d3.scale.linear()
-        .domain([0, d3.max(data, function(d) { return d.y; })])
+        .domain([0, d3.max(data, function(d) {show_bin = d.dx; return d.y; })])
         .range([height, 0]);
 
     var xAxis = d3.svg.axis()
@@ -71,10 +73,11 @@ function makeGraph(values, length, query_name) {
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function(d) {
-          //console.log(d)
-          return "<strong>Frequency:</strong> <span style='color:red'>" + d.y + " probes" + "</span>";
+          console.log(d)
+          return "<strong>Frequency:</strong> <span style='color:red'>" + d.y + " probes (" + d.x + " - " + (d.x+d.dx) + ")</span>";
       })
 
+    $("#l2").text("Bin Size: " + show_bin)
     var svg = d3.select("#tab4").append("svg")
         .attr("width", width + margin.left + margin.right + 30)
         .attr("height", height + margin.top + margin.bottom + 20)
@@ -94,7 +97,7 @@ function makeGraph(values, length, query_name) {
     bar.append("rect")
         .attr("x", 1)
         .attr("width", x(data[0].dx) - 1)
-        .attr("height", function(d) { return height - y(d.y); });
+        .attr("height", function(d) {return height - y(d.y); });
 
     svg.append("g")
         .attr("class", "x axis")
@@ -134,15 +137,15 @@ function makeGraph(values, length, query_name) {
   }
 
 
-    d3.select("#range")
+    d3.select("#range1")
     .select("input")
     .on("change", function () {
 
 
       var bin = this.value;
+      hyb_score = bin
 
       $("svg").remove();
-      $("#sliderval").text("Hybridization score > " + bin)
 
        for (i = 0; i < $ids.length; i++) { 
           var values = [];
@@ -153,11 +156,38 @@ function makeGraph(values, length, query_name) {
           var text = $("#tab3 pre:eq(" + i + ")").text()
           var pos = text.search("Length")
           var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
-          makeGraph(values,len, ids[i])
+          makeGraph(values,len, ids[i], bin_size)
           
        }
 
+      $("#l1").text("Minimum Hybridization Score: " + hyb_score)
     });
+
+
+    d3.select("#range2")
+    .select("input")
+    .on("change", function () {
+      var bin = this.value;
+      bin_size = bin
+      $("svg").remove();
+
+      for (i = 0; i < $ids.length; i++) { 
+        var values = [];
+        for(m = hyb_score; m < 46; m++) {
+          $("#" + $ids[i] + " #s" + m).each(function() { values.push($(this).text()) });
+        }
+
+        var text = $("#tab3 pre:eq(" + i + ")").text()
+        var pos = text.search("Length")
+        var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
+        makeGraph(values,len, ids[i], bin_size)
+          
+      }
+      
+
+
+    });
+
 
 
 

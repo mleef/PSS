@@ -10,14 +10,7 @@
 	  font: 10px sans-serif;
 	}
 
-	.ui-slider-tick-mark{
-	    display:inline-block;
-	    width:2px;
-	    background:black;
-	    height:16px;
-	    position:absolute;
-	    top:-4px;
-	}
+
 
 	.axis path,
 	.axis line {
@@ -141,7 +134,7 @@
 		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 		font-size: 12px;
 		margin: 0 auto;
-		width: 80%;
+		width: 85%;
 		border-collapse: collapse;
 	}
 
@@ -260,7 +253,7 @@
 		border: 2px;
       	border-radius: 25px;
 		display: block;
-		margin: 0 auto;
+		margin-left: 20%;
 	    background: #f1f1f1;
         padding: 20 20 20 20;
 	}
@@ -272,4 +265,10 @@
       margin: 0 auto;
       background: #f1f1f1;
       padding: 20 20 20 20;
+	}
+
+	#sliderpanel {
+		float: left;
+
+
 	}
