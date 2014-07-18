@@ -274,12 +274,12 @@ void FileProcessor::processBLASTTabs(const char * b, ProbeScoreMap probes, bool 
 			// End of lines for specific query, output the HTML formatted version of the current mapping and move on
 			if(curQuery != "-1" && prevQuery != "-1" && curQuery != prevQuery) {
 				if(exon) {
-					outputHTML(prevQuery, map, true, id);
+					outputHTML(prevQuery, map, true, id, probes);
 					map.clear();	
 				}
 				
 				else {
-					outputHTML(prevQuery, tc_map, false, id);
+					outputHTML(prevQuery, tc_map, false, id, probes);
 					tc_map.clear();	
 				}	
 			}
@@ -353,22 +353,22 @@ void FileProcessor::processBLASTTabs(const char * b, ProbeScoreMap probes, bool 
     
     // Output last query list to HTML format
     if(exon) {
-    	outputHTML(curQuery, map, true, id);
+    	outputHTML(curQuery, map, true, id, probes);
     }
     else {
-    	outputHTML(curQuery, tc_map, false, id);
+    	outputHTML(curQuery, tc_map, false, id, probes);
     }
     
 		
 }
 
 // Creates the tables for exon/gene level viewing by the user
-void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon, std::string id) {
+void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon, std::string id, ProbeScoreMap probes) {
 	
 	std::string header1;
 	std::string header2;
 	
-	std::vector<std::string> probeLocations;
+	std::vector<ProbeLookup> probeLocations;
 	
 	std::string tableDeclaration = "<table class='maintable'>";
 	
@@ -479,7 +479,7 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 		for(int m = 0; m < pair.second.size(); m++) {
 			if(pair.second.at(m).hyb_score > 37) {
 				probeLines += "<tr id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) +  "</td></tr>";
-				probeLocations.push_back(pair.second.at(m).q_start);
+				probeLocations.push_back(ProbeLookup(pair.second.at(m).probe_id, pair.second.at(m).q_start));
 			}
 		}
 		
@@ -498,7 +498,13 @@ void FileProcessor::outputHTML(std::string query_id ,ProbeSetLine map, bool exon
 	std::cout << "</div>" << std::endl;	
 	std::cout << "<div id ='" << eqid << "' style='display:none'>";
 	for(int i = 0; i < probeLocations.size(); i++) {
-		std::cout << "<p>" << probeLocations.at(i) << "</p>";
+		std::string score;
+		std::cout << "<div id='all'>" << probeLocations.at(i).second << "</div>";
+		pscore_iter it = probes.find(probeLocations.at(i).first);
+		if(it != probes.end()) {
+			score = std::to_string(it->second.hyb_score);
+		}
+		std::cout << "<div id='s" << score << "'>" << probeLocations.at(i).second << "</div>";
 	
 	}
 	std::cout << "</div>" << std::endl;

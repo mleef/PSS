@@ -1,4 +1,6 @@
 
+  var graphs = []
+
   var $ids = []
   var ids = []
   $("#tab1 #titles").each(function() { $ids.push($(this).text()) });
@@ -8,7 +10,7 @@
 
   for (i = 0; i < $ids.length; i++) { 
     var values = [];
-    $("#" + $ids[i] + " p").each(function() { values.push($(this).text()) });
+    $("#" + $ids[i] + " #all").each(function() { values.push($(this).text()) });
     //console.log("#" + element + " p")
     //console.log(values)
     var text = $("#tab3 pre:eq(" + i + ")").text()
@@ -17,14 +19,10 @@
     makeGraph(values,len, ids[i])
   }
 
-  
 
-
-
-  
 
 function makeGraph(values, length, query_name) {
-
+   
     var formatCount = d3.format(",.0f");
 
     var margin = {top: 40, right: 30, bottom: 40, left: 40},
@@ -50,6 +48,7 @@ function makeGraph(values, length, query_name) {
         .domain([0, length])
         .range([0, width]);
 
+
     // Generate a histogram using twenty uniformly-spaced bins.
     var data = d3.layout.histogram()
         .bins(x.ticks(20))
@@ -63,6 +62,7 @@ function makeGraph(values, length, query_name) {
         .scale(x)
         .orient("bottom");
 
+
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left");
@@ -71,7 +71,7 @@ function makeGraph(values, length, query_name) {
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function(d) {
-          console.log(d)
+          //console.log(d)
           return "<strong>Frequency:</strong> <span style='color:red'>" + d.y + " probes" + "</span>";
       })
 
@@ -80,7 +80,7 @@ function makeGraph(values, length, query_name) {
         .attr("height", height + margin.top + margin.bottom + 20)
       .append("g")
         .attr("transform", "translate(" + (margin.left+30) + "," + margin.top + ")");
-
+    svgVar = svg;
     svg.call(tip);
 
     var bar = svg.selectAll(".bar")
@@ -128,7 +128,40 @@ function makeGraph(values, length, query_name) {
         .style("text-anchor", "middle")
         .text("# Probes");
 
+
+  graphs.push(svg)
+
   }
+
+
+    d3.select("#range")
+    .select("input")
+    .on("change", function () {
+
+
+      var bin = this.value;
+
+      $("svg").remove();
+      $("#sliderval").text("Hybridization score > " + bin)
+
+       for (i = 0; i < $ids.length; i++) { 
+          var values = [];
+          for(m = bin; m < 46; m++) {
+            $("#" + $ids[i] + " #s" + m).each(function() { values.push($(this).text()) });
+          }
+
+          var text = $("#tab3 pre:eq(" + i + ")").text()
+          var pos = text.search("Length")
+          var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
+          makeGraph(values,len, ids[i])
+          
+       }
+
+    });
+
+
+
+
 
 
 

@@ -83,6 +83,8 @@ typedef std::map<std::string, alignment> ProbeScoreMap;
 typedef std::pair<std::string, alignment> ProbeScorePair;
 typedef std::map<std::string, alignment>::iterator pscore_iter;
 
+typedef std::pair<std::string, std::string> ProbeLookup;
+
 
 
 class FileProcessor
@@ -103,7 +105,7 @@ class FileProcessor
 		ProbeSetMap processLibraryFiles(const char * pgf, const char * mps);
 		void processBLASTTabs(const char * b, ProbeScoreMap probes, bool exon, std::string id);
 		ProbeScoreMap processBLASTAlignments(const char * b);
-		void outputHTML(std::string query_id, ProbeSetLine map, bool exon, std::string id);
+		void outputHTML(std::string query_id, ProbeSetLine map, bool exon, std::string id, ProbeScoreMap probes);
 		int calculateHybScore(int start, std::string midline);
 		int hybHit(int pos);
 
