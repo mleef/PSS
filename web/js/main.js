@@ -1,8 +1,11 @@
 
-
 $(document).ready(function(){
 	//sleep(500)
 	//window.scrollReveal = new scrollReveal(config);
+	
+$("td[colspan=4]").find("table").hide();
+$("html").toggle("slow")
+
 	var config = {
 	  enter: 'top',
 	  move: '50px',
@@ -12,7 +15,7 @@ $(document).ready(function(){
 	  reset: true,
 	  init: true
 	};
-	$("td[colspan=4]").find("table").hide();
+	
 	$("#tabs li").click(function() {
 	    //  First remove class "active" from currently active tab
 	    $("#tabs li").removeClass('active');

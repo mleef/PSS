@@ -7,6 +7,7 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src='js/scrollReveal.js'></script>
+<script> $("html").toggle() </script>
 <title>Search Results</title>
 <link rel="shortcut icon" href="http://www.google.com/s2/favicons?domain=www.affymetrix.com">
 
@@ -40,16 +41,23 @@
      <div id="tab4" class="tab_content f4">
      	<div id = "sliderpanel">
 	     	<div id = "range1">
-	     		<p>Minimum Hybridization Score: <br> <input type="range" min="38" max="45" step="1" value="38"></input></p>
+	     		<p>Minimum Hybridization Score: <br>38<input type="range" min="38" max="45" step="1" value="38">45</input></p>
 	    		
 			</div>
 
 			 <div id = "range2">
-			 	<p>Bin Size: <br><input type="range" min="10" max="300" value="10"></input></p>
+			 	<p>Bin Size: <br>+ <input type="range" min="10" max="300" value="10"> -</input></p>
 			</div>
 
 			 <div id="l1">Minimum Hybridization Score: 38</div>
 			 <div id="l2">Bin Size: 500</div>
+			 <p></p>
+
+			Start:<input class="l3" type="text" name="start"><br>
+			Stop:<input class="l4" type="text" name="stop"><br>
+			<button id ="range" type=button>Update</button>
+
+
 		</div>
 
     </div>
