@@ -28,12 +28,12 @@
 
 
 function makeGraph(values, length, query_name, bin_size, start1, stop1) {
-    console.log("Domain: " + start1 + "," + stop1)
+   /* console.log("Domain: " + start1 + "," + stop1)
     console.log(values)
     console.log(values.length + " total probes")
     console.log("Start:" + start1)
     console.log("Stop: " + stop1)
-
+*/
     var formatCount = d3.format(",.0f");
 
     var margin = {top: 40, right: 30, bottom: 40, left: 40},
@@ -160,6 +160,8 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         .style("font-size", "20px") 
         .style("text-anchor", "middle")
         .text("# Probes");
+
+    $("#tab4").append("<hr>")
   }
 
 
@@ -195,6 +197,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
 
 
     function redraw(st, stp) {
+      $("hr").remove()
       $("svg").remove();
       $(".d3-tip").remove();
 
@@ -236,6 +239,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
   $("button.reset").on("click", function (event) {
         $("svg").remove();
         $(".d3-tip").remove();
+        $("hr").remove()
     for (i = 0; i < $ids.length; i++) { 
       var values = [];
       for(m = hyb_score; m < 46; m++) {

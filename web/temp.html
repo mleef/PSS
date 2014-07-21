@@ -27,19 +27,37 @@
 
 <!-- class="icon_accept" for images  -->
 <div id="tabs_content_container">
-    <div id="tab1"  style="display: block;" class="tab_content f2">
+    <div id="tab1"  style="display: block;" class="tab_content">
+    	<h1 id="geneheader" align = "center">Gene Level Results</h1>
+    	<h3 id="geneinfo" align = "center"></h3>
+    	<h3 id="genefiles" align = "center"></h3>
+    	<h3 id="geneseqs" align = "center"></h3>
+    	<div id="generesults" class= "f2">
+
+
+    	</div>
 
     </div>
-    <div id="tab2" class="tab_content f1">
+    <div id="tab2" class="tab_content">
+    	<h1 id="exonheader" align = "center">Exon Level Results</h1>
+    	<h3 id="exoninfo" align = "center"></h3>
+    	<h3 id="exonfiles" align = "center"></h3>
+    	<h3 id="exonseqs" align = "center"></h3>
+        <div id="exonresults" class= "f1">
+
+
+    	</div>
 
     </div>
     <div id="tab3" class="tab_content f3">
+    	 <h1 id="blastheader" align = "center">BLAST Results</h1>
     	<div id="blast">
     		
     	</div>
     </div>
 
      <div id="tab4" class="tab_content f4">
+     	<h1 id="coverageheader" align = "center">Probe Coverage Viewer</h1>
      	<div id = "sliderpanel">
 	     	<div id = "range1">
 	     		<p>Minimum Hybridization Score: <br>38<input id="s1" type="range" min="38" max="45" step="1" value="45">45</input></p>

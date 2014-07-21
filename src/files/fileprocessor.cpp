@@ -522,6 +522,7 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 	
 	}
 	std::cout << "</div>" << std::endl;
+	std::cout << "<hr>" << std::endl;
 }
 	
 

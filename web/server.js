@@ -21,6 +21,9 @@ var scripts= '/Users/marc_leef/Desktop/Work/PSS/scripts/'
 var queries = '/Users/marc_leef/Desktop/Work/data/Queries/'
 var web ='/Users/marc_leef/Desktop/Work/PSS/web/'
 
+var fileNames =[]
+var chosenDesign = ""
+
 // Selected design database
 cur_db = ""
 
@@ -45,12 +48,15 @@ var databaseSelector = function (num) {
 	design = num
 	switch(num) {
 		case 1:
+			chosenDesign = 'HuEx-1_0-st'
 			cur_db = probe_db + 'HuEx-1_0-st'
 		case 4:
+			chosenDesign = 'HuGene-1_0-st'
 			cur_db = probe_db + 'HuGene-1_0-st'
 			break
 
 		case 712:
+			chosenDesign = 'HuGene-2_0-st'
 			cur_db = probe_db + 'HuGene-2_0-st'
 			break
 	}
@@ -123,8 +129,7 @@ app.post("/upload",
 
 	        /* Concatenate uploaded files then remove them */
 	        this.openedFiles.forEach( function (element) {
-	        	//console.log(element.path)
-	        	//console.log("echo | cat " + element.path + " >> " + outpath)
+	        	fileNames.push(element.name)
 	        	exec("cat " + element.path + " >> " + outpath, function (error, stdout, stderr) {
 		        	cleanup([element.path])
 		        })
@@ -156,6 +161,12 @@ app.post("/upload",
 app.get("/status",
 	function (req, res) {
 		res.json(status)
+});
+
+app.get("/details",
+	function (req, res) {
+		res.json({"files" : fileNames, "design" : chosenDesign})
+		fileNames = []
 });
 
 		

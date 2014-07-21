@@ -3,8 +3,8 @@ $(document).ready(function(){
 	//sleep(500)
 	//window.scrollReveal = new scrollReveal(config);
 	
-$("td[colspan=4]").find("table").hide();
-$("html").toggle()
+	$("td[colspan=4]").find("table").hide();
+	getQueryDetails()
 
 	var config = {
 	  enter: 'top',
@@ -74,3 +74,25 @@ $("html").toggle()
 
 
 });
+
+
+function getQueryDetails() {
+
+	$.get("/details", function (data) {
+		var files = ""
+		data["files"].forEach( function (file) {
+			files += file + ","
+		})
+		var seqs = $("caption").length
+		$("#geneinfo").text("Design: " + data["design"])
+		$("#genefiles").text("Files Submitted: " + files.slice(0,-1))
+		$("#geneseqs").text("Total Sequences: " + seqs/2)
+		$("#exoninfo").text("Design: " + data["design"])
+		$("#exonfiles").text("Files Submitted: " + files.slice(0,-1))
+		$("#exonseqs").text("Total Sequences: " + seqs/2)
+
+
+		$("html").toggle()
+
+	});
+}
