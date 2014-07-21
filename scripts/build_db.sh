@@ -4,11 +4,10 @@
 # Set up paths
 makeblastdb='/Users/marc_leef/Desktop/Work/ncbi-blast-2.2.29+/bin/makeblastdb'
 build_fasta="/Users/marc_leef/Desktop/Work/PSS/bin/build_fasta"
-designs='/Users/marc_leef/Desktop/Work/data/Designs/'
-databases='/Users/marc_leef/Desktop/Work/data/Databases/'
-queries='/Users/marc_leef/Desktop/Work/data/Queries/'
+designs='/Users/marc_leef/Desktop/Work/data/Designs'
+databases='/Users/marc_leef/Desktop/Work/data/Databases'
 
-array='HuGene-1_0-st'
+array='HuEx-1_0-st'
 pgf=$array'.pgf'
 mps=$array'.mps'
 pss=$array'.pss'

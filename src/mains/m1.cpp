@@ -1,5 +1,5 @@
 /* 
-   Execution file for the "build_pss" binary
+   Execution file for the "process_alignments" binary
 */
 
 #include "../files/fileprocessor.h"

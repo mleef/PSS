@@ -375,6 +375,20 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 	std::string baseURL = "https://www.affymetrix.com/analysis/netaffx/";
 	std::string psExtension = "exon/wtgene_probe_set.affx?pk=";
 	std::string tcExtension = "exon/wtgene_transcript.affx?pk=";
+	int pkint = atoi(id.c_str());
+	
+	if(pkint == 1) {
+		psExtension = "exon/probe_set.affx?pk=";
+		tcExtension = "exon/transcript.affx?pk=";
+	}
+	
+	else if(pkint == 4 || pkint == 712) {
+		psExtension = "exon/wtgene_probe_set.affx?pk=";
+		tcExtension = "exon/wtgene_transcript.affx?pk=";
+	}
+
+	
+	
 	std::string pk = id;
 	std::string eqid = query_id;
 	eqid.erase(std::remove(eqid.begin(), eqid.end(), ':'), eqid.end());
@@ -499,7 +513,7 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 	std::cout << "<div id ='" << eqid << "' style='display:none'>";
 	for(int i = 0; i < probeLocations.size(); i++) {
 		std::string score;
-		std::cout << "<div id='all'>" << probeLocations.at(i).second << "</div>";
+		//std::cout << "<div id='all'>" << probeLocations.at(i).second << "</div>";
 		pscore_iter it = probes.find(probeLocations.at(i).first);
 		if(it != probes.end()) {
 			score = std::to_string(it->second.hyb_score);

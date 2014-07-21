@@ -1,6 +1,5 @@
 
-  var graphs = []
-  var hyb_score = 38;
+  var hyb_score = 45;
   var bin_size = 10;
   var start = 0;
   var stop = 0;
@@ -16,9 +15,10 @@
 
   for (i = 0; i < $ids.length; i++) { 
     var values = [];
-    $("#" + $ids[i] + " #all").each(function() { values.push($(this).text()) });
-    //console.log("#" + element + " p")
-    //console.log(values)
+     for(m = hyb_score; m < 46; m++) {
+          $("#tab1 #" + $ids[i] + " #s" + m).each(function() { 
+            values.push(parseInt($(this).text())) 
+      })}
     var text = $("#tab3 pre:eq(" + i + ")").text()
     var pos = text.search("Length")
     var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
@@ -28,7 +28,11 @@
 
 
 function makeGraph(values, length, query_name, bin_size, start1, stop1) {
-   
+    console.log("Domain: " + start1 + "," + stop1)
+    console.log(values)
+    console.log(values.length + " total probes")
+    console.log("Start:" + start1)
+    console.log("Stop: " + stop1)
 
     var formatCount = d3.format(",.0f");
 
@@ -55,6 +59,11 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
     if(start1 == 0 && stop1 == 0) {
       st = 0
       stp = length
+      if(stop < length) { 
+        stop = length
+      }
+      start = 0
+    
     }
     else {
       st = start1
@@ -151,10 +160,6 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         .style("font-size", "20px") 
         .style("text-anchor", "middle")
         .text("# Probes");
-
-
-  graphs.push(svg)
-
   }
 
 
@@ -169,18 +174,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
       $("svg").remove();
       $(".d3-tip").remove();
 
-       for (i = 0; i < $ids.length; i++) { 
-          var values = [];
-          for(m = bin; m < 46; m++) {
-            $("#" + $ids[i] + " #s" + m).each(function() { values.push($(this).text()) });
-          }
-
-          var text = $("#tab3 pre:eq(" + i + ")").text()
-          var pos = text.search("Length")
-          var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
-          makeGraph(values,len, ids[i], bin_size, start, stop)
-          
-       }
+      redraw(start,stop)
 
       $("#l1").text("Minimum Hybridization Score: " + hyb_score)
     });
@@ -190,25 +184,13 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
     .select("input")
     .on("change", function () {
       var bin = this.value;
-      bin_size = bin
+      bin_size = (-2*bin) + 210
+
       $("svg").remove();
       $(".d3-tip").remove();
 
-      for (i = 0; i < $ids.length; i++) { 
-        var values = [];
-        for(m = hyb_score; m < 46; m++) {
-          $("#" + $ids[i] + " #s" + m).each(function() { values.push($(this).text()) });
-        }
-
-        var text = $("#tab3 pre:eq(" + i + ")").text()
-        var pos = text.search("Length")
-        var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
-        makeGraph(values,len, ids[i], bin_size, start, stop)
+      redraw(start,stop)
           
-      }
-      
-
-
     });
 
 
@@ -219,9 +201,10 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
       for (i = 0; i < $ids.length; i++) { 
         var values = [];
         for(m = hyb_score; m < 46; m++) {
-          $("#" + $ids[i] + " #s" + m).each(function() { 
-            if($(this).text() >= st && $(this).text() <= stp) {
-            values.push(parseInt($(this).text())) 
+          $("#tab1 #" + $ids[i] + " #s" + m).each(function() { 
+            var val = parseInt($(this).text())
+            if(val >= st && val <= stp) {
+              values.push(val) 
             };
         })}
 
@@ -230,7 +213,6 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
         start = st;
         stop = stp;
-
 
         makeGraph(values,len, ids[i], bin_size, start, stop)
 
@@ -252,19 +234,20 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
 
 
   $("button.reset").on("click", function (event) {
-      $("svg").remove();
-      $(".d3-tip").remove();
-  for (i = 0; i < $ids.length; i++) { 
-    var values = [];
-    $("#" + $ids[i] + " #all").each(function() { values.push($(this).text()) });
-    //console.log("#" + element + " p")
-    //console.log(values)
-    var text = $("#tab3 pre:eq(" + i + ")").text()
-    var pos = text.search("Length")
-    var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
-    start = 0
-    stop = 0
-    makeGraph(values,len, ids[i], bin_size, start, stop)
+        $("svg").remove();
+        $(".d3-tip").remove();
+    for (i = 0; i < $ids.length; i++) { 
+      var values = [];
+      for(m = hyb_score; m < 46; m++) {
+          $("#tab1 #" + $ids[i] + " #s" + m).each(function() { 
+            values.push(parseInt($(this).text())) 
+      })}
+      var text = $("#tab3 pre:eq(" + i + ")").text()
+      var pos = text.search("Length")
+      var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
+      start = 0
+      stop = 0
+      makeGraph(values,len, ids[i], bin_size, start, stop)
   }
 
 

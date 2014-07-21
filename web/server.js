@@ -44,6 +44,8 @@ var databaseSelector = function (num) {
 	num = +num
 	design = num
 	switch(num) {
+		case 1:
+			cur_db = probe_db + 'HuEx-1_0-st'
 		case 4:
 			cur_db = probe_db + 'HuGene-1_0-st'
 			break
