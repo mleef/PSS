@@ -12,8 +12,8 @@
 <link type="text/css" media="print" rel="stylesheet" href="http://max.jotfor.ms/css/printForm.css?3.2.2656" />
 <!-- Include the heartcode canvasloader js file -->
 <script src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 
 <style type="text/css">
     body {
@@ -145,18 +145,17 @@
       var myVar=setInterval(function(){statusCheck()},500);
 
       function statusCheck() {
+        if(first) {
+          cl.show()
+          first = false
+        }
+
         $.get("/status", function (data) {
-            if(first) {
-              cl.show()
-              first = false
+            if(data["percentage"]) {
+              $("#status").text(data["step"] + "..." + data["percentage"] + "% complete")
             }
-            response = JSON.parse(data)
-            if(response["percentage"]) {
-              $("#status").text(response["step"] + "..." + response["percentage"] + "% complete")
-            }
-            
             else {
-              $("#status").text(response["step"])
+              $("#status").text(data["step"])
             }
         })
       }

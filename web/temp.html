@@ -2,8 +2,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src='js/scrollReveal.js'></script>
@@ -13,7 +13,7 @@
 
 </head>
 
-
+<button class="back">Search Again</button>
 
 <div id="tabs_container">
     <ul id="tabs">
@@ -41,22 +41,25 @@
      <div id="tab4" class="tab_content f4">
      	<div id = "sliderpanel">
 	     	<div id = "range1">
-	     		<p>Minimum Hybridization Score: <br>38<input type="range" min="38" max="45" step="1" value="38">45</input></p>
+	     		<p>Minimum Hybridization Score: <br>38<input id="s1" type="range" min="38" max="45" step="1" value="38">45</input></p>
 	    		
 			</div>
 
 			 <div id = "range2">
-			 	<p>Bin Size: <br>+ <input type="range" min="10" max="300" value="10"> -</input></p>
+			 	<p>Bin Size: <br>+ <input id="s2" type="range" min="10" max="300" value="10"> -</input></p>
 			</div>
-
+			<!--  Set default slider values (not working) <button class="default">Defaults</button><br> -->
+			<hr>
 			 <div id="l1">Minimum Hybridization Score: 38</div>
 			 <div id="l2">Bin Size: 500</div>
 			 <p></p>
+			 <hr>
 
-			Start:<input class="l3" type="text" name="start"><br>
-			Stop:<input class="l4" type="text" name="stop"><br>
-			<button id ="range" type=button>Update</button>
-
+			Start:<input class="start" type= "text"><br>
+			Stop:<input class="stop" type= "text"><br>
+			<br>
+			<button class="update">Update Domain</button><br>
+			<button class="reset">Reset Domain</button> <br>
 
 		</div>
 

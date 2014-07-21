@@ -9,6 +9,8 @@
   var ids = []
   $("#tab1 #titles").each(function() { $ids.push($(this).text()) });
   $("#tab1 caption").each(function() { ids.push($(this).text()) });
+  $("#s1").slider()
+  $("#s2").slider()
 
   //console.log(queryIDs)
 
@@ -50,7 +52,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
 
     var st, stp = 0
 
-    if(start == 0 && stop == 0) {
+    if(start1 == 0 && stop1 == 0) {
       st = 0
       stp = length
     }
@@ -59,6 +61,8 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
       stp = stop1
     }
 
+    $(".start").val(st)
+    $(".stop").val(stp)
 
     var x = d3.scale.linear()
         .domain([st, stp])
@@ -108,8 +112,8 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         .attr("class", "bar")
         .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; })
         .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);
-        //.on('click', function(d){ redraw(d.x, d.x + d.dx);})
+        .on('mouseout', tip.hide)
+        .on('click', function(d){ redraw(d.x, d.x + d.dx);});
 
     bar.append("rect")
         .attr("x", 1)
@@ -237,7 +241,37 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
   }
 
 
-  $("#range").click(function (event) {
+
+  $("button.update").on("click", function (event) {
+    var st = $(".start").val()
+    var stp = $(".stop").val()
+    redraw(st,stp)
+
+
+  })
+
+
+  $("button.reset").on("click", function (event) {
+      $("svg").remove();
+      $(".d3-tip").remove();
+  for (i = 0; i < $ids.length; i++) { 
+    var values = [];
+    $("#" + $ids[i] + " #all").each(function() { values.push($(this).text()) });
+    //console.log("#" + element + " p")
+    //console.log(values)
+    var text = $("#tab3 pre:eq(" + i + ")").text()
+    var pos = text.search("Length")
+    var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
+    start = 0
+    stop = 0
+    makeGraph(values,len, ids[i], bin_size, start, stop)
+  }
+
+
+  })
+
+
+  $("button.default").on("click", function (event) {
     
 
 

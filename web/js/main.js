@@ -4,7 +4,7 @@ $(document).ready(function(){
 	//window.scrollReveal = new scrollReveal(config);
 	
 $("td[colspan=4]").find("table").hide();
-$("html").toggle("slow")
+$("html").toggle()
 
 	var config = {
 	  enter: 'top',
@@ -66,6 +66,11 @@ $("html").toggle("slow")
 	        } 
 	    }                   
 	});
+
+	$("button.back").on("click", function (event) {
+    	window.location = "http://localhost:3000/"
+  	})
+
 
 
 });

@@ -25,7 +25,7 @@ var web ='/Users/marc_leef/Desktop/Work/PSS/web/'
 cur_db = ""
 
 // JSON variable to be passed to client based on program progression		
-var status;
+var status = {"step" : "(1/4) Recieving Files..."}
 
 // Numerical design identifier, to be used for generating href links for probesets/transcript clusters later on
 var design;
