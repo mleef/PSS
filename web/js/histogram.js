@@ -22,7 +22,7 @@
     var text = $("#tab3 pre:eq(" + i + ")").text()
     var pos = text.search("Length")
     var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
-    makeGraph(values,len, ids[i], bin_size, start, stop)
+    makeGraph(values,len, ids[i], bin_size, 0, 0)
   }
 
 
@@ -59,15 +59,18 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
     if(start1 == 0 && stop1 == 0) {
       st = 0
       stp = length
-      if(stop < length) { 
-        stop = length
-      }
-      start = 0
-    
     }
     else {
       st = start1
       stp = stop1
+    }
+
+    if(stop < stp) {
+      stop = stp
+    }
+
+    if(start > st) {
+      start = st
     }
 
     $(".start").val(st)
@@ -164,40 +167,30 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
     $("#tab4").append("<hr>")
   }
 
-
+// Listener for the hyb score slider
     d3.select("#range1")
     .select("input")
     .on("change", function () {
-
-
       var bin = this.value;
       hyb_score = bin
-
-      $("svg").remove();
-      $(".d3-tip").remove();
-
       redraw(start,stop)
-
       $("#l1").text("Minimum Hybridization Score: " + hyb_score)
     });
 
-
+// Listener for the bin size slider
     d3.select("#range2")
     .select("input")
     .on("change", function () {
       var bin = this.value;
       bin_size = (-2*bin) + 210
 
-      $("svg").remove();
-      $(".d3-tip").remove();
-
       redraw(start,stop)
           
     });
 
-
+// Function to redraw the graphs with a new domain
     function redraw(st, stp) {
-      $("hr").remove()
+      $("#tab4 hr").remove()
       $("svg").remove();
       $(".d3-tip").remove();
 
@@ -225,8 +218,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
     }
   }
 
-
-
+// Listener for the domain update button
   $("button.update").on("click", function (event) {
     var st = $(".start").val()
     var stp = $(".stop").val()
@@ -235,11 +227,11 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
 
   })
 
-
+// Resets the domain to original values
   $("button.reset").on("click", function (event) {
         $("svg").remove();
         $(".d3-tip").remove();
-        $("hr").remove()
+        $("#tab4 hr").remove()
     for (i = 0; i < $ids.length; i++) { 
       var values = [];
       for(m = hyb_score; m < 46; m++) {
@@ -251,7 +243,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
       var len = text.slice(pos + 7, pos + 20).replace(/\D/g,'');
       start = 0
       stop = 0
-      makeGraph(values,len, ids[i], bin_size, start, stop)
+      makeGraph(values,len, ids[i], bin_size, 0, 0)
   }
 
 

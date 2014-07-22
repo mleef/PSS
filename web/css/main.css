@@ -1,3 +1,4 @@
+
 	 .back {
 	     line-height: 12px;
 	     font-size: 8pt;
@@ -246,10 +247,16 @@
 	#tablecontainer {
 	  border: 2px;
       border-radius: 25px;
-      width: 50%;
+      width: 70%;
       margin: 0 auto;
       background: #f1f1f1;
       padding-bottom: 10;
+	}
+
+	#subtablecontainer {
+		display: inline-table;
+
+
 	}
 
 	svg {

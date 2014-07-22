@@ -3,7 +3,7 @@ $(document).ready(function(){
 	//sleep(500)
 	//window.scrollReveal = new scrollReveal(config);
 	
-	$("td[colspan=4]").find("table").hide();
+	$("td[colspan=8]").find("table").hide();
 	getQueryDetails()
 
 	var config = {
@@ -69,6 +69,11 @@ $(document).ready(function(){
 
 	$("button.back").on("click", function (event) {
     	window.location = "http://localhost:3000/"
+  	})
+
+  	$("button.filter").on("click", function (event) {
+    	$(".45").toggle();
+    	$(".45").parents(":eq(3)").neighbors()
   	})
 
 

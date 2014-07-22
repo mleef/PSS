@@ -104,7 +104,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
     ProbeSetMap probesets;
     TranscriptClusterMap transcriptclusters;
     ProbeSet ps = ProbeSet("-1");
-    
+    int pc = 0;
     
     // Read in .pgf file, create a mapping of probe set names to populated probe set objects
     while (std::getline(f1, str)){
@@ -151,27 +151,28 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 		if(found == std::string::npos) {
 			curLine = split(str,'\t');
 			// If there is only one probe set in the transcript cluster
-			if(curLine.at(1).length() < 1) {
-				probe_set_id = curLine.at(0);
-				tc_id = curLine.at(2);
+			if(curLine.at(2).length() < 10) {
+				probe_set_id = curLine.at(2);
+				tc_id = curLine.at(1);
+				pc = atoi(curLine.at(3).c_str());
 				ps_iter it = probesets.find(probe_set_id);
 				// If the probe set id already exists in the mapping, set the transcript cluster id
 				if(it != probesets.end()) {
 					it->second.setTCID(tc_id);
-					
+					it->second.setProbeCounts(pc);
 					// TODO: Probe count appears to simply be stored at the end of the line, no need to store this info 
 					// for later calculation
 					
 					// Store probe set in transcript cluster for calculation of probe counts
-					tc_iter iter = transcriptclusters.find(tc_id); 
-					if(iter != transcriptclusters.end()){				
-						iter->second.push_back(it->second);	
-					}
-					else {
-						psList.push_back(it->second);
-						transcriptclusters.insert(TranscriptClusterPair(tc_id, psList));	
-						psList.clear();
-					}
+					// tc_iter iter = transcriptclusters.find(tc_id); 
+// 					if(iter != transcriptclusters.end()){				
+// 						iter->second.push_back(it->second);	
+// 					}
+// 					else {
+// 						psList.push_back(it->second);
+// 						transcriptclusters.insert(TranscriptClusterPair(tc_id, psList));	
+// 						psList.clear();
+// 					}
 				}
 				
 			}
@@ -181,7 +182,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 			else {
 			
 				listPS = split(curLine.at(2),' ');
-				
+				pc = atoi(curLine.at(3).c_str());
 				
 				tc_id = curLine.at(1);
 				for(int i = 0; i < listPS.size(); i++) {
@@ -189,15 +190,16 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 					ps_iter it = probesets.find(probe_set_id);
 					if(it != probesets.end()) {
 						it->second.setTCID(tc_id);
-						tc_iter iter = transcriptclusters.find(tc_id); 
-						if(iter != transcriptclusters.end()){			
-							iter->second.push_back(it->second);	
-						}
-						else {
-							psList.push_back(it->second);
-							transcriptclusters.insert(TranscriptClusterPair(tc_id, psList));	
-							psList.clear();
-						}
+						it->second.setProbeCounts(pc);
+// 						tc_iter iter = transcriptclusters.find(tc_id); 
+// 						if(iter != transcriptclusters.end()){			
+// 							iter->second.push_back(it->second);	
+// 						}
+// 						else {
+// 							psList.push_back(it->second);
+// 							transcriptclusters.insert(TranscriptClusterPair(tc_id, psList));	
+// 							psList.clear();
+// 						}
 					}
 					
 				
@@ -215,20 +217,20 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 	
 	// TODO: this may be unneeded as the probe count info could be in the mps file
 	// Calculate number of probes in each transcript cluster.
-	for(tc_iter iterator = transcriptclusters.begin(); iterator != transcriptclusters.end(); iterator++) {
-		int probes = 0;
-		for(int i = 0; i < iterator->second.size(); i++) {
-			probes += iterator->second.at(i).getProbeCount();
-		}
-		for(int i = 0; i < iterator->second.size(); i++) {
-			ps_iter it = probesets.find(iterator->second.at(i).getPSID());
-			if(it != probesets.end()) {
-				it->second.setProbeCounts(probes);
-			}
-		}
-		
-		probes = 0;
-	}	
+// 	for(tc_iter iterator = transcriptclusters.begin(); iterator != transcriptclusters.end(); iterator++) {
+// 		int probes = 0;
+// 		for(int i = 0; i < iterator->second.size(); i++) {
+// 			probes += iterator->second.at(i).getProbeCount();
+// 		}
+// 		for(int i = 0; i < iterator->second.size(); i++) {
+// 			ps_iter it = probesets.find(iterator->second.at(i).getPSID());
+// 			if(it != probesets.end()) {
+// 				it->second.setProbeCounts(probes);
+// 			}
+// 		}
+// 		
+// 		probes = 0;
+// 	}	
 	
 	
 	return probesets;
@@ -418,6 +420,8 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
     std::cout << "<th>" << header1 << "</th>" << std::endl;
     std::cout << "<th>" << header2 << "</th>" << std::endl;
     std::cout << "<th>Hit Percentage</th>" << std::endl;
+    std::cout << "<th>Add to Novel Probe Set</th>" << std::endl;
+
 	std::cout << "</tr>" << std::endl;
     std::cout << "</thead>" << std::endl;
     
@@ -425,7 +429,6 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
     CheckMap seen;
     check_iter ci;
     int uniqueProbes = 0;
-    
 	// Calculate the hit percentage and store that information in each line obect
 	for(cp_iter iterator = map.begin(); iterator != map.end(); iterator++) {
 		int size = iterator->second.size();
@@ -486,28 +489,29 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 		}
 		checkedProbeSets.insert(CheckPair(remove, true));
 		
+
 		// Output table row
 		// TODO: Create href mappings between designs and pks for proper urls
 		std::string hid;
-		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th></tr>";
+		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id='nc'>Add to Novel Probeset</th></tr>";
 		for(int m = 0; m < pair.second.size(); m++) {
 			if(pair.second.at(m).hyb_score > 37) {
-				probeLines += "<tr id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) +  "</td></tr>";
+				probeLines += "<tr class='" + std::to_string(pair.second.at(m).hyb_score) + "' id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score)+ "</td><td id='nc'><input id='nc' type='checkbox' value='" + pair.second.at(m).probe_id +  "'></td></tr>";
 				probeLocations.push_back(ProbeLookup(pair.second.at(m).probe_id, pair.second.at(m).q_start));
 			}
 		}
 		
 		if(exon) {
 			//tr data-scroll-reveal TODO: animate rows downward instead of just upward
-			std::cout << "<tr><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>" << std::endl;
+			std::cout << "<tr><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input id='nc' type='checkbox' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>" << std::endl;
 		}
 		else {
-			std::cout << "<tr><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td></tr><tr><td id='nopad' colspan='4'><table class='subtable'>" << probeLines << "</table></td></tr>"  << std::endl;		
+			std::cout << "<tr><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input id='nc' type='checkbox' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>"  << std::endl;		
 		}
 		//sortedProbeSets.push_back(pair);
 		maxCount = 0;
 	}
-	
+	std::cout << "<tr id='nc'><td id='nc'>-</td><td id='nc'>ID</td><td id='nc'>N/N</td><td id='nc'>0%</td><td id='nc'>N/A</td></tr><tr id='nc'><td id='nopad' colspan='7'><div id='subtablecontainer'><table class='subtable'><tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id ='nc'>Add to Novel Probe Set</th></tr></table></div></td></tr>"  << std::endl;		
 	std::cout << "</table>" << std::endl;
 	std::cout << "</div>" << std::endl;	
 	std::cout << "<div id ='" << eqid << "' style='display:none'>";

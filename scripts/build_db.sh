@@ -7,7 +7,7 @@ build_fasta="/Users/marc_leef/Desktop/Work/PSS/bin/build_fasta"
 designs='/Users/marc_leef/Desktop/Work/data/Designs'
 databases='/Users/marc_leef/Desktop/Work/data/Databases'
 
-array='HuEx-1_0-st'
+array='HTA-2_0'
 pgf=$array'.pgf'
 mps=$array'.mps'
 pss=$array'.pss'
@@ -20,7 +20,7 @@ echo Building new FASTA...
 # Build new fasta with unique IDs
 $build_fasta $designs/$array/$pgf $designs/$array/$mps > $fpath
 
-echo Building exon level database...
+#echo Building exon level database...
 # Build original exon database from newly made FASTA ##
 $makeblastdb -in $fpath -input_type fasta -dbtype nucl -out $databases/$array
 
