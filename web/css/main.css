@@ -1,13 +1,27 @@
 
-	 .back {
-	     line-height: 12px;
+	 html {
+    	height: 100%;
+		}
+	 #backbutton {
+	     line-height: 16px;
 	     font-size: 8pt;
 	     font-family: tahoma;
 	     margin-top: 3px;
 	     margin-right: 4px;
-	     position:absolute;
-	     top:0;
-	     right:0;
+	     position: relative;
+	     left: 1300px;
+	     top:5px;
+	 }	
+
+	 #downbutton {
+	     line-height: 16px;
+	     font-size: 8pt;
+	     font-family: tahoma;
+	     margin-top: 3px;
+	     margin-right: 4px;
+	     position: relative;
+	     left: 1050px;
+	     top:5px;
 	 }	
 
 
@@ -138,7 +152,7 @@
 		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 		font-size: 12px;
 		margin: 0 auto;
-		width: 85%;
+		width: 90%;
 		border-collapse: collapse;
 	}
 
@@ -188,6 +202,7 @@
 		font-size:11px;
 		color:#333333;
 		border-width: 1px;
+		width: 85%;
 		border-color: #666666;
 
 
@@ -221,27 +236,14 @@
 		color: red;
 	}
 
-	#lefft {
-		clear: left;
-		float: left;
-		width: 40%;
-		margin-left: 5%;
-
-	}
-
-	#rigght {
-		clear: right;
-		float: right;
-		width: 40%;
-		margin-right: 5%;
-
-	}
 
 	#nopad {
 		padding-top: 0px;
 		padding-bottom: 0px;
 		padding-left: 0px;
 		padding-right: 0px;
+		height: 0px;
+		font-size: 0px;
 	}
 
 	#tablecontainer {
@@ -255,8 +257,6 @@
 
 	#subtablecontainer {
 		display: inline-table;
-
-
 	}
 
 	svg {
@@ -274,11 +274,9 @@
       width: 50%;
       margin: 0 auto;
       background: #f1f1f1;
-      padding: 20 20 20 20;
+      padding: 30 30 30 30;
 	}
 
 	#sliderpanel {
 		float: left;
-
-
 	}

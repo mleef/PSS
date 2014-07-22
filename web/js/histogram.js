@@ -85,7 +85,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         .bins(x.ticks(bin_size))
         (values);
 
-    barwidth = width/data.length - 1
+    barwidth = width/data.length - 2
 
 
     var y = d3.scale.linear()

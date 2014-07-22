@@ -4,6 +4,7 @@ $(document).ready(function(){
 	//window.scrollReveal = new scrollReveal(config);
 	
 	$("td[colspan=8]").find("table").hide();
+
 	getQueryDetails()
 
 	var config = {
@@ -71,9 +72,28 @@ $(document).ready(function(){
     	window.location = "http://localhost:3000/"
   	})
 
-  	$("button.filter").on("click", function (event) {
-    	$(".45").toggle();
-    	$(".45").parents(":eq(3)").neighbors()
+  	$("button.download").on("click", function (event) {
+    	var selected = ""
+		$(".checkboxes").each(function() {
+			if($(this).is(':checked')) {
+				if($(this).attr("name") != 'probeset') {
+		    		selected += ($(this).attr('value')) + "\n";
+		    	}
+			}
+		});
+
+		download('novel_probe_set.spf', selected);
+  	})
+
+
+  	$(".checkboxes").on("click", function (event) {
+  		var target = $(event.target)
+  		if(target.attr("name") == 'probeset') {
+  			var nextRow = target.parent().parent().next()
+	 		var boxes = $(nextRow).find(':nth-child(8)').children(".checkboxes")
+
+	 		$(boxes).each(function() {this.checked = !this.checked})
+  		}
   	})
 
 
@@ -89,15 +109,19 @@ function getQueryDetails() {
 			files += file + ","
 		})
 		var seqs = $("caption").length
-		$("#geneinfo").text("Design: " + data["design"])
-		$("#genefiles").text("Files Submitted: " + files.slice(0,-1))
-		$("#geneseqs").text("Total Sequences: " + seqs/2)
-		$("#exoninfo").text("Design: " + data["design"])
-		$("#exonfiles").text("Files Submitted: " + files.slice(0,-1))
-		$("#exonseqs").text("Total Sequences: " + seqs/2)
+		$("#geneinfo").text("Design=" + data["design"] + " " + "Files=" + files.slice(0,-1) + " " + "Sequences=" + seqs/2)
+		$("#exoninfo").text("Design=" + data["design"] + " " + "Files=" + files.slice(0,-1) + " " + "Sequences=" + seqs/2)
+
 
 
 		$("html").toggle()
 
 	});
+}
+
+function download(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+    pom.click();
 }

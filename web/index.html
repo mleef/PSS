@@ -1,5 +1,6 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html><head>
+<!DOCTYPE html>
+<html style="min-width: 1440px; margin: 0 auto;">
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="alternate" type="application/json+oembed" href="https://www.jotform.com/oembed/?format=json&amp;url=http%3A%2F%2Fwww.jotform.com%2Fform%2F41884646115156" title="oEmbed Form"><link rel="alternate" type="text/xml+oembed" href="https://www.jotform.com/oembed/?format=xml&amp;url=http%3A%2F%2Fwww.jotform.com%2Fform%2F41884646115156" title="oEmbed Form">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -72,7 +73,7 @@
     <ul class="form-section">
       <li class="form-line" id="id_9">    
         <div id="cid_9" class="form-input-wide">
-          <img alt="" class="form-image" border="0" src="http://www.jotform.com/uploads/guest_41878110102040/form_files/affymetrix2014.jpg" height="128" width="531" />
+          <img alt="" class="form-image" src="images/affymetrix2014.jpg" height="128" width="531" />
         </div>
       </li>
       <li id="cid_1" class="form-input-wide">
@@ -111,7 +112,7 @@
         </label>
         <div id="cid_10" class="form-input">
 
-          <input style = "margin-left: 90px" class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple" file-accept="" file-maxsize="1048576" file-limit="0" required/>
+          <input style = "margin-left: 90px" class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple" required/>
         </div>
       </li>
       <li class="form-line" id="id_2">
@@ -143,13 +144,9 @@
 
     $("#main").submit(function (event) {
       //cl.show(); // Hidden by default
-      var myVar=setInterval(function(){statusCheck()},500);
+      var myVar=setInterval(function(){statusCheck()},200);
 
       function statusCheck() {
-        if(first) {
-          cl.show()
-          first = false
-        }
 
         $.get("/status", function (data) {
             if(data["percentage"]) {
@@ -157,6 +154,10 @@
             }
             else {
               $("#status").text(data["step"])
+            }
+             if(first) {
+              cl.show()
+              first = false
             }
         })
       }

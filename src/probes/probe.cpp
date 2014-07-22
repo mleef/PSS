@@ -11,7 +11,6 @@ Probe::Probe(std::string pid, std::string s, std::string psid) {
 	seq_ = s;
 	probe_set_id_ = psid;
 	reverse();
-	id_ = "";
 }
 
 
@@ -22,15 +21,11 @@ void Probe::printProbe() {
 
 // Prints contents of the probe to stdout in FASTA format
 void Probe::printFASTA() {
-	if(id_.length() < 1) {
-		std::cout << ">" << probe_set_id_ << "-" << probe_id_ << std::endl;
-		std::cout << seq_ << std::endl;
-	}
-	else {
+	if(id_.length() > 1) {
 		std::cout << ">" << id_ << std::endl;
 		std::cout << seq_ << std::endl;
 	}
-}	
+}
 
 // Sets the enclosing transcript cluster ID of the probe. Additionally sets the number of 
 // probes in the enclosing probe set.
