@@ -353,14 +353,24 @@ void FileProcessor::processBLASTTabs(const char * b, ProbeScoreMap probes, bool 
 		}
     }
     
+    
+//  for(ProbeSetLine::iterator iterator = map.begin(); iterator != map.end(); iterator++) {
+//     	std::cout << iterator->first << ": " << iterator->second.size() << std::endl;
+//     	for(int i = 0; i < iterator->second.size(); i++) {
+//     		std::cout << iterator->second.at(i).probe_id << std::endl;
+//     	}
+// 	}
+//     
     // Output last query list to HTML format
-    if(exon) {
+   if(exon) {
     	outputHTML(curQuery, map, true, id, probes);
     }
     else {
     	outputHTML(curQuery, tc_map, false, id, probes);
     }
-    
+//     
+
+	
 		
 }
 
@@ -462,12 +472,14 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
  
  	// Print the map in order of hit count
     int maxCount = 0;
+    bool drawRow = false;
     std::string remove;
     CheckMap checkedProbeSets;
     check_iter checker;
     std::vector<LinePair> sortedProbeSets;
     LinePair pair;
     
+    // Draw rows and subrows
     for(int i = 0; i < map.size(); i++) {
     	for(cp_iter iterator = map.begin(); iterator != map.end(); iterator++) {
     		if(iterator->second.at(0).probe_hits > maxCount && checkedProbeSets.find(iterator->first) == checkedProbeSets.end()) {
@@ -475,42 +487,46 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
     			maxCount = iterator->second.at(0).probe_hits;
     			pair.first = iterator->first;
     			pair.second = iterator->second;
+    			drawRow = true;
     		}
 		}
 		
-		
-		// Color code table cell based on hit percentage
-		std::string color = "";
-		if(pair.second.at(0).percent > 80.00) {
-			color = " id='good'";
-		}
-		else if(pair.second.at(0).percent < 20.00) {
-			color = " id='bad'";
-		}
-		checkedProbeSets.insert(CheckPair(remove, true));
+		if(drawRow) {
+			// Color code table cell based on hit percentage
+			std::string color = "";
+			if(pair.second.at(0).percent > 80.00) {
+				color = " id='good'";
+			}
+			else if(pair.second.at(0).percent < 20.00) {
+				color = " id='bad'";
+			}
+			checkedProbeSets.insert(CheckPair(remove, true));
 		
 
-		// Output table row
-		// TODO: Create href mappings between designs and pks for proper urls
-		std::string hid;
-		std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id='nc'>Add to Novel Probeset</th></tr>";
-		for(int m = 0; m < pair.second.size(); m++) {
-			if(pair.second.at(m).hyb_score > 37) {
-				probeLines += "<tr class='" + std::to_string(pair.second.at(m).hyb_score) + "' id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score)+ "</td><td id='nc'><input class='checkboxes' id='nc' type='checkbox' name='probe' value='" + pair.second.at(m).probe_id +  "'></td></tr>";
-				probeLocations.push_back(ProbeLookup(pair.second.at(m).probe_id, pair.second.at(m).q_start));
+			// Output table row
+			// TODO: Create href mappings between designs and pks for proper urls
+			std::string hid;
+			std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id='nc'>Add to Novel Probeset</th></tr>";
+			for(int m = 0; m < pair.second.size(); m++) {
+				if(pair.second.at(m).hyb_score > 37) {
+					probeLines += "<tr class='" + std::to_string(pair.second.at(m).hyb_score) + "' id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score)+ "</td><td id='nc'><input class='checkboxes' id='nc' type='checkbox' name='probe' value='" + pair.second.at(m).probe_id +  "'></td></tr>";
+					probeLocations.push_back(ProbeLookup(pair.second.at(m).probe_id, pair.second.at(m).q_start));
+				}
 			}
-		}
 		
-		if(exon) {
-			//tr data-scroll-reveal TODO: animate rows downward instead of just upward
-			std::cout << "<tr><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>" << std::endl;
+			if(exon) {
+				//tr data-scroll-reveal TODO: animate rows downward instead of just upward
+				std::cout << "<tr><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>" << std::endl;
+			}
+			else {
+				std::cout << "<tr><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>"  << std::endl;		
+			}
+			//sortedProbeSets.push_back(pair);
+			maxCount = 0;
+			drawRow = false;
 		}
-		else {
-			std::cout << "<tr><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>"  << std::endl;		
-		}
-		//sortedProbeSets.push_back(pair);
-		maxCount = 0;
 	}
+	
 	std::cout << "<tr style='visibility: hidden' id='nc'><td id='nc'>-</td><td id='nc'>ID</td><td id='nc'>N/N</td><td id='nc'>0%</td><td id='nc'>N/A</td></tr><tr id='nc'><td style='visibility: hidden' id='nopad' colspan='7'><div id='subtablecontainer'><table class='subtable'><tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id ='nc'>Add to Novel Probe Set</th></tr></table></div></tr>"  << std::endl;		
 	std::cout << "</table>" << std::endl;
 	std::cout << "</div>" << std::endl;	

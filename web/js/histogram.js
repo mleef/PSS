@@ -112,7 +112,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
 
     var svg = d3.select("#tab4").append("svg")
         .attr("width", width + margin.left + margin.right + 30)
-        .attr("height", height + margin.top + margin.bottom + 20)
+        .attr("height", height + margin.top + margin.bottom + 30)
       .append("g")
         .attr("transform", "translate(" + (margin.left+30) + "," + margin.top + ")");
     svgVar = svg;
@@ -153,7 +153,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom + 15) + ")")
         .style("text-anchor", "middle")
         .style("font-size", "20px") 
-        .text("Sequence Position");
+        .text("Position");
 
    svg.append("text")
         .attr("transform", "rotate(-90)")

@@ -13,16 +13,27 @@
 	     top:5px;
 	 }	
 
-	 #downbutton {
+	 #downnpsbutton {
 	     line-height: 16px;
 	     font-size: 8pt;
 	     font-family: tahoma;
 	     margin-top: 3px;
 	     margin-right: 4px;
 	     position: relative;
-	     left: 1050px;
+	     left: 956px;
 	     top:5px;
-	 }	
+	 }
+
+	 #downresbutton {
+	     line-height: 16px;
+	     font-size: 8pt;
+	     font-family: tahoma;
+	     margin-top: 3px;
+	     margin-right: 4px;
+	     position: relative;
+	     left: 950px;
+	     top:5px;
+	 }		
 
 
 	.area {

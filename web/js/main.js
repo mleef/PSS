@@ -72,17 +72,88 @@ $(document).ready(function(){
     	window.location = "http://localhost:3000/"
   	})
 
-  	$("button.download").on("click", function (event) {
-    	var selected = ""
+  	$("button.downnps").on("click", function (event) {
+    	var result = "#spf-format=1\n"
+    	var selected = []
 		$(".checkboxes").each(function() {
 			if($(this).is(':checked')) {
 				if($(this).attr("name") != 'probeset') {
-		    		selected += ($(this).attr('value')) + "\n";
+		    		selected.push($(this).attr('value'))
 		    	}
 			}
 		});
 
-		download('novel_probe_set.spf', selected);
+		var uniqueSelected = selected.filter(function(elem, pos) {
+    		return selected.indexOf(elem) == pos;
+		})
+
+		uniqueSelected.forEach( function (element) {
+			result += element + "\n"
+		})
+
+		download('novel_probe_set.spf', result);
+  	})
+
+
+  	$("button.downres").on("click", function (event) {
+  		var result = ""
+  		var count = 0
+  		var upperBound = 0
+  		var miniCount = 0;
+  		var numProbes = 0
+  		$("td").each(function() {
+			//console.log("************")
+  			//console.log($(this).text())
+			//result += "Count: " + count + "UpperBound: " + upperBound + "MiniCount: " + miniCount + "NumProbes: " + numProbes + "\n"
+			if(count < 5) {
+				if(count == 2) {
+					numProbes = parseInt($(this).text().slice(0, $(this).text().indexOf("/")))
+					upperBound = count + numProbes + 4
+				}
+				result += $(this).text() + "\t"
+				count += 1
+			}
+			else if(count == 5) {
+				count += 1
+				result += "\n"
+			}
+
+			else if(count > 4 && count < upperBound) {
+				result += "\t" + $(this).text() + "\t"
+				miniCount += 1
+				if(miniCount == 8) {
+					result += "\n"
+					miniCount = 0
+					count += 1
+				}
+			}
+
+			else if(count == upperBound) {
+				count = 0
+				miniCount = 0
+				numProbes = 0
+				upperBound = 0
+				result += "\n"
+				result += $(this).text() + "\t"
+				count += 1
+
+			}
+  			//console.log("************")
+
+/*	    	$(this).find(".subtable td").each(function () {
+	    		result += $(this).text() + "\t"
+	    		count += 1
+	    		if(count == 8) {
+	    			result += "\n"
+	    			count = 0
+	    		}
+	    	})
+	    	count = 0
+	    	result += "\n"*/
+	    })
+
+  		//console.log(result)
+	   download('results.tsv', result);
   	})
 
 
