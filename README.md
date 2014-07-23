@@ -12,13 +12,13 @@ Probe Set Search is a web app for analyzing Affymetrix chip design specific cove
 Features
 --------
 
-1. **Probe Set Coverage**
+1. **Probe Set Coverage:**
 	Identify design specific probe sets with the best coverage of the given sequence 
-2. **High to Low Level Results**
+2. **High to Low Level Results:**
 	View both exon and gene level probe coverage 
-3. **Create Your Own Novel Probe Sets**
+3. **Create Your Own Novel Probe Sets:**
 	Create custom probe sets out of highest quality probes and download them in .spf format 
-4. **View Probe Coverage Using Customizable Histograms**
+4. **View Probe Coverage Using Customizable Histograms:**
 	Filter probes visually by setting cross hybridization score thresholds 
 
 Screenshots
@@ -40,15 +40,16 @@ Screenshots
 Dependencies
 ------------
 1. Node.js
-..* Connect
-..* Express
-..* Fileupload
-..* Formidable
-..* Fs-extra
-..* Jquery
-..* Mime
-..* Sleep
+	* Connect
+	* Express
+	* Fileupload
+	* Formidable
+	* Fs-extra
+	* Jquery
+	* Mime
+	* Sleep
 2. BLAST
+3. Python
 
 
 Contact
