@@ -96,12 +96,13 @@ $(document).ready(function(){
 
 
   	$("button.downres").on("click", function (event) {
-  		var result = ""
+  		var result = "#%header1=probeset_id\thits/hits in probeset\thit percentage\n#%header2=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
+  		var result2 = "#%header1=transcriptcluster_id\thits/hits in transcriptcluster\thit percentage\n#%header2=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
   		var count = 0
   		var upperBound = 0
   		var miniCount = 0;
   		var numProbes = 0
-  		$("td").each(function() {
+  		$("#tab1 td").each(function() {
 			//console.log("************")
   			//console.log($(this).text())
 			//result += "Count: " + count + "UpperBound: " + upperBound + "MiniCount: " + miniCount + "NumProbes: " + numProbes + "\n"
@@ -110,7 +111,9 @@ $(document).ready(function(){
 					numProbes = parseInt($(this).text().slice(0, $(this).text().indexOf("/")))
 					upperBound = count + numProbes + 4
 				}
-				result += $(this).text() + "\t"
+				if($(this).text() != "+" && $(this).text() != "-") {
+					result += $(this).text() + "\t"
+				}
 				count += 1
 			}
 			else if(count == 5) {
@@ -134,26 +137,66 @@ $(document).ready(function(){
 				numProbes = 0
 				upperBound = 0
 				result += "\n"
-				result += $(this).text() + "\t"
+				if($(this).text() != "+" && $(this).text() != "-") {
+					result += $(this).text() + "\t"
+				}
 				count += 1
 
 			}
-  			//console.log("************")
-
-/*	    	$(this).find(".subtable td").each(function () {
-	    		result += $(this).text() + "\t"
-	    		count += 1
-	    		if(count == 8) {
-	    			result += "\n"
-	    			count = 0
-	    		}
-	    	})
-	    	count = 0
-	    	result += "\n"*/
 	    })
 
-  		//console.log(result)
-	   download('results.tsv', result);
+		count = 0
+		miniCount = 0
+		numProbes = 0
+		upperBound = 0
+
+  		$("#tab2 td").each(function() {
+			//console.log("************")
+  			//console.log($(this).text())
+			//result2 += "Count: " + count + "UpperBound: " + upperBound + "MiniCount: " + miniCount + "NumProbes: " + numProbes + "\n"
+			if(count < 5) {
+				if(count == 2) {
+					numProbes = parseInt($(this).text().slice(0, $(this).text().indexOf("/")))
+					upperBound = count + numProbes + 4
+				}
+				if($(this).text() != "+" && $(this).text() != "-") {
+					result2 += $(this).text() + "\t"
+				}
+				count += 1
+			}
+			else if(count == 5) {
+				count += 1
+				result2 += "\n"
+			}
+
+			else if(count > 4 && count < upperBound) {
+				result2 += "\t" + $(this).text() + "\t"
+				miniCount += 1
+				if(miniCount == 8) {
+					result2 += "\n"
+					miniCount = 0
+					count += 1
+				}
+			}
+
+			else if(count == upperBound) {
+				count = 0
+				miniCount = 0
+				numProbes = 0
+				upperBound = 0
+				result2 += "\n"
+				if($(this).text() != "+" && $(this).text() != "-") {
+					result2 += $(this).text() + "\t"
+				}
+				count += 1
+
+			}
+	    })
+	
+	   result = result.slice(0,result.indexOf("ID\tN/N"))
+	   result2 = result2.slice(0,result2.indexOf("ID\tN/N"))
+	   download('gene_level_results.tsv', result);
+	   download('exon_level_results.tsv', result2);
   	})
 
 
