@@ -9,7 +9,7 @@ Probe Set Search allows users to:
 4. Filter probes visually by setting cross hybridization score thresholds 
 
 
-![alt text](https://github.com/mleef/PSS/tree/master/web/images/i.png "Search Page")
-![alt text](https://github.com/mleef/PSS/tree/master/web/images/gv.png "Gene Level View")
-![alt text](https://github.com/mleef/PSS/tree/master/web/images/nps.png "Add to custom probe set")
-![alt text](https://github.com/mleef/PSS/tree/master/web/images/cv.png "Histogram Coverage Viewer")
+![alt text](https://raw.github.com/mleef/PSS/tree/master/web/images/i.png "Search Page")
+![alt text](https://raw.github.com/mleef/PSS/tree/master/web/images/gv.png "Gene Level View")
+![alt text](https://raw.github.com/mleef/PSS/tree/master/web/images/nps.png "Add to custom probe set")
+![alt text](https://raw.github.com/mleef/PSS/tree/master/web/images/cv.png "Histogram Coverage Viewer")
