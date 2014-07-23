@@ -50,6 +50,7 @@ Dependencies
 	* Sleep
 2. BLAST
 3. Python
+4. g++
 
 
 Contact
