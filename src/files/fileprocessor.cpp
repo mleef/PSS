@@ -411,11 +411,11 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 	
 	if(exon) {
 		header1 = "Probe Set ID";
-		header2 = "Probe Hits/Probes in Probe Set";
+		header2 = "Unique Probe Hits/Probes in Probe Set";
 	}
 	else {
 		header1 = "Transcript Cluster ID";
-		header2 = "Probe Hits/Probes in Transcript Cluster";
+		header2 = "Unique Probe Hits/Probes in Transcript Cluster";
 	}
 	
 	

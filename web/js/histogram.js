@@ -6,13 +6,14 @@
   var show_bin;
   var $ids = []
   var ids = []
+
+  //Gather list of table names to draw data from
   $("#tab1 #titles").each(function() { $ids.push($(this).text()) });
   $("#tab1 caption").each(function() { ids.push($(this).text()) });
   $("#s1").slider()
   $("#s2").slider()
 
-  //console.log(queryIDs)
-
+  //Iterate through data identifers and generate data sets from each one using initial parametrs, then draw the histogram
   for (i = 0; i < $ids.length; i++) { 
     var values = [];
      for(m = hyb_score; m < 46; m++) {
@@ -26,7 +27,7 @@
   }
 
 
-
+//Graph drawing function, values is the data set, length is the x upper bound, query_name is the sequence the data is derived from, bin_size and start1/stop1 are graphical options
 function makeGraph(values, length, query_name, bin_size, start1, stop1) {
    /* console.log("Domain: " + start1 + "," + stop1)
     console.log(values)
@@ -36,10 +37,12 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
 */
     var formatCount = d3.format(",.0f");
 
+    //set margins
     var margin = {top: 40, right: 30, bottom: 40, left: 40},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
+    //Round off length to nearest 1000000,100000, etc..
     if(length > 100000) {
       length = Math.round(length/100000)*100000
     }
@@ -56,6 +59,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
 
     var st, stp = 0
 
+    //Figure out largest domain of all data to set as starting window
     if(start1 == 0 && stop1 == 0) {
       st = 0
       stp = length
@@ -73,6 +77,7 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
       start = st
     }
 
+    //Update text boxes
     $(".start").val(st)
     $(".stop").val(stp)
 
@@ -80,11 +85,12 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         .domain([st, stp])
         .range([0, width]);
 
-    // Generate a histogram using twenty uniformly-spaced bins.
+    // Generate a histogram using uniformly-spaced bins.
     var data = d3.layout.histogram()
         .bins(x.ticks(bin_size))
         (values);
 
+    //Calculate width of rectangles for bar representation
     barwidth = width/data.length - 2
 
 
@@ -108,8 +114,10 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
           return "<strong>Frequency:</strong> <span style='color:red'>" + d.y + " probes (" + d.x + " - " + (d.x+d.dx) + ")</span>";
       })
 
+    //Update bin size text box
     $("#l2").text("Bin Size: " + show_bin)
 
+    //Main graph object
     var svg = d3.select("#tab4").append("svg")
         .attr("width", width + margin.left + margin.right + 30)
         .attr("height", height + margin.top + margin.bottom + 30)
@@ -127,20 +135,24 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         .on('mouseout', tip.hide)
         .on('click', function(d){ redraw(d.x, d.x + d.dx);});
 
+    //Create bars
     bar.append("rect")
         .attr("x", 1)
         .attr("width", barwidth)
         .attr("height", function(d) {return height - y(d.y); });
 
+    //Create x axis
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
+    //Create y axis
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
 
+    //Label graph title
     svg.append("text")
         .attr("x", (width / 2))             
         .attr("y", 0 - (margin.top / 2))
@@ -149,12 +161,14 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
         .style("text-decoration", "underline")  
         .text(query_name + " Probe Distribution");
 
+    //Label graph x axis
     svg.append("text")      // text label for the x axis
         .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom + 15) + ")")
         .style("text-anchor", "middle")
         .style("font-size", "20px") 
         .text("Position");
 
+   //Label graph y axis
    svg.append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 0 - margin.left - 15)

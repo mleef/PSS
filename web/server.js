@@ -157,12 +157,13 @@ app.post("/upload",
     	});
 });
 
-
+//Route for status updates
 app.get("/status",
 	function (req, res) {
 		res.json(status)
 });
 
+//Route for sending details about the user search to the client
 app.get("/details",
 	function (req, res) {
 		res.json({"files" : fileNames, "design" : chosenDesign})

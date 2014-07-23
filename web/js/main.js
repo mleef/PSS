@@ -1,12 +1,17 @@
 
+var design = ""
+
 $(document).ready(function(){
 	//sleep(500)
 	//window.scrollReveal = new scrollReveal(config);
-	
+
+	//Hide subtables 
 	$("td[colspan=8]").find("table").hide();
 
+	//Populate header with details from server
 	getQueryDetails()
 
+	//Config object for scroll reveal, optional
 	var config = {
 	  enter: 'top',
 	  move: '50px',
@@ -17,6 +22,7 @@ $(document).ready(function(){
 	  init: true
 	};
 	
+	//Tab view controller function
 	$("#tabs li").click(function() {
 	    //  First remove class "active" from currently active tab
 	    $("#tabs li").removeClass('active');
@@ -37,6 +43,7 @@ $(document).ready(function(){
 	    return false;
 	});
 
+	//Helper function to link href probe ids to appropriate BLAST tab and the appropriate spot on the page
 	$(".subtable a").click(function() {
 		$("#tabs li").removeClass('active');
 		$("#tab3").addClass("active");
@@ -48,7 +55,7 @@ $(document).ready(function(){
 	})
 
 
-	 
+	//Helper function for showing/hiding subtables upon clicking rows
 	$(".maintable").click(function(event) {
 	    event.stopPropagation();
 	    var $target = $(event.target);
@@ -68,10 +75,12 @@ $(document).ready(function(){
 	    }                   
 	});
 
+	//Back button listener to search again
 	$("button.back").on("click", function (event) {
     	window.location = "http://localhost:3000/"
   	})
 
+	//Download novel probe set listener, aggregates all checked probes and generates a .spf file
   	$("button.downnps").on("click", function (event) {
     	var result = "#spf-format=1\n"
     	var selected = []
@@ -95,111 +104,144 @@ $(document).ready(function(){
   	})
 
 
+  	//Download results listener, generates a .tsv representation of the tables
   	$("button.downres").on("click", function (event) {
-  		var result = "#%header1=probeset_id\thits/hits in probeset\thit percentage\n#%header2=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
-  		var result2 = "#%header1=transcriptcluster_id\thits/hits in transcriptcluster\thit percentage\n#%header2=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
+  		var result = "#%chip_type=" + design + "\n#%header1=sequence name\n#%header2=\tprobeset_id\tunique hits/hits in probeset\thit percentage\n#%header3=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
+  		var result2 = "#%chip_type=" + design + "\n#%header1=sequence name\n#%header2=\ttranscriptcluster_id\tunique hits/hits in transcriptcluster\thit percentage\n#%header3=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
   		var count = 0
   		var upperBound = 0
   		var miniCount = 0;
   		var numProbes = 0
-  		$("#tab1 td").each(function() {
-			//console.log("************")
-  			//console.log($(this).text())
-			//result += "Count: " + count + "UpperBound: " + upperBound + "MiniCount: " + miniCount + "NumProbes: " + numProbes + "\n"
-			if(count < 5) {
-				if(count == 2) {
-					numProbes = parseInt($(this).text().slice(0, $(this).text().indexOf("/")))
-					upperBound = count + numProbes + 4
-				}
-				if($(this).text() != "+" && $(this).text() != "-") {
-					result += $(this).text() + "\t"
-				}
-				count += 1
-			}
-			else if(count == 5) {
-				count += 1
-				result += "\n"
-			}
 
-			else if(count > 4 && count < upperBound) {
-				result += "\t" + $(this).text() + "\t"
-				miniCount += 1
-				if(miniCount == 8) {
-					result += "\n"
-					miniCount = 0
+  		$("#tab1 .maintable").each(function () {
+  			var caption  = $(this).find("caption").text()
+  			var first = true
+  			//result += "***************\n"
+	  		$(this).find("td").each(function() {
+	  			if(first) {
+	  				result += caption + "\n"
+					result += "\t"
+					first = false
+	  			}
+
+				if(count < 5) {
+					if(count == 2) {
+						upperBound = $(this).parent().next().find("tr").length + 5
+					}
+					if($(this).text() != "+" && $(this).text() != "-") {
+						result += $(this).text() + "\t"
+					}//
 					count += 1
 				}
-			}
-
-			else if(count == upperBound) {
-				count = 0
-				miniCount = 0
-				numProbes = 0
-				upperBound = 0
-				result += "\n"
-				if($(this).text() != "+" && $(this).text() != "-") {
-					result += $(this).text() + "\t"
+				else if(count == 5) {
+					count += 1
+					result += "\n"
+					result += "\t"
 				}
-				count += 1
 
-			}
-	    })
+				else if(count > 4 && count < upperBound) {
+					result += "\t" + $(this).text() + "\t"
+					miniCount += 1
+					if(miniCount == 8) {
+						result += "\n"
+						result += "\t"
+						miniCount = 0
+						count += 1
+					}
+				}
+
+				else if(count == upperBound) {
+					count = 0
+					miniCount = 0
+					numProbes = 0
+					upperBound = 0
+					result += "\n"
+					first = true
+					count += 1
+
+				}
+		    })
+
+			count = 0
+			miniCount = 0
+			numProbes = 0
+			upperBound = 0
+			result = result.slice(0, result.length - 30)
+
+		})
 
 		count = 0
 		miniCount = 0
 		numProbes = 0
 		upperBound = 0
 
-  		$("#tab2 td").each(function() {
-			//console.log("************")
-  			//console.log($(this).text())
-			//result2 += "Count: " + count + "UpperBound: " + upperBound + "MiniCount: " + miniCount + "NumProbes: " + numProbes + "\n"
-			if(count < 5) {
-				if(count == 2) {
-					numProbes = parseInt($(this).text().slice(0, $(this).text().indexOf("/")))
-					upperBound = count + numProbes + 4
-				}
-				if($(this).text() != "+" && $(this).text() != "-") {
-					result2 += $(this).text() + "\t"
-				}
-				count += 1
-			}
-			else if(count == 5) {
-				count += 1
-				result2 += "\n"
-			}
+		$("#tab2 .maintable").each(function() {
+			var caption  = $(this).find("caption").text()
+			//result2 += "***************\n"
+			var first = true
+	  		$(this).find("td").each(function() {
 
-			else if(count > 4 && count < upperBound) {
-				result2 += "\t" + $(this).text() + "\t"
-				miniCount += 1
-				if(miniCount == 8) {
-					result2 += "\n"
-					miniCount = 0
+	  			if(first) {
+	  				result2 += caption + "\n"
+					result2 += "\t"
+					first = false
+	  			}
+
+				if(count < 5) {
+					if(count == 2) {
+						upperBound = $(this).parent().next().find("tr").length + 5
+					}
+					if($(this).text() != "+" && $(this).text() != "-") {
+						result2 += $(this).text() + "\t"
+					}
 					count += 1
 				}
-			}
-
-			else if(count == upperBound) {
-				count = 0
-				miniCount = 0
-				numProbes = 0
-				upperBound = 0
-				result2 += "\n"
-				if($(this).text() != "+" && $(this).text() != "-") {
-					result2 += $(this).text() + "\t"
+				else if(count == 5) {
+					count += 1
+					result2 += "\n"
+					result2 += "\t"
 				}
-				count += 1
 
-			}
-	    })
+				else if(count > 4 && count < upperBound) {
+					result2 += "\t" + $(this).text() + "\t"
+					miniCount += 1
+					if(miniCount == 8) {
+						result2 += "\n"
+						result2 += "\t"
+						miniCount = 0
+						count += 1
+					}
+				}
+
+				else if(count == upperBound) {
+					count = 0
+					miniCount = 0
+					numProbes = 0
+					upperBound = 0
+					result2 += "\n"
+					first = true
+					count += 1
+
+				}
+		    })
+
+			count = 0
+			miniCount = 0
+			numProbes = 0
+			upperBound = 0
+			result2 = result2.slice(0, result2.length - 30)
+
+		})
 	
-	   result = result.slice(0,result.indexOf("ID\tN/N"))
-	   result2 = result2.slice(0,result2.indexOf("ID\tN/N"))
+	   //result = result.slice(0,result.indexOf("ID\tN/N"))
+	   //result2 = result2.slice(0,result2.indexOf("ID\tN/N"))
 	   download('gene_level_results.tsv', result);
 	   download('exon_level_results.tsv', result2);
   	})
 
 
+
+	//Listens for checkboxes and propogates selection to subtable
   	$(".checkboxes").on("click", function (event) {
   		var target = $(event.target)
   		if(target.attr("name") == 'probeset') {
@@ -215,6 +257,7 @@ $(document).ready(function(){
 });
 
 
+//Helper function for querying server for information about user's search parameters
 function getQueryDetails() {
 
 	$.get("/details", function (data) {
@@ -223,6 +266,7 @@ function getQueryDetails() {
 			files += file + ","
 		})
 		var seqs = $("caption").length
+		design = data["design"]
 		$("#geneinfo").text("Design=" + data["design"] + " " + "Files=" + files.slice(0,-1) + " " + "Sequences=" + seqs/2)
 		$("#exoninfo").text("Design=" + data["design"] + " " + "Files=" + files.slice(0,-1) + " " + "Sequences=" + seqs/2)
 
@@ -233,6 +277,8 @@ function getQueryDetails() {
 	});
 }
 
+
+//Helper function to create a file for the user to download out of a javascript string
 function download(filename, text) {
     var pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
