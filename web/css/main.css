@@ -1,6 +1,7 @@
 
 	 html {
     	height: 100%;
+    			font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 		}
 	 #backbutton {
 	     line-height: 16px;
@@ -10,7 +11,7 @@
 	     margin-right: 4px;
 	     position: relative;
 	     left: 1300px;
-	     top:5px;
+	     top:20px;
 	 }	
 
 	 #downnpsbutton {
@@ -21,7 +22,7 @@
 	     margin-right: 4px;
 	     position: relative;
 	     left: 956px;
-	     top:5px;
+	     top:20px;
 	 }
 
 	 #downresbutton {
@@ -32,7 +33,7 @@
 	     margin-right: 4px;
 	     position: relative;
 	     left: 950px;
-	     top:5px;
+	     top:20px;
 	 }		
 
 
