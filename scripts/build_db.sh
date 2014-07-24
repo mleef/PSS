@@ -13,14 +13,13 @@ mps=$array'.mps'
 pss=$array'.pss'
 fasta=$array'.fa'
 
-ppath=$queries/$pss
 fpath=$designs/$array/$fasta
 
 echo Building new FASTA...
 # Build new fasta with unique IDs
 $build_fasta $designs/$array/$pgf $designs/$array/$mps > $fpath
 
-#echo Building exon level database...
+echo Building exon level database...
 # Build original exon database from newly made FASTA ##
 $makeblastdb -in $fpath -input_type fasta -dbtype nucl -out $databases/$array
 

@@ -50,6 +50,7 @@ var databaseSelector = function (num) {
 		case 1:
 			chosenDesign = 'HuEx-1_0-st'
 			cur_db = probe_db + 'HuEx-1_0-st'
+			break
 		case 4:
 			chosenDesign = 'HuGene-1_0-st'
 			cur_db = probe_db + 'HuGene-1_0-st'
@@ -58,6 +59,11 @@ var databaseSelector = function (num) {
 		case 712:
 			chosenDesign = 'HuGene-2_0-st'
 			cur_db = probe_db + 'HuGene-2_0-st'
+			break
+			
+		case 725:
+			chosenDesign = 'HTA-2_0'
+			cur_db = probe_db + 'HTA-2_0'
 			break
 	}
 

@@ -153,26 +153,26 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 			// If there is only one probe set in the transcript cluster
 			if(curLine.at(2).length() < 10) {
 				probe_set_id = curLine.at(2);
-				tc_id = curLine.at(1);
-				pc = atoi(curLine.at(3).c_str());
+				tc_id = curLine.at(0);
+				//pc = atoi(curLine.at(3).c_str());
 				ps_iter it = probesets.find(probe_set_id);
 				// If the probe set id already exists in the mapping, set the transcript cluster id
 				if(it != probesets.end()) {
 					it->second.setTCID(tc_id);
-					it->second.setProbeCounts(pc);
+					//it->second.setProbeCounts(pc);
 					// TODO: Probe count appears to simply be stored at the end of the line, no need to store this info 
 					// for later calculation
 					
 					// Store probe set in transcript cluster for calculation of probe counts
-					// tc_iter iter = transcriptclusters.find(tc_id); 
-// 					if(iter != transcriptclusters.end()){				
-// 						iter->second.push_back(it->second);	
-// 					}
-// 					else {
-// 						psList.push_back(it->second);
-// 						transcriptclusters.insert(TranscriptClusterPair(tc_id, psList));	
-// 						psList.clear();
-// 					}
+					tc_iter iter = transcriptclusters.find(tc_id); 
+					if(iter != transcriptclusters.end()){				
+						iter->second.push_back(it->second);	
+					}
+					else {
+						psList.push_back(it->second);
+						transcriptclusters.insert(TranscriptClusterPair(tc_id, psList));	
+						psList.clear();
+					}
 				}
 				
 			}
@@ -182,24 +182,24 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 			else {
 			
 				listPS = split(curLine.at(2),' ');
-				pc = atoi(curLine.at(3).c_str());
+				//pc = atoi(curLine.at(3).c_str());
 				
-				tc_id = curLine.at(1);
+				tc_id = curLine.at(0);
 				for(int i = 0; i < listPS.size(); i++) {
 					probe_set_id = listPS.at(i);				
 					ps_iter it = probesets.find(probe_set_id);
 					if(it != probesets.end()) {
 						it->second.setTCID(tc_id);
-						it->second.setProbeCounts(pc);
-// 						tc_iter iter = transcriptclusters.find(tc_id); 
-// 						if(iter != transcriptclusters.end()){			
-// 							iter->second.push_back(it->second);	
-// 						}
-// 						else {
-// 							psList.push_back(it->second);
-// 							transcriptclusters.insert(TranscriptClusterPair(tc_id, psList));	
-// 							psList.clear();
-// 						}
+						//it->second.setProbeCounts(pc);
+						tc_iter iter = transcriptclusters.find(tc_id); 
+						if(iter != transcriptclusters.end()){			
+							iter->second.push_back(it->second);	
+						}
+						else {
+							psList.push_back(it->second);
+							transcriptclusters.insert(TranscriptClusterPair(tc_id, psList));	
+							psList.clear();
+						}
 					}
 					
 				
@@ -215,22 +215,21 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 	
 	}
 	
-	// TODO: this may be unneeded as the probe count info could be in the mps file
 	// Calculate number of probes in each transcript cluster.
-// 	for(tc_iter iterator = transcriptclusters.begin(); iterator != transcriptclusters.end(); iterator++) {
-// 		int probes = 0;
-// 		for(int i = 0; i < iterator->second.size(); i++) {
-// 			probes += iterator->second.at(i).getProbeCount();
-// 		}
-// 		for(int i = 0; i < iterator->second.size(); i++) {
-// 			ps_iter it = probesets.find(iterator->second.at(i).getPSID());
-// 			if(it != probesets.end()) {
-// 				it->second.setProbeCounts(probes);
-// 			}
-// 		}
-// 		
-// 		probes = 0;
-// 	}	
+	for(tc_iter iterator = transcriptclusters.begin(); iterator != transcriptclusters.end(); iterator++) {
+		int probes = 0;
+		for(int i = 0; i < iterator->second.size(); i++) {
+			probes += iterator->second.at(i).getProbeCount();
+		}
+		for(int i = 0; i < iterator->second.size(); i++) {
+			ps_iter it = probesets.find(iterator->second.at(i).getPSID());
+			if(it != probesets.end()) {
+				it->second.setProbeCounts(probes);
+			}
+		}
+		
+ 		probes = 0;
+ 	}	
 	
 	
 	return probesets;
@@ -397,6 +396,11 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 	else if(pkint == 4 || pkint == 712) {
 		psExtension = "exon/wtgene_probe_set.affx?pk=";
 		tcExtension = "exon/wtgene_transcript.affx?pk=";
+	}
+	
+	else if(pkint == 725) {
+		psExtension = "exon/hta_probe_set.affx?pk=";
+		tcExtension = "exon/hta_transcript.affx?pk=";
 	}
 
 	
