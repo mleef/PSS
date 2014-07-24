@@ -7,12 +7,14 @@
 ProbeSet::ProbeSet() {
 	probe_set_id_ = ""; 
 	probe_count_ = 0;
+	name_ = "";
 }
 
 // Overloaded constructor, takes in probe set ID
 ProbeSet::ProbeSet(std::string id) {
 	probe_set_id_ = id; 
 	probe_count_ = 0;
+	name_ = "";
 }
 
 // Inserts new probe into probe map
@@ -44,7 +46,7 @@ void ProbeSet::printProbeSet() {
 // Used to output probe set contents in FASTA format
 void ProbeSet::printFASTA() {
 	for(it_type iterator = probes.begin(); iterator != probes.end(); iterator++) {
-    	iterator->second.printFASTA();
+    	iterator->second.printFASTA(name_);
 	}
 	
 }

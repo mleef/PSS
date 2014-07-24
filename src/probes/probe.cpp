@@ -20,10 +20,16 @@ void Probe::printProbe() {
 }
 
 // Prints contents of the probe to stdout in FASTA format
-void Probe::printFASTA() {
+void Probe::printFASTA(std::string name) {
 	if(id_.length() > 1) {
-		std::cout << ">" << id_ << std::endl;
-		std::cout << seq_ << std::endl;
+		if(name.length() > 1) {
+			std::cout << ">" << id_ << "-" << name << std::endl;
+			std::cout << seq_ << std::endl;
+		}
+		else {
+			std::cout << ">" << id_ << std::endl;
+			std::cout << seq_ << std::endl;
+		}
 	}
 }
 

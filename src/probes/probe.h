@@ -36,7 +36,7 @@ class Probe
 		void setTCID(std::string tc_id, int count);
 		void setProbeCounts(int counts);
 		void printProbe();
-		void printFASTA();
+		void printFASTA(std::string name);
 		void reverse();
 
 

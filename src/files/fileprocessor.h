@@ -27,6 +27,7 @@ struct bLine {
 	std::string query_id;
 	std::string tc_id;
 	std::string probe_set_id;
+	std::string probe_set_name;
 	std::string probe_id;
 	std::string perc_identity;
 	std::string length;

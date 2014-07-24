@@ -123,6 +123,9 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 					}
 					probe_set_id = curLine.at(0);
 					ps.setPSID(probe_set_id);
+					if(curLine.at(2).length() > 0) {
+						ps.setName(curLine.at(2));
+					}
 					
 				}
 
@@ -298,6 +301,9 @@ void FileProcessor::processBLASTTabs(const char * b, ProbeScoreMap probes, bool 
 			line.probes_in_tc = atoi(ids.at(3).c_str());
 			probe_set_id = ids.at(1);
 			line.probe_id = ids.at(2);
+			if(ids.size() == 6) {
+				line.probe_set_name = ids.at(5);
+			}
 			
 			// Get score and href link from calculated alignment map
 			pscore_iter it = probes.find(line.probe_id);
@@ -517,10 +523,22 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 					probeLocations.push_back(ProbeLookup(pair.second.at(m).probe_id, pair.second.at(m).q_start));
 				}
 			}
+			
+			
+
 		
 			if(exon) {
 				//tr data-scroll-reveal TODO: animate rows downward instead of just upward
-				std::cout << "<tr><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>" << std::endl;
+				//Check for probe set name for href link
+				std::string link = "";
+				if(pair.second.at(0).probe_set_name.length() > 1) {
+					link = pair.second.at(0).probe_set_name;
+				}
+			
+				else {
+					link = pair.first;
+				}
+				std::cout << "<tr><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << link << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>" << std::endl;
 			}
 			else {
 				std::cout << "<tr><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>"  << std::endl;		

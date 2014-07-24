@@ -283,5 +283,10 @@ function download(filename, text) {
     var pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     pom.setAttribute('download', filename);
+
+    //required for ff, ie
+    document.body.appendChild(pom);
+    pom.target="_self" ;
+    
     pom.click();
 }
