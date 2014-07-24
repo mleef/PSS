@@ -114,7 +114,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 		if(found == std::string::npos) {
 			
 			curLine = split(str,'\t');
-			// If the list of probes for the given probe set has ended, store built up probe set, use new one, and move on
+			// If the list of probes for the given probe set has ended, store built up probe set, create new one, and move on
 			if(curLine.size() < 8) {
 				if(curLine.at(0).length() > 0) {
 					if(ps.getPSID() != "-1") {
@@ -519,7 +519,7 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 			std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id='nc'>Add to Novel Probeset</th></tr>";
 			for(int m = 0; m < pair.second.size(); m++) {
 				if(pair.second.at(m).hyb_score > 37) {
-					probeLines += "<tr class='" + std::to_string(pair.second.at(m).hyb_score) + "' id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score)+ "</td><td id='nc'><input class='checkboxes' id='nc' type='checkbox' name='probe' value='" + pair.second.at(m).probe_id +  "'></td></tr>";
+					probeLines += "<tr class='" + std::to_string(pair.second.at(m).hyb_score) + "' id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) + "</td><td id='nc'><input class='checkboxes " + pair.second.at(m).probe_set_id + "' id='nc' type='checkbox' name='probe' value='" + pair.second.at(m).probe_id +  "'></td></tr>";
 					probeLocations.push_back(ProbeLookup(pair.second.at(m).probe_id, pair.second.at(m).q_start));
 				}
 			}
@@ -570,7 +570,7 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 
 
 
-
+//Reads in BLAST output in XML format to process alignment strings for hybridization scores
 ProbeScoreMap FileProcessor::processBLASTAlignments(const char * b) {
 	std::ifstream f1(b);
 	std::string str;
@@ -688,6 +688,7 @@ ProbeScoreMap FileProcessor::processBLASTAlignments(const char * b) {
 }
 
 
+//Iterates through alignment string looking for mismatch locations and scoring them accordingly
 int FileProcessor::calculateHybScore(int start, std::string midline) {
 	int score = 0;
 	int pos = start;
@@ -702,6 +703,8 @@ int FileProcessor::calculateHybScore(int start, std::string midline) {
 	return score;
 }
 
+
+//Helper function to return proper score based on hit location within probe
 int FileProcessor::hybHit(int pos) {
 
 

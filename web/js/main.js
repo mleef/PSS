@@ -82,25 +82,39 @@ $(document).ready(function(){
 
 	//Download novel probe set listener, aggregates all checked probes and generates a .spf file
   	$("button.downnps").on("click", function (event) {
+  		var probesets = {}
     	var result = "#spf-format=1\n"
     	var selected = []
 		$(".checkboxes").each(function() {
 			if($(this).is(':checked')) {
 				if($(this).attr("name") != 'probeset') {
-		    		selected.push($(this).attr('value'))
+					var ps = $(this).attr('class').split(' ')[1]
+					var p = $(this).attr('value')
+					if(!probesets[ps]) {
+						probesets[ps] = [p]
+					}
+
+					else {
+						probesets[ps].push(p)
+					}
 		    	}
 			}
 		});
 
-		var uniqueSelected = selected.filter(function(elem, pos) {
-    		return selected.indexOf(elem) == pos;
-		})
+  		for (var key in probesets) {
+    		var list = probesets[key];
+    		result += key + "\t"
+    		list.forEach( function (element) {
+    			result += element + ","
+    		})
+    		result = result.substring(0, result.length - 1)
+    		result += "\n"
+    	}
 
-		uniqueSelected.forEach( function (element) {
-			result += element + "\n"
-		})
-
+		//console.log(probesets)
 		download('novel_probe_set.spf', result);
+
+
   	})
 
 
@@ -287,6 +301,6 @@ function download(filename, text) {
     //required for ff, ie
     document.body.appendChild(pom);
     pom.target="_self" ;
-    
+
     pom.click();
 }
