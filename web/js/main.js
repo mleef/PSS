@@ -1,5 +1,6 @@
 
 var design = ""
+var curTab = "tab1"
 
 $(document).ready(function(){
 	//sleep(500)
@@ -10,6 +11,9 @@ $(document).ready(function(){
 
 	//Populate header with details from server
 	getQueryDetails()
+
+	//Populate summary page
+	summarize()
 
 	//Config object for scroll reveal, optional
 	var config = {
@@ -36,6 +40,25 @@ $(document).ready(function(){
 	    //  Here we get the href value of the selected tab
 	    var selected_tab = $(this).find("a").attr("href");
 
+	    curTab = $(selected_tab).attr("id")
+	    if(curTab == "tab2") {
+	    	$("#downnpsbutton").prop("disabled", false)
+	    	$("#downresbutton").prop("disabled", false)
+	    	$("#downnpsbutton").text("Download Exon Level Novel Probe Grouping")
+	    	$("#downresbutton").text("Download Exon Level Results")
+	    }
+
+	    else if(curTab == "tab1") {
+	    	$("#downnpsbutton").prop("disabled", false)
+	    	$("#downresbutton").prop("disabled", false)
+	    	$("#downnpsbutton").text("Download Gene Level Novel Probe Grouping")
+	    	$("#downresbutton").text("Download Gene Level Results")
+
+	    }
+	    else {
+	    	$("#downnpsbutton").prop("disabled", true)
+	    	$("#downresbutton").prop("disabled", true)
+	    }
 	    //  Show the selected tab content
 	    $(selected_tab).fadeIn("slow");
 
@@ -84,8 +107,17 @@ $(document).ready(function(){
   	$("button.downnps").on("click", function (event) {
   		var probesets = {}
     	var result = "#spf-format=1\n"
+
+    	if(curTab == "tab1") {
+    		result += "#%chip_type=" + design + "\n#%level=gene\n"
+    	}
+
+    	else {
+    		result += "#%chip_type=" + design + "\n#%level=exon\n"
+    	}
+
     	var selected = []
-		$(".checkboxes").each(function() {
+		$("#" + curTab + " .checkboxes").each(function() {
 			if($(this).is(':checked')) {
 				if($(this).attr("name") != 'probeset') {
 					var ps = $(this).attr('class').split(' ')[1]
@@ -111,8 +143,13 @@ $(document).ready(function(){
     		result += "\n"
     	}
 
-		//console.log(probesets)
-		download('novel_probe_set.spf', result);
+		if(curTab == "tab1") {
+			download('novel_probe_grouping_exon_level.spf', result);
+		}
+		else {
+			download('novel_probe_grouping_gene_level.spf', result);
+		}
+		
 
 
   	})
@@ -120,21 +157,27 @@ $(document).ready(function(){
 
   	//Download results listener, generates a .tsv representation of the tables
   	$("button.downres").on("click", function (event) {
-  		var result = "#%chip_type=" + design + "\n#%level=gene\n#%header1=sequence name\n#%header2=\tprobeset_id\tunique hits/hits in probeset\thit percentage\n#%header3=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
-  		var result2 = "#%chip_type=" + design + "\n##%level=exon\n%header1=sequence name\n#%header2=\ttranscriptcluster_id\tunique hits/hits in transcriptcluster\thit percentage\n#%header3=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
+  		var result
   		var count = 0
   		var upperBound = 0
   		var miniCount = 0;
   		var numProbes = 0
 
-  		$("#tab1 .maintable").each(function () {
+  		if(curTab == "tab1") {
+  			result = "#%chip_type=" + design + "\n#%level=gene\n#%header1=sequence name\n#%header2=\tprobeset_id\tunique hits/hits in probeset\thit percentage\n#%header3=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
+  		}
+
+  		else {
+  			result = "#%chip_type=" + design + "\n#%level=exon\n#%header1=sequence name\n#%header2=\ttranscriptcluster_id\tunique hits/hits in transcriptcluster\thit percentage\n#%header3=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
+  		}
+
+  		$("#" + curTab + " .maintable").each(function () {
   			var caption  = $(this).find("caption").text()
   			var first = true
-  			//result += "***************\n"
 	  		$(this).find("td").each(function() {
 	  			if(first) {
 	  				result += caption + "\n"
-					result += "\t"
+					result += "\t"		
 					first = false
 	  			}
 
@@ -184,73 +227,12 @@ $(document).ready(function(){
 
 		})
 
-		count = 0
-		miniCount = 0
-		numProbes = 0
-		upperBound = 0
-
-		$("#tab2 .maintable").each(function() {
-			var caption  = $(this).find("caption").text()
-			//result2 += "***************\n"
-			var first = true
-	  		$(this).find("td").each(function() {
-
-	  			if(first) {
-	  				result2 += caption + "\n"
-					result2 += "\t"
-					first = false
-	  			}
-
-				if(count < 5) {
-					if(count == 2) {
-						upperBound = $(this).parent().next().find("tr").length + 5
-					}
-					if($(this).text() != "+" && $(this).text() != "-") {
-						result2 += $(this).text() + "\t"
-					}
-					count += 1
-				}
-				else if(count == 5) {
-					count += 1
-					result2 += "\n"
-					result2 += "\t"
-				}
-
-				else if(count > 4 && count < upperBound) {
-					result2 += "\t" + $(this).text() + "\t"
-					miniCount += 1
-					if(miniCount == 8) {
-						result2 += "\n"
-						result2 += "\t"
-						miniCount = 0
-						count += 1
-					}
-				}
-
-				else if(count == upperBound) {
-					count = 0
-					miniCount = 0
-					numProbes = 0
-					upperBound = 0
-					result2 += "\n"
-					first = true
-					count += 1
-
-				}
-		    })
-
-			count = 0
-			miniCount = 0
-			numProbes = 0
-			upperBound = 0
-			result2 = result2.slice(0, result2.length - 30)
-
-		})
-	
-	   //result = result.slice(0,result.indexOf("ID\tN/N"))
-	   //result2 = result2.slice(0,result2.indexOf("ID\tN/N"))
-	   download('gene_level_results.tsv', result);
-	   download('exon_level_results.tsv', result2);
+		if(curTab == "tab1") {
+			download('gene_level_results.tsv', result);
+		}
+		else {
+			download('exon_level_results.tsv', result);
+		}
   	})
 
 
@@ -289,6 +271,15 @@ function getQueryDetails() {
 		$("html").toggle()
 
 	});
+}
+
+
+function summarize() {
+	$("#tab1 .maintable").each( function () {
+		
+
+	})
+
 }
 
 

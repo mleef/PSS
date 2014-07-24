@@ -9,7 +9,7 @@
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src='js/scrollReveal.js'></script>
 <script> $("html").toggle() </script>
-<title>Search Results</title>
+<title>Search Results | PSS</title>
 <link rel="shortcut icon" href="http://www.google.com/s2/favicons?domain=www.affymetrix.com">
 
 </head>
@@ -17,8 +17,8 @@
 	<h1 style="margin: 0 auto">Probe Set Search</h1>
 </div>
 <button id="backbutton" class="back">Search Again</button>
-<button id="downnpsbutton" class="downnps">Download Novel Probe Set</button>
-<button id="downresbutton" class="downres">Download Results</button>
+<button id="downnpsbutton" class="downnps">Download Gene Level Novel Probe Grouping</button>
+<button id="downresbutton" class="downres">Download Gene Level Results</button>
 
 <div id="tabs_container">
     <ul id="tabs">
@@ -26,7 +26,8 @@
         <li><a href="#tab2">Exon Level</a></li>
         <li><a href="#tab3">BLAST</a></li>
         <li><a href="#tab4">Coverage Viewer</a></li>
-        <li><a href="#tab5">Additional Information</a></li>
+        <li><a href="#tab5">Summary</a></li>
+        <li><a href="#tab6">Additional Information</a></li>
     </ul>
 </div>
 
@@ -85,8 +86,11 @@
 
     </div>
 
-
     <div id="tab5" class="tab_content">
+    	<h1>Summary</h1>
+    </div>
+
+    <div id="tab6" class="tab_content">
     	<ul>
     		<li><a href="https://github.com/mleef/PSS" target="_blank">Project Developement Page</a></li>
     		<li><a href="mailto:Marc_Leef@affymetrix.com?Subject=PSS%20Inquiry" target="_blank">Contact the Developer</a></li>

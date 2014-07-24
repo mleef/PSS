@@ -440,7 +440,7 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
     std::cout << "<th>" << header1 << "</th>" << std::endl;
     std::cout << "<th>" << header2 << "</th>" << std::endl;
     std::cout << "<th>Hit Percentage</th>" << std::endl;
-    std::cout << "<th>Add to Novel Probe Set</th>" << std::endl;
+    std::cout << "<th>Add to Novel Probe Grouping</th>" << std::endl;
 
 	std::cout << "</tr>" << std::endl;
     std::cout << "</thead>" << std::endl;
@@ -515,11 +515,17 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 
 			// Output table row
 			// TODO: Create href mappings between designs and pks for proper urls
-			std::string hid;
-			std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id='nc'>Add to Novel Probeset</th></tr>";
+			std::string cbid;
+			std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id='nc'>Add to Novel Probe Grouping</th></tr>";
 			for(int m = 0; m < pair.second.size(); m++) {
 				if(pair.second.at(m).hyb_score > 37) {
-					probeLines += "<tr class='" + std::to_string(pair.second.at(m).hyb_score) + "' id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) + "</td><td id='nc'><input class='checkboxes " + pair.second.at(m).probe_set_id + "' id='nc' type='checkbox' name='probe' value='" + pair.second.at(m).probe_id +  "'></td></tr>";
+					if(exon) {
+						cbid = pair.second.at(m).probe_set_id;
+					}
+					else {
+						cbid = pair.second.at(m).tc_id;
+					}
+					probeLines += "<tr class='" + std::to_string(pair.second.at(m).hyb_score) + "' id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) + "</td><td id='nc'><input class='checkboxes " + cbid + "' id='nc' type='checkbox' name='probe' value='" + pair.second.at(m).probe_id +  "'></td></tr>";
 					probeLocations.push_back(ProbeLookup(pair.second.at(m).probe_id, pair.second.at(m).q_start));
 				}
 			}
