@@ -13,7 +13,7 @@ $(document).ready(function(){
 	getQueryDetails()
 
 	//Populate summary page
-	summarize()
+	//summarize()
 
 	//Config object for scroll reveal, optional
 	var config = {
@@ -133,9 +133,18 @@ $(document).ready(function(){
 			}
 		});
 
+		var numPS = 0
+		for(var key in probesets) {
+			numPS += 1
+		}
+
+		result += "#%num-probesets=" + numPS + "\n"
+		result += "name\ttype\tnum_blocks\tblock_sizes\tblock_annotations\tnum_match\tnum_probes\tprobes\n"
+
   		for (var key in probesets) {
     		var list = probesets[key];
-    		result += key + "\t"
+    		pcount = list.length 
+    		result += key + "\t1\t1\t" + pcount + "\t0\t1\t" + pcount + "\t"
     		list.forEach( function (element) {
     			result += element + ","
     		})
@@ -276,7 +285,7 @@ function getQueryDetails() {
 
 function summarize() {
 	$("#tab1 .maintable").each( function () {
-		
+
 
 	})
 

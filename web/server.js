@@ -104,8 +104,8 @@ var exonBlast = function(file_name, file1, html1, res) {
 
 // Create our Express-powered HTTP server // and have it listen on port 3000
 app = express(); http.createServer(app).listen(3000);
-
-app.use(express.static(__dirname));
+var oneYear = 31557600000;
+app.use(express.static(__dirname, { maxAge: oneYear }));
 
 // set up our routes
 app.post("/upload", 
