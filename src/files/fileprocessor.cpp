@@ -486,8 +486,20 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
     std::string remove;
     CheckMap checkedProbeSets;
     check_iter checker;
-    std::vector<LinePair> sortedProbeSets;
     LinePair pair;
+    
+    //Statistics for sequence summary
+    bool topRanked = true;
+    std::string topRankedID;
+    int numPS = 0;
+    int numP = 0;
+    std::string type;
+    if(exon) {
+    	type = "exon";
+    }
+    else {
+    	type = "gene";
+    }
     
     // Draw rows and subrows
     for(int i = 0; i < map.size(); i++) {
@@ -502,6 +514,7 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 		}
 		
 		if(drawRow) {
+			numPS++;
 			// Color code table cell based on hit percentage
 			std::string color = "";
 			if(pair.second.at(0).percent > 80.00) {
@@ -527,6 +540,7 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 					}
 					probeLines += "<tr class='" + std::to_string(pair.second.at(m).hyb_score) + "' id='nc'><td id='nc'><a id='nc' title='alignment' style='display:block' href='#" + pair.second.at(m).href + "'>" + pair.second.at(m).probe_id + "</a></td><td id='nc'>" + pair.second.at(m).perc_identity + "</td><td id='nc'>" + pair.second.at(m).q_start + "</td><td id='nc'>" + pair.second.at(m).q_end + "</td><td id='nc'>" + pair.second.at(m).evalue + "</td><td id='nc'>" + pair.second.at(m).score + "</td><td id='nc'>" + std::to_string(pair.second.at(m).hyb_score) + "</td><td id='nc'><input class='checkboxes " + cbid + "' id='nc' type='checkbox' name='probe' value='" + pair.second.at(m).probe_id +  "'></td></tr>";
 					probeLocations.push_back(ProbeLookup(pair.second.at(m).probe_id, pair.second.at(m).q_start));
+					numP++;
 				}
 			}
 			
@@ -549,16 +563,23 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 			else {
 				std::cout << "<tr><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>"  << std::endl;		
 			}
-			//sortedProbeSets.push_back(pair);
 			maxCount = 0;
+			if(topRanked) {
+					topRankedID = pair.first;
+    				topRanked = false;
+    		}
 			drawRow = false;
 		}
 	}
 	
+	
+	// Add invisible bottom row to table to correct moving rows/columns
 	std::cout << "<tr style='visibility: hidden' id='nc'><td id='nc'>-</td><td id='nc'>ID</td><td id='nc'>N/N</td><td id='nc'>0%</td><td id='nc'>N/A</td></tr><tr id='nc'><td style='visibility: hidden' id='nopad' colspan='7'><div id='subtablecontainer'><table class='subtable'><tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id ='nc'>Add to Novel Probe Set</th></tr></table></div></tr>"  << std::endl;		
 	std::cout << "</table>" << std::endl;
 	std::cout << "</div>" << std::endl;	
 	std::cout << "<div id ='" << eqid << "' style='display:none'>";
+	
+	// Embed probe location data in dom for histogram calculation
 	for(int i = 0; i < probeLocations.size(); i++) {
 		std::string score;
 		//std::cout << "<div id='all'>" << probeLocations.at(i).second << "</div>";
@@ -570,6 +591,19 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 	
 	}
 	std::cout << "</div>" << std::endl;
+	
+	// Embed summary data in DOM for summary page calculation
+	std::cout << "<div title = '" << query_id << "' id = 'summary' style='display:none'>" << std::endl;
+	std::cout << "<div id = 'type'>" << type << "</div>" << std::endl;
+	std::cout << "<div id = 'top'>" << topRankedID << "</div>" << std::endl;
+	std::cout << "<div id = 'numps'>" << numPS << "</div>" << std::endl;
+	std::cout << "<div id = 'nump'>" << numP << "</div>" << std::endl;
+	std::cout << "</div>" << std::endl;
+
+
+
+	
+	
 	std::cout << "<hr>" << std::endl;
 }
 	

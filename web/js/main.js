@@ -13,7 +13,7 @@ $(document).ready(function(){
 	getQueryDetails()
 
 	//Populate summary page
-	//summarize()
+	summarize()
 
 	//Config object for scroll reveal, optional
 	var config = {
@@ -284,9 +284,35 @@ function getQueryDetails() {
 
 
 function summarize() {
-	$("#tab1 .maintable").each( function () {
+	var summary = {"id" : "", "topg" : "", "tope" : "", "nump" : "", "numps" : "", "numtc" : ""}
+	var count = 0;
+	$("#tab1 #summary").each( function () {
 
+		var id = "sum" + count
+		summary.id = $(this).attr("title")
+		summary.topg = $(this).find("#top").text()
+		summary.nump = $(this).find("#nump").text()
+		summary.numtc = $(this).find("#numps").text()
 
+		$("#tab2 #summary").each( function() {
+			if($(this).attr("title") == summary.id) {
+				summary.tope = $(this).find("#top").text()
+				summary.numps = $(this).find("#numps").text()
+			}
+		})
+
+		$("#tab5").append("<div id='" + id + "' </div>")
+		$("#tab5 #" + id).append("<h3>Sequence: " + summary.id + "</h3>")
+		$("#tab5 #" + id).append("<p>Top Transcript Cluster: <span id ='good'>" + summary.topg + "</span</p>")
+		$("#tab5 #" + id).append("<p>Top Probe Set: <span id ='good'>" + summary.tope + "</span></p>")
+		$("#tab5 #" + id).append("<p>Total Transcript Clusters Registering Hits: <span id ='good'>" + summary.numtc + "</span></p>")
+		$("#tab5 #" + id).append("<p>Total Probe Sets Registering Hits: <span id ='good'>" + summary.numps + "</span></p>")
+		$("#tab5 #" + id).append("<p>Total Probe Hits: <span id ='good'>"  + summary.nump + "</span></p>")
+		$("#tab5").append("<hr>")
+
+		count += 1;
+		console.log(summary)
+		summary = {"id" : "", "topg" : "", "tope" : "", "nump" : "", "numps" : "", "numtc" : ""}
 	})
 
 }
