@@ -1,6 +1,7 @@
 
 var design = ""
 var curTab = "tab1"
+var genePrevVal = 38
 
 $(document).ready(function(){
 	//sleep(500)
@@ -257,6 +258,58 @@ $(document).ready(function(){
   		}
   	})
 
+  	$("#generange").on('change', function (event) {
+  		var val = this.value
+  		$("#nopad tr").each(function () {
+  			var parentRow = $(this).parents().eq(4).prev()
+  			var firstNum, secondNum, secondHalf, newPerc, ratio
+  			if(parseInt($(this).attr("class")) < val) {
+				$(this).hide()
+				ratio = $(parentRow).find("td").eq(2).text()
+				firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
+				secondHalf = ratio.substring(ratio.indexOf("/"))
+				secondNum= ratio.substring(ratio.indexOf("/") + 1)
+				firstNum -= 1
+				$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+				
+  		
+  			}
+  			else {
+  				if(parseInt($(this).attr("class")) < genePrevVal) {
+  					$(this).show()
+					ratio = $(parentRow).find("td").eq(2).text()
+	  				firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
+	  				secondHalf = ratio.substring(ratio.indexOf("/"))
+	  				firstNum += 1
+	  				$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+
+  				}
+  			}
+
+  			firstNum = 0
+  			secondNum = 0
+  			ratio = 0
+  			secondHalf = 0
+  			newPerc = 0
+  		})
+
+  		genePrevVal = val
+  		//console.log("gene val: " + this.value)
+  	})
+
+  	$("#exonrange").on('change', function (event) {
+  		var val = this.value
+  		$("#nopad tr").each(function () {
+  			if(parseInt($(this).attr("class")) < val) {
+  				$(this).hide()
+  			}
+  			else {
+  				$(this).show()
+  			}
+  		})
+  		//console.log("exon val: " + this.value)
+  	})
+
 
 
 });
@@ -303,15 +356,14 @@ function summarize() {
 
 		$("#tab5").append("<div id='" + id + "' </div>")
 		$("#tab5 #" + id).append("<h3>Sequence: " + summary.id + "</h3>")
-		$("#tab5 #" + id).append("<p>Top Transcript Cluster: <span id ='good'>" + summary.topg + "</span</p>")
-		$("#tab5 #" + id).append("<p>Top Probe Set: <span id ='good'>" + summary.tope + "</span></p>")
+		$("#tab5 #" + id).append("<p>Top Transcript Cluster ID: <span id ='good'>" + summary.topg + "</span</p>")
+		$("#tab5 #" + id).append("<p>Top Probe Set ID: <span id ='good'>" + summary.tope + "</span></p>")
 		$("#tab5 #" + id).append("<p>Total Transcript Clusters Registering Hits: <span id ='good'>" + summary.numtc + "</span></p>")
 		$("#tab5 #" + id).append("<p>Total Probe Sets Registering Hits: <span id ='good'>" + summary.numps + "</span></p>")
 		$("#tab5 #" + id).append("<p>Total Probe Hits: <span id ='good'>"  + summary.nump + "</span></p>")
 		$("#tab5").append("<hr>")
 
 		count += 1;
-		console.log(summary)
 		summary = {"id" : "", "topg" : "", "tope" : "", "nump" : "", "numps" : "", "numtc" : ""}
 	})
 
