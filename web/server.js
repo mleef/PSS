@@ -21,8 +21,11 @@ var scripts= '/Users/marc_leef/Desktop/Work/PSS/scripts/'
 var queries = '/Users/marc_leef/Desktop/Work/data/Queries/'
 var web ='/Users/marc_leef/Desktop/Work/PSS/web/'
 
+
 var fileNames =[]
 var chosenDesign = ""
+
+var processing = false
 
 // Selected design database
 cur_db = ""
@@ -77,15 +80,18 @@ var exonBlast = function(file_name, file1, html1, res) {
 			console.log(stdout)
 			console.log(error)
 			console.log(stderr)
+			console.log("3")
 			status = {"step" : "(3/4) Analyzing results..."}
 			//sleep.sleep(2)
 			exec(scripts + 'format_blast.sh ' + file1 + ' ' + html1 + ' ' + queries + file_name + '.tsv' + ' ' + design, function (error, stdout, stderr) {
 				console.log(stdout)
 				console.log(error)
 				console.log(stderr)
+				console.log("4")
 				status = {"step" : "(4/4) Formatting output..."}
 				//sleep.sleep(1)
 				exec('python ' + scripts + 'join_blasts.py ' + html1 + ' ' + web + 'temp.html > ' + web + 'output.html' , function (error, stdout, stderr) {
+					console.log("5")
 					console.log(stdout)
 					console.log(error)
 					console.log(stderr)
@@ -96,6 +102,8 @@ var exonBlast = function(file_name, file1, html1, res) {
 		    		res.end(html)
 		    		cleanup([queries + file_name + '.tsv', save + file_name, file1, html1, html1 + '.exon', html1 + '.gene', "output.html"])
 		    		cur_db = blast
+		    		processing = false
+		    		fileNames =[]
 					})
 				})
 			})
@@ -110,57 +118,59 @@ app.use(express.static(__dirname, { maxAge: oneYear }));
 // set up our routes
 app.post("/upload", 
 	function (req, res) { 
-		var timestamp = Date.now() || +new Date()
-		var form = new formidable.IncomingForm();
-		
-	    form.parse(req, function(err, fields, files) {
-	    	databaseSelector(fields.q8_chipDesign)
-	    	res.writeHead(200, {'content-type': 'text/html'});
-	    });
-	 	
-	    form.on('progress', function(bytesReceived, bytesExpected) {
-	        var percent_complete = (bytesReceived / bytesExpected) * 100;
-	  		status = {"step" : "(1/4) Receiving Files", "percentage" : percent_complete} 
-	    });
-	 
-	    form.on('error', function(err) {
-	        console.error(err);
-	    });
-	    
-	 
-	    form.on('end', function(fields, files) {
-	        /* New location of our uploaded file */
-	        var outfile = "temp" + timestamp
-	        var outpath = save + outfile
-
-	        /* Concatenate uploaded files then remove them */
-	        this.openedFiles.forEach( function (element) {
-	        	fileNames.push(element.name)
-	        	exec("cat " + element.path + " >> " + outpath, function (error, stdout, stderr) {
-		        	cleanup([element.path])
+		if(!processing) {
+			var timestamp = Date.now() || +new Date()
+			var form = new formidable.IncomingForm();
+			
+		    form.parse(req, function(err, fields, files) {
+		    	databaseSelector(fields.q8_chipDesign)
+		    	res.writeHead(200, {'content-type': 'text/html'});
+		    });
+		 	
+		    form.on('progress', function(bytesReceived, bytesExpected) {
+		        var percent_complete = (bytesReceived / bytesExpected) * 100;
+		  		status = {"step" : "(1/4) Receiving Files", "percentage" : percent_complete} 
+		    });
+		 
+		    form.on('error', function(err) {
+		        console.error(err);
+		    });
+		    
+		 
+		    form.on('end', function(fields, files) {
+		        /* New location of our uploaded file */
+		        var outfile = "temp" + timestamp
+		        var outpath = save + outfile
+		        console.log("1")
+		        /* Concatenate uploaded files then remove them */
+		        this.openedFiles.forEach( function (element) {
+		        	fileNames.push(element.name)
+		        	exec("cat " + element.path + " >> " + outpath, function (error, stdout, stderr) {
+			        	cleanup([element.path])
+			        })
 		        })
-	        })
 
-	        sleep.sleep(1)
-	        //console.log('python ' + scripts + 'line_breaks.py ' + outpath + ' > results' + timestamp)
-	        exec('python ' + scripts + 'line_breaks.py ' + outpath + ' > ' + save + 'results' + timestamp, function (error, stdout, stderr) {
+		        sleep.sleep(1)
+		        //console.log('python ' + scripts + 'line_breaks.py ' + outpath + ' > results' + timestamp)
+		        exec('python ' + scripts + 'line_breaks.py ' + outpath + ' > ' + save + 'results' + timestamp, function (error, stdout, stderr) {
+		        	console.log("2")
+		        	cleanup([outpath])
 
-	        	cleanup([outpath])
+			        outfile = "results" + timestamp
+			        outpath = save + outfile
+			    	
 
-		        outfile = "results" + timestamp
-		        outpath = save + outfile
-		    	
+			    	file1 =  results + outfile + '_exon_level_results'
+							
+					html1 = file1 + '.html'
 
-		    	file1 =  results + outfile + '_exon_level_results'
-						
-				html1 = file1 + '.html'
+					/* Analyze uploaded files */
+					exonBlast(outfile, file1, html1, res)
+					processing = true
+				})
+			});
 
-				/* Analyze uploaded files */
-				exonBlast(outfile, file1, html1, res)
-			})
-
-
-    	});
+		}
 });
 
 //Route for status updates

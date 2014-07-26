@@ -2,6 +2,7 @@
 var design = ""
 var curTab = "tab1"
 var genePrevVal = 38
+var exonPrevVal = 38
 
 $(document).ready(function(){
 	//sleep(500)
@@ -78,7 +79,6 @@ $(document).ready(function(){
 		return false;
 	})
 
-
 	//Helper function for showing/hiding subtables upon clicking rows
 	$(".maintable").click(function(event) {
 	    event.stopPropagation();
@@ -119,7 +119,7 @@ $(document).ready(function(){
 
     	var selected = []
 		$("#" + curTab + " .checkboxes").each(function() {
-			if($(this).is(':checked')) {
+			if($(this).is(':checked') && $(this).parent().parent().css("display") != "none" ) {
 				if($(this).attr("name") != 'probeset') {
 					var ps = $(this).attr('class').split(' ')[1]
 					var p = $(this).attr('value')
@@ -159,11 +159,7 @@ $(document).ready(function(){
 		else {
 			download('novel_probe_grouping_gene_level.spf', result);
 		}
-		
-
-
   	})
-
 
   	//Download results listener, generates a .tsv representation of the tables
   	$("button.downres").on("click", function (event) {
@@ -245,8 +241,6 @@ $(document).ready(function(){
 		}
   	})
 
-
-
 	//Listens for checkboxes and propogates selection to subtable
   	$(".checkboxes").on("click", function (event) {
   		var target = $(event.target)
@@ -258,19 +252,34 @@ $(document).ready(function(){
   		}
   	})
 
+  	//Listens for slider on gene level, changes table values based on slider input
   	$("#generange").on('change', function (event) {
   		var val = this.value
-  		$("#nopad tr").each(function () {
+  		$("#tab1 #nopad tr").each(function () {
   			var parentRow = $(this).parents().eq(4).prev()
   			var firstNum, secondNum, secondHalf, newPerc, ratio
   			if(parseInt($(this).attr("class")) < val) {
-				$(this).hide()
-				ratio = $(parentRow).find("td").eq(2).text()
-				firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
-				secondHalf = ratio.substring(ratio.indexOf("/"))
-				secondNum= ratio.substring(ratio.indexOf("/") + 1)
-				firstNum -= 1
-				$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+  				if(parseInt($(this).attr("class")) >= genePrevVal) {
+					$(this).hide()
+					ratio = $(parentRow).find("td").eq(2).text()
+					firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
+					secondHalf = ratio.substring(ratio.indexOf("/"))
+					secondNum = ratio.substring(ratio.indexOf("/") + 1)
+					firstNum -= 1
+					$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+					newPerc = (firstNum/secondNum).toFixed(4) * 100
+					if(newPerc > 80) {
+						$(parentRow).find("td").eq(3).attr("id", "good")
+					}
+					else if(newPerc < 20) {
+						$(parentRow).find("td").eq(3).attr("id", "bad")
+					}
+					else {
+						$(parentRow).find("td").eq(3).removeAttr("id")
+
+					}
+					$(parentRow).find("td").eq(3).text(newPerc + "%")
+				}
 				
   		
   			}
@@ -280,8 +289,22 @@ $(document).ready(function(){
 					ratio = $(parentRow).find("td").eq(2).text()
 	  				firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
 	  				secondHalf = ratio.substring(ratio.indexOf("/"))
+	  				secondNum = ratio.substring(ratio.indexOf("/") + 1)
 	  				firstNum += 1
 	  				$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+					newPerc = (firstNum/secondNum).toFixed(4) * 100
+					if(newPerc > 80) {
+						$(parentRow).find("td").eq(3).attr("id", "good")
+					}
+					else if(newPerc < 20) {
+						$(parentRow).find("td").eq(3).attr("id", "bad")
+					}
+					else {
+						$(parentRow).find("td").eq(3).removeAttr("id")
+
+					}
+
+					$(parentRow).find("td").eq(3).text(newPerc + "%")
 
   				}
   			}
@@ -294,25 +317,79 @@ $(document).ready(function(){
   		})
 
   		genePrevVal = val
-  		//console.log("gene val: " + this.value)
+  		sortRows()
   	})
 
+  	//Listens for slider on exon level, changes table values based on slider input
   	$("#exonrange").on('change', function (event) {
   		var val = this.value
-  		$("#nopad tr").each(function () {
+  		$("#tab2 #nopad tr").each(function () {
+  			var parentRow = $(this).parents().eq(4).prev()
+  			var firstNum, secondNum, secondHalf, newPerc, ratio
   			if(parseInt($(this).attr("class")) < val) {
-  				$(this).hide()
+  				if(parseInt($(this).attr("class")) >= exonPrevVal) {
+					$(this).hide()
+					ratio = $(parentRow).find("td").eq(2).text()
+					firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
+					secondHalf = ratio.substring(ratio.indexOf("/"))
+					secondNum = ratio.substring(ratio.indexOf("/") + 1)
+					firstNum -= 1
+					$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+					newPerc = (firstNum/secondNum).toFixed(4) * 100
+					if(newPerc > 80) {
+						$(parentRow).find("td").eq(3).attr("id", "good")
+					}
+					else if(newPerc < 20) {
+						$(parentRow).find("td").eq(3).attr("id", "bad")
+					}
+					else {
+						$(parentRow).find("td").eq(3).removeAttr("id")
+
+					}
+					$(parentRow).find("td").eq(3).text(newPerc + "%")
+				}
+				
+  		
   			}
   			else {
-  				$(this).show()
+  				if(parseInt($(this).attr("class")) < exonPrevVal) {
+  					$(this).show()
+					ratio = $(parentRow).find("td").eq(2).text()
+	  				firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
+	  				secondHalf = ratio.substring(ratio.indexOf("/"))
+	  				secondNum = ratio.substring(ratio.indexOf("/") + 1)
+	  				firstNum += 1
+	  				$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+					newPerc = (firstNum/secondNum).toFixed(4) * 100
+					if(newPerc > 80) {
+						$(parentRow).find("td").eq(3).attr("id", "good")
+					}
+					else if(newPerc < 20) {
+						$(parentRow).find("td").eq(3).attr("id", "bad")
+					}
+					else {
+						$(parentRow).find("td").eq(3).removeAttr("id")
+
+					}
+
+					$(parentRow).find("td").eq(3).text(newPerc + "%")
+
+  				}
   			}
+
+  			firstNum = 0
+  			secondNum = 0
+  			ratio = 0
+  			secondHalf = 0
+  			newPerc = 0
   		})
-  		//console.log("exon val: " + this.value)
+
+  		exonPrevVal = val
+  		sortRows()
   	})
 
+})
 
-
-});
 
 
 //Helper function for querying server for information about user's search parameters
@@ -382,3 +459,18 @@ function download(filename, text) {
 
     pom.click();
 }
+
+
+function sortRows() {
+	var rows = $('#' + curTab + ' tbody  tr').filter(function () {return  $(this).text().indexOf("+") != -1 ||  $(this).text().indexOf("-") != -1}).get();
+
+	$.each(rows, function(index, row) {
+		console.log($(row).text())
+	})            
+}
+
+
+
+
+
+
