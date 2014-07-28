@@ -160,7 +160,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 				//pc = atoi(curLine.at(3).c_str());
 				ps_iter it = probesets.find(probe_set_id);
 				// If the probe set id already exists in the mapping, set the transcript cluster id
-				if(it != probesets.end()) {
+				if(it != probesets.end() && it->second.getTCID().length() == 0) {
 					it->second.setTCID(tc_id);
 					//it->second.setProbeCounts(pc);
 					// TODO: Probe count appears to simply be stored at the end of the line, no need to store this info 
@@ -191,7 +191,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 				for(int i = 0; i < listPS.size(); i++) {
 					probe_set_id = listPS.at(i);				
 					ps_iter it = probesets.find(probe_set_id);
-					if(it != probesets.end()) {
+					if(it != probesets.end() && it->second.getTCID().length() == 0) {
 						it->second.setTCID(tc_id);
 						//it->second.setProbeCounts(pc);
 						tc_iter iter = transcriptclusters.find(tc_id); 
@@ -296,6 +296,7 @@ void FileProcessor::processBLASTTabs(const char * b, ProbeScoreMap probes, bool 
 			ids = split(curLine.at(1),'-');
 			line.tc_id = ids.at(0);
 			tc_id = ids.at(0);
+			
 			line.probe_set_id = ids.at(1);
 			line.probes_in_probeset = atoi(ids.at(4).c_str());
 			line.probes_in_tc = atoi(ids.at(3).c_str());
@@ -527,7 +528,6 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 		
 
 			// Output table row
-			// TODO: Create href mappings between designs and pks for proper urls
 			std::string cbid;
 			std::string probeLines = "<tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id='nc'>Add to Novel Probe Grouping</th></tr>";
 			for(int m = 0; m < pair.second.size(); m++) {

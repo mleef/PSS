@@ -17,7 +17,7 @@ fpath=$designs/$array/$fasta
 
 echo Building new FASTA...
 # Build new fasta with unique IDs
-$build_fasta $designs/$array/$pgf $designs/$array/$mps > $fpath
+#$build_fasta $designs/$array/$pgf $designs/$array/$mps > $fpath
 
 echo Building exon level database...
 # Build original exon database from newly made FASTA ##

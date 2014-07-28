@@ -7,6 +7,7 @@
 ProbeSet::ProbeSet() {
 	probe_set_id_ = ""; 
 	probe_count_ = 0;
+	tc_id_ = "";
 	name_ = "";
 }
 
@@ -14,6 +15,7 @@ ProbeSet::ProbeSet() {
 ProbeSet::ProbeSet(std::string id) {
 	probe_set_id_ = id; 
 	probe_count_ = 0;
+	tc_id_ = "";
 	name_ = "";
 }
 
