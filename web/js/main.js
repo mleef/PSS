@@ -181,6 +181,7 @@ $(document).ready(function(){
   			var caption  = $(this).find("caption").text()
   			var first = true
 	  		$(this).find("td").each(function() {
+	  			var visible = $(this).parent().css("display") != "none"
 	  			if(first) {
 	  				result += caption + "\n"
 					result += "\t"		
@@ -193,7 +194,7 @@ $(document).ready(function(){
 					}
 					if($(this).text() != "+" && $(this).text() != "-") {
 						result += $(this).text() + "\t"
-					}//
+					}
 					count += 1
 				}
 				else if(count == 5) {
@@ -203,7 +204,9 @@ $(document).ready(function(){
 				}
 
 				else if(count > 4 && count < upperBound) {
-					result += "\t" + $(this).text() + "\t"
+					if(visible) {
+						result += "\t" + $(this).text() + "\t"
+					}
 					miniCount += 1
 					if(miniCount == 8) {
 						result += "\n"
