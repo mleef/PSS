@@ -254,10 +254,14 @@ $(document).ready(function(){
 
   	//Listens for slider on gene level, changes table values based on slider input
   	$("#generange").on('change', function (event) {
+  		var previousProbe = ""
+
   		var val = this.value
   		$("#tab1 #nopad tr").each(function () {
   			var parentRow = $(this).parents().eq(4).prev()
   			var firstNum, secondNum, secondHalf, newPerc, ratio
+  			var probeName = $(this).find("td a").eq(0).text()
+
   			if(parseInt($(this).attr("class")) < val) {
   				if(parseInt($(this).attr("class")) >= genePrevVal) {
 					$(this).hide()
@@ -265,7 +269,9 @@ $(document).ready(function(){
 					firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
 					secondHalf = ratio.substring(ratio.indexOf("/"))
 					secondNum = ratio.substring(ratio.indexOf("/") + 1)
-					firstNum -= 1
+					if(previousProbe != probeName) {
+						firstNum -= 1
+					}
 					$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
 					newPerc = (firstNum/secondNum).toFixed(4) * 100
 					if(newPerc > 80) {
@@ -278,9 +284,13 @@ $(document).ready(function(){
 						$(parentRow).find("td").eq(3).removeAttr("id")
 
 					}
+
+					if(newPerc.toString().length > 4) {
+						newPerc = newPerc.toString().slice(0,4)
+					}
+
 					$(parentRow).find("td").eq(3).text(newPerc + "%")
 				}
-				
   		
   			}
   			else {
@@ -290,7 +300,9 @@ $(document).ready(function(){
 	  				firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
 	  				secondHalf = ratio.substring(ratio.indexOf("/"))
 	  				secondNum = ratio.substring(ratio.indexOf("/") + 1)
-	  				firstNum += 1
+	  				if(previousProbe != probeName) {
+						firstNum += 1
+					}
 	  				$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
 					newPerc = (firstNum/secondNum).toFixed(4) * 100
 					if(newPerc > 80) {
@@ -304,16 +316,16 @@ $(document).ready(function(){
 
 					}
 
-					$(parentRow).find("td").eq(3).text(newPerc + "%")
+					if(newPerc.toString().length > 4) {
+						newPerc = newPerc.toString().slice(0,4)
+					}
 
+					$(parentRow).find("td").eq(3).text(newPerc + "%")
   				}
   			}
 
-  			firstNum = 0
-  			secondNum = 0
-  			ratio = 0
-  			secondHalf = 0
-  			newPerc = 0
+  			previousProbe = probeName
+
   		})
 
   		genePrevVal = val
@@ -322,31 +334,44 @@ $(document).ready(function(){
 
   	//Listens for slider on exon level, changes table values based on slider input
   	$("#exonrange").on('change', function (event) {
+  		var previousProbe = ""
   		var val = this.value
   		$("#tab2 #nopad tr").each(function () {
   			var parentRow = $(this).parents().eq(4).prev()
   			var firstNum, secondNum, secondHalf, newPerc, ratio
+  			var probeName = $(this).find("td a").eq(0).text()
+
   			if(parseInt($(this).attr("class")) < val) {
   				if(parseInt($(this).attr("class")) >= exonPrevVal) {
 					$(this).hide()
 					ratio = $(parentRow).find("td").eq(2).text()
 					firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
-					secondHalf = ratio.substring(ratio.indexOf("/"))
-					secondNum = ratio.substring(ratio.indexOf("/") + 1)
-					firstNum -= 1
-					$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
-					newPerc = (firstNum/secondNum).toFixed(4) * 100
-					if(newPerc > 80) {
-						$(parentRow).find("td").eq(3).attr("id", "good")
-					}
-					else if(newPerc < 20) {
-						$(parentRow).find("td").eq(3).attr("id", "bad")
-					}
-					else {
-						$(parentRow).find("td").eq(3).removeAttr("id")
+					if(firstNum != "N") {
+						secondHalf = ratio.substring(ratio.indexOf("/"))
+						secondNum = ratio.substring(ratio.indexOf("/") + 1)
+		  				if(previousProbe != probeName) {
+							firstNum -= 1
+						}
+						$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+						newPerc = (firstNum/secondNum).toFixed(4) * 100
+						if(newPerc > 80) {
+							$(parentRow).find("td").eq(3).attr("id", "good")
+						}
+						else if(newPerc < 20) {
+							$(parentRow).find("td").eq(3).attr("id", "bad")
+						}
+						else {
+							$(parentRow).find("td").eq(3).removeAttr("id")
 
+						}
+
+
+						if(newPerc.toString().length > 4) {
+							newPerc = newPerc.toString().slice(0,4)
+						}
+
+						$(parentRow).find("td").eq(3).text(newPerc + "%")
 					}
-					$(parentRow).find("td").eq(3).text(newPerc + "%")
 				}
 				
   		
@@ -356,32 +381,37 @@ $(document).ready(function(){
   					$(this).show()
 					ratio = $(parentRow).find("td").eq(2).text()
 	  				firstNum = parseInt(ratio.substring(0, ratio.indexOf("/")))
-	  				secondHalf = ratio.substring(ratio.indexOf("/"))
-	  				secondNum = ratio.substring(ratio.indexOf("/") + 1)
-	  				firstNum += 1
-	  				$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
-					newPerc = (firstNum/secondNum).toFixed(4) * 100
-					if(newPerc > 80) {
-						$(parentRow).find("td").eq(3).attr("id", "good")
-					}
-					else if(newPerc < 20) {
-						$(parentRow).find("td").eq(3).attr("id", "bad")
-					}
-					else {
-						$(parentRow).find("td").eq(3).removeAttr("id")
+	  				if(firstNum != "N") {
+		  				secondHalf = ratio.substring(ratio.indexOf("/"))
+		  				secondNum = ratio.substring(ratio.indexOf("/") + 1)
+		  				if(previousProbe != probeName) {
+							firstNum += 1
+						}
+		  				$(parentRow).find("td").eq(2).text(firstNum + secondHalf)
+						newPerc = (firstNum/secondNum).toFixed(4) * 100
+						if(newPerc > 80) {
+							$(parentRow).find("td").eq(3).attr("id", "good")
+						}
+						else if(newPerc < 20) {
+							$(parentRow).find("td").eq(3).attr("id", "bad")
+						}
+						else {
+							$(parentRow).find("td").eq(3).removeAttr("id")
 
+						}
+
+
+						if(newPerc.toString().length > 4) {
+							newPerc = newPerc.toString().slice(0,4)
+						}
+
+						$(parentRow).find("td").eq(3).text(newPerc + "%")
 					}
-
-					$(parentRow).find("td").eq(3).text(newPerc + "%")
-
   				}
   			}
 
-  			firstNum = 0
-  			secondNum = 0
-  			ratio = 0
-  			secondHalf = 0
-  			newPerc = 0
+  			previousProbe = probeName
+
   		})
 
   		exonPrevVal = val
@@ -462,11 +492,60 @@ function download(filename, text) {
 
 
 function sortRows() {
-	var rows = $('#' + curTab + ' tbody  tr').filter(function () {return  $(this).text().indexOf("+") != -1 ||  $(this).text().indexOf("-") != -1}).get();
 
-	$.each(rows, function(index, row) {
-		console.log($(row).text())
-	})            
+	$('#' + curTab + ' .maintable').each( function () {
+		var rowDict = {}
+		var rows = $(this).find('tr').filter(function () {return  ($(this).text().indexOf("+") != -1 && $(this).text().indexOf("N") == -1) ||  ($(this).text().indexOf("-") != -1  && $(this).text().indexOf("N") == -1 )}).get();
+		var hiddenRows = $(this).find('tr').filter(function () {return  $(this).text().indexOf("+") == -1 && $(this).text().indexOf("-") == -1})
+		$.each(hiddenRows, function(index, row) {
+			rowDict[$(row).attr("class")] = row
+		})
+
+
+		rows.sort( function (a, b) {
+			 var A = $(a).children('td').eq(2).text();
+			 var B = $(b).children('td').eq(2).text();
+
+			 A = parseInt(A.substring(0, A.indexOf("/")))
+			 B = parseInt(B.substring(0, B.indexOf("/")))
+
+
+			 if(A > B) {
+			 	//console.log("A: " + A + " is greater than " + "B: " + B)
+			 	return -1;
+			 }
+
+			 if(A < B) {
+			 	//console.log("B: " + B + " is greater than " + "A: " + A)
+			 	return 1;
+			 }
+
+			 //console.log(A + " equals " + B)
+			 return 0;
+		})
+
+		$(this).children('tbody').empty()
+		var tbody = $(this).children('tbody')
+		$.each(rows, function(index, row) {
+			var rowClass = $(row).attr("class")
+			$(tbody).append(row)
+			//$(tbody).append($(hiddenRows).filter(function () {return $(this).attr("class") == rowClass}))
+			$(tbody).append(rowDict[rowClass])
+		})         
+
+	})
+
+
+	//Reestablishes checkbox listeners 
+  	$(".checkboxes").on("click", function (event) {
+  		var target = $(event.target)
+  		if(target.attr("name") == 'probeset') {
+  			var nextRow = target.parent().parent().next()
+	 		var boxes = $(nextRow).find(':nth-child(8)').children(".checkboxes")
+
+	 		$(boxes).each(function() {this.checked = !this.checked})
+  		}
+  	})
 }
 
 

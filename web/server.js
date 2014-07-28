@@ -100,10 +100,9 @@ var exonBlast = function(file_name, file1, html1, res) {
 		        		throw err; 
 		    		} 
 		    		res.end(html)
-		    		//cleanup([queries + file_name + '.tsv', save + file_name, file1, html1, html1 + '.exon', html1 + '.gene', "output.html"])
+		    		cleanup([queries + file_name + '.tsv', save + file_name, file1, html1, html1 + '.exon', html1 + '.gene', "output.html"])
 		    		cur_db = blast
 		    		processing = false
-		    		fileNames =[]
 					})
 				})
 			})

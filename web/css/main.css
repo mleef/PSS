@@ -194,6 +194,8 @@
 		border-bottom: 1px solid #fff;
 		color: #669;
 		border-top: 1px solid transparent;
+		width: 183px;
+		height: 18px;
 	}
 
 	.maintable tr:hover td:not(#nc)
@@ -268,7 +270,7 @@
 	#tablecontainer {
 	  border: 2px;
       border-radius: 25px;
-      width: 70%;
+      width: 80%;
       margin: 0 auto;
       background: #f1f1f1;
       padding-bottom: 10;

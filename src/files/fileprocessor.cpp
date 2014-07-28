@@ -558,10 +558,10 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 				else {
 					link = pair.first;
 				}
-				std::cout << "<tr><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << link << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>" << std::endl;
+				std::cout << "<tr class='" << pair.first << "'><td>+</td><td><a href='" << baseURL + psExtension << pk << ":" << link << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_probeset << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr class='" << pair.first << "'><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>" << std::endl;
 			}
 			else {
-				std::cout << "<tr><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>"  << std::endl;		
+				std::cout << "<tr class='" << pair.first << "'><td>+</td><td><a href='" << baseURL + tcExtension << pk << ":" << pair.first << "' target='_blank'>" << pair.first << "<a/></td><td>" << pair.second.at(0).probe_hits << "/" << pair.second.at(0).probes_in_tc << "</td><td" << color << ">" << pair.second.at(0).percent << "%" << "</td><td><input class='checkboxes' id='nc' type='checkbox' name='probeset' value='" << pair.first << "'></td></tr><tr class='" << pair.first << "'><td id='nopad' colspan='8'><div id='subtablecontainer'><table class='subtable'>" << probeLines << "</table></div></td></tr>"  << std::endl;		
 			}
 			maxCount = 0;
 			if(topRanked) {
