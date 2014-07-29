@@ -7,7 +7,7 @@ build_fasta="/Users/marc_leef/Desktop/Work/PSS/bin/build_fasta"
 designs='/Users/marc_leef/Desktop/Work/data/Designs'
 databases='/Users/marc_leef/Desktop/Work/data/Databases'
 
-array='HTA-2_0'
+array='RatEx-1_0-st'
 pgf=$array'.pgf'
 mps=$array'.mps'
 pss=$array'.pss'
@@ -17,7 +17,7 @@ fpath=$designs/$array/$fasta
 
 echo Building new FASTA...
 # Build new fasta with unique IDs
-#$build_fasta $designs/$array/$pgf $designs/$array/$mps > $fpath
+$build_fasta $designs/$array/$pgf $designs/$array/$mps > $fpath
 
 echo Building exon level database...
 # Build original exon database from newly made FASTA ##

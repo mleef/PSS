@@ -54,14 +54,38 @@ var databaseSelector = function (num) {
 			chosenDesign = 'HuEx-1_0-st'
 			cur_db = probe_db + 'HuEx-1_0-st'
 			break
+		case 2:
+			chosenDesign = 'MouseEx-1_0-st'
+			cur_db = probe_db + 'MouseEx-1_0-st'
+			break
+		case 3:
+			chosenDesign = 'RatEx-2_0-st'
+			cur_db = probe_db + 'RatEx-1_0-st'
+			break
 		case 4:
 			chosenDesign = 'HuGene-1_0-st'
 			cur_db = probe_db + 'HuGene-1_0-st'
+			break
+		case 5:
+			chosenDesign = 'MouseGene-1_0-st'
+			cur_db = probe_db + 'MouseGene-1_0-st'
+			break
+		case 6:
+			chosenDesign = 'RatGene-1_0-st'
+			cur_db = probe_db + 'RatGene-1_0-st'
 			break
 
 		case 712:
 			chosenDesign = 'HuGene-2_0-st'
 			cur_db = probe_db + 'HuGene-2_0-st'
+			break
+		case 715:
+			chosenDesign = 'MouseGene-2_0-st'
+			cur_db = probe_db + 'MouseGene-2_0-st'
+			break
+		case 718:
+			chosenDesign = 'RatGene-2_0-st'
+			cur_db = probe_db + 'RatGene-2_0-st'
 			break
 			
 		case 725:
@@ -111,9 +135,11 @@ var exonBlast = function(file_name, file1, html1, res) {
 
 // Create our Express-powered HTTP server // and have it listen on port 3000
 app = express(); http.createServer(app).listen(3000);
-var oneYear = 31557600000;
-app.use(express.static(__dirname, { maxAge: oneYear }));
 
+// For caching purposes, disabled in developement
+//var oneYear = 31557600000;
+//app.use(express.static(__dirname, { maxAge: oneYear }));
+app.use(express.static(__dirname));
 // set up our routes
 app.post("/upload", 
 	function (req, res) { 

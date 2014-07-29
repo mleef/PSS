@@ -108,11 +108,10 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
     
     // Read in .pgf file, create a mapping of probe set names to populated probe set objects
     while (std::getline(f1, str)){
-    
+    	
 		found = str.find("#%");
 		// If not a comment line
 		if(found == std::string::npos) {
-			
 			curLine = split(str,'\t');
 			// If the list of probes for the given probe set has ended, store built up probe set, create new one, and move on
 			if(curLine.size() < 8) {
@@ -123,7 +122,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 					}
 					probe_set_id = curLine.at(0);
 					ps.setPSID(probe_set_id);
-					if(curLine.at(2).length() > 0) {
+					if(curLine.size() > 2) {
 						ps.setName(curLine.at(2));
 					}
 					
@@ -132,7 +131,7 @@ ProbeSetMap FileProcessor::processLibraryFiles(const char * pgf, const char * mp
 			}
 			// Current line is still probe within the current probe set, add it to list and move on
 			else {
-				ps.addProbe(Probe(curLine.at(2), curLine.at(7), probe_set_id));;
+				ps.addProbe(Probe(curLine.at(2), curLine.at(7), probe_set_id));
 			}
 			
 		}
@@ -395,12 +394,12 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 	std::string tcExtension = "exon/wtgene_transcript.affx?pk=";
 	int pkint = atoi(id.c_str());
 	
-	if(pkint == 1) {
+	if(pkint == 1 || pkint == 2 || pkint == 3) {
 		psExtension = "exon/probe_set.affx?pk=";
 		tcExtension = "exon/transcript.affx?pk=";
 	}
 	
-	else if(pkint == 4 || pkint == 712) {
+	else if(pkint == 4 || pkint == 712 || pkint == 5 || pkint == 715 || pkint == 6 || pkint == 718) {
 		psExtension = "exon/wtgene_probe_set.affx?pk=";
 		tcExtension = "exon/wtgene_transcript.affx?pk=";
 	}
@@ -574,7 +573,7 @@ void FileProcessor::outputHTML(std::string query_id, ProbeSetLine map, bool exon
 	
 	
 	// Add invisible bottom row to table to correct moving rows/columns
-	std::cout << "<tr style='visibility: hidden' id='nc'><td id='nc'>-</td><td id='nc'>ID</td><td id='nc'>N/N</td><td id='nc'>0%</td><td id='nc'>N/A</td></tr><tr id='nc'><td style='visibility: hidden' id='nopad' colspan='7'><div id='subtablecontainer'><table class='subtable'><tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id ='nc'>Add to Novel Probe Set</th></tr></table></div></tr>"  << std::endl;		
+	//std::cout << "<tr style='visibility: hidden' id='nc'><td id='nc'>-</td><td id='nc'>ID</td><td id='nc'>N/N</td><td id='nc'>0%</td><td id='nc'>N/A</td></tr><tr id='nc'><td style='visibility: hidden' id='nopad' colspan='7'><div id='subtablecontainer'><table class='subtable'><tr id='nc'><th id='nc'>Probe ID</th><th id='nc'>% Identity</th><th id='nc'>Start</th><th id='nc'>Stop</th><th id='nc'>EValue</th><th id='nc'>Bit Score</th><th id='nc'>Hybridization Score</th><th id ='nc'>Add to Novel Probe Set</th></tr></table></div></tr>"  << std::endl;		
 	std::cout << "</table>" << std::endl;
 	std::cout << "</div>" << std::endl;	
 	std::cout << "<div id ='" << eqid << "' style='display:none'>";
