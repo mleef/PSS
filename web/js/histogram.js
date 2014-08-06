@@ -100,12 +100,14 @@ function makeGraph(values, length, query_name, bin_size, start1, stop1) {
 
     var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom");
+        .orient("bottom")
+        .tickFormat(d3.format("d"));
 
 
     var yAxis = d3.svg.axis()
         .scale(y)
-        .orient("left");
+        .orient("left")
+        .tickFormat(d3.format("d"));
 
     var tip = d3.tip()
         .attr('class', 'd3-tip')

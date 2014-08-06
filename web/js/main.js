@@ -73,10 +73,8 @@ $(document).ready(function(){
 		$("#tabs li").removeClass('active');
 		$("#tab3").addClass("active");
 		$(".tab_content").hide();
-		var href = $(this).find("a").attr("href");
+		var href = $(this).attr("href");
 		$("#tab3").fadeIn("slow");
-		$(document).scrollTop( href.offset().top );  
-		return false;
 	})
 
 	//Helper function for showing/hiding subtables upon clicking rows

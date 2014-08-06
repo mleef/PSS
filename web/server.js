@@ -24,8 +24,10 @@ var web ='/Users/marc_leef/Desktop/Work/PSS/web/'
 
 var fileNames =[]
 var chosenDesign = ""
+var sequenceText = ""
 
 var processing = false
+
 
 // Selected design database
 cur_db = ""
@@ -149,6 +151,7 @@ app.post("/upload",
 			
 		    form.parse(req, function(err, fields, files) {
 		    	databaseSelector(fields.q8_chipDesign)
+		    	sequenceText = fields.pf
 		    	res.writeHead(200, {'content-type': 'text/html'});
 		    });
 		 	

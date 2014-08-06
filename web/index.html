@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="min-width: 1440px; margin: 0 auto;">
+<html style="min-width: 960x; margin: 0 auto;">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="alternate" type="application/json+oembed" href="https://www.jotform.com/oembed/?format=json&amp;url=http%3A%2F%2Fwww.jotform.com%2Fform%2F41884646115156" title="oEmbed Form"><link rel="alternate" type="text/xml+oembed" href="https://www.jotform.com/oembed/?format=xml&amp;url=http%3A%2F%2Fwww.jotform.com%2Fform%2F41884646115156" title="oEmbed Form">
@@ -44,7 +44,7 @@
 
     #centered{
       width: 600px;
-      height: 600px;
+      height: 700px;
       text-align: center;
       border: 2px;
       border-radius: 25px;
@@ -66,7 +66,7 @@
 </head>
 <body>
 <div id="centered">
-<form id="main" action="/upload" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+<form id="main" action="/upload" onsubmit= "return validate()" method="post" enctype="multipart/form-data" accept-charset="utf-8">
   <input type="hidden" name="formID" value="41884646115156" />
   <div class="form-all">
     <ul class="form-section">
@@ -88,15 +88,14 @@
       </li>
       <li class="form-line" id="id_8">
         <label class="form-label form-label-left form-label-auto" id="label_8" for="input_8">
-          Chip Design
+          Chip Design:
           <span class="form-required">
             *
           </span>
         </label>
         <div id="cid_8" class="form-input">
-          <select required class="form-dropdown validate[required]" style="width:170px" id="input_8" name="q8_chipDesign">
-
-            <option value="">Select design</option>
+          <select class="form-dropdown validate[required]" style="width:170px" id="input_8" name="q8_chipDesign">
+            <option value="-1">Select design</option>
             <option disabled>WT Expression Arrays</option>
             <option value="1"> Human Exon 1.0 ST </option>
             <option value="4"> Human Gene 1.0 ST </option>
@@ -109,24 +108,26 @@
             <option value="6"> Rat Gene 1.0 ST </option>
             <option value="718"> Rat Gene 2.0 ST </option>
             <option disabled>3' IVT Expression</option>
-
-
-
           </select>
         </div>
       </li>
       <li class="form-line" id="id_10">
         <label class="form-label form-label-left form-label-auto" id="label_10" for="input_10">
-          FASTA files here
-          <span class="form-required">
-            *
-          </span>
+          Upload FASTA Files:
         </label>
         <div id="cid_10" class="form-input">
-
-          <input style = "display: inline-block; width: 170px; " class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple" required/>
+          <input style = "display: inline-block; width: 170px; " class="form-upload-multiple validate[required]" type="file" id="input_10" name="q10_fastaFiles[]" multiple="multiple"/>
         </div>
       </li>
+      <li class="form-line" id="id_3">
+          <label class="form-label form-label-left form-label-auto" id="label_3" for="input_3">
+          Or Paste Sequences:
+        </label>
+        <div id="cid_3" class="form-input">
+        <textarea id="pf" style="resize: none" rows="4" cols="21" name="pf" form="main"></textarea>
+        </div>
+      </li>
+
       <li class="form-line" id="id_2">
         <div id="cid_2" class="form-input-wide">
           <div class="form-buttons-wrapper">
@@ -147,6 +148,10 @@
    <div id="canvasloader-container" class="wrapper"></div>
   <!-- This script creates a new CanvasLoader instance and places it in the wrapper div -->
   <script type="text/javascript">
+    var designSelected = false
+    var paste = false
+    var fileSelected = false
+    var valid = false
     var cl = new CanvasLoader('canvasloader-container');
     cl.setColor('#ff0000'); // default is '#000000'
     cl.setDiameter(78); // default is 40
@@ -156,24 +161,70 @@
 
     $("#main").submit(function (event) {
       //cl.show(); // Hidden by default
-      var myVar=setInterval(function(){statusCheck()},200);
 
-      function statusCheck() {
+      if(valid) {
+        var myVar=setInterval(function(){statusCheck()},200);
 
-        $.get("/status", function (data) {
-            if(data["percentage"]) {
-              $("#status").text(data["step"] + "..." + data["percentage"] + "% complete")
-            }
-            else {
-              $("#status").text(data["step"])
-            }
-             if(first) {
-              cl.show()
-              first = false
-            }
-        })
+        function statusCheck() {
+
+          $.get("/status", function (data) {
+              if(data["percentage"]) {
+                $("#status").text(data["step"] + "..." + data["percentage"] + "% complete")
+              }
+              else {
+                $("#status").text(data["step"])
+              }
+               if(first) {
+                cl.show()
+                first = false
+              }
+          })
+        }
+      }
+  })
+
+
+
+
+    $("#pf").on('change keyup paste', function() {
+      if($("#pf").val().length > 0) {
+        paste = true
+      }
+      else {
+        paste = false
+      }
+    });
+
+    $("#input_8").on('change', function () {
+      if($("#input_8").val() != -1) {
+        designSelected = true
+      }
+      else {
+        designSelected = false
       }
     })
+
+    $("#input_10").on('change', function () {
+      if($("#input_10").val() != '') {
+        fileSelected = true
+      }
+      else {
+        fileSelected = false
+      }
+    })
+
+    function validate() {
+
+       if(!designSelected || (fileSelected && paste) || (!fileSelected && !paste)) {
+          valid = false;
+          alert("Problems")
+       }
+       else {
+          valid = true
+       }
+
+       return valid
+    }
 
     
     

@@ -19,7 +19,7 @@ pk=$4
 
 
 # Convert archive to HTML format
-$blastformat -archive $file1 -html -out $html1
+$blastformat -archive $file1 -num_alignments 500 -html -out $html1
 
 # Convert archive to tab spaced file with comments
 $blastformat -archive $file1 -outfmt 7 -out $out
