@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html style="min-width: 960x; margin: 0 auto;">
+<html style="margin: 0 auto;">
+<!-- style="min-width: 960x; margin: 0 auto;" -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="alternate" type="application/json+oembed" href="https://www.jotform.com/oembed/?format=json&amp;url=http%3A%2F%2Fwww.jotform.com%2Fform%2F41884646115156" title="oEmbed Form"><link rel="alternate" type="text/xml+oembed" href="https://www.jotform.com/oembed/?format=xml&amp;url=http%3A%2F%2Fwww.jotform.com%2Fform%2F41884646115156" title="oEmbed Form">
@@ -17,11 +18,10 @@
 
 <style type="text/css">
     body {
-      margin: 0;
+      margin: 0 auto;
       color: #333;
       font: 12px/1.636em Arial, Helvetica, sans-serif;
       background: #f1f1f1;
-      min-width: 1000px;
     }
     .form-label-left{
         width:150px !important;
@@ -217,7 +217,7 @@
 
        if(!designSelected || (fileSelected && paste) || (!fileSelected && !paste)) {
           valid = false;
-          alert("Problems")
+          alert("Submission Checklist:\n\n1) Select an array design.\n2) Uploaded sequence files OR paste sequences into text area.\n\nPerform the above steps for successful submission")
        }
        else {
           valid = true

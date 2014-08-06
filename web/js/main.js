@@ -43,14 +43,14 @@ $(document).ready(function(){
 	    var selected_tab = $(this).find("a").attr("href");
 
 	    curTab = $(selected_tab).attr("id")
-	    if(curTab == "tab2") {
+	    if(curTab == "tab3") {
 	    	$("#downnpsbutton").prop("disabled", false)
 	    	$("#downresbutton").prop("disabled", false)
 	    	$("#downnpsbutton").text("Download Exon Level Novel Probe Grouping")
 	    	$("#downresbutton").text("Download Exon Level Results")
 	    }
 
-	    else if(curTab == "tab1") {
+	    else if(curTab == "tab2") {
 	    	$("#downnpsbutton").prop("disabled", false)
 	    	$("#downresbutton").prop("disabled", false)
 	    	$("#downnpsbutton").text("Download Gene Level Novel Probe Grouping")
@@ -71,10 +71,10 @@ $(document).ready(function(){
 	//Helper function to link href probe ids to appropriate BLAST tab and the appropriate spot on the page
 	$(".subtable a").click(function() {
 		$("#tabs li").removeClass('active');
-		$("#tab3").addClass("active");
+		$("#tab4").addClass("active");
 		$(".tab_content").hide();
 		var href = $(this).attr("href");
-		$("#tab3").fadeIn("slow");
+		$("#tab4").fadeIn("slow");
 	})
 
 	//Helper function for showing/hiding subtables upon clicking rows
@@ -107,7 +107,7 @@ $(document).ready(function(){
   		var probesets = {}
     	var result = "#spf-format=1\n"
 
-    	if(curTab == "tab1") {
+    	if(curTab == "tab2") {
     		result += "#%chip_type=" + design + "\n#%level=gene\n"
     	}
 
@@ -151,11 +151,11 @@ $(document).ready(function(){
     		result += "\n"
     	}
 
-		if(curTab == "tab1") {
-			download('novel_probe_grouping_exon_level.spf', result);
+		if(curTab == "tab2") {
+			download('novel_probe_grouping_gene_level.spf', result);
 		}
 		else {
-			download('novel_probe_grouping_gene_level.spf', result);
+			download('novel_probe_grouping_exon_level.spf', result);
 		}
   	})
 
@@ -167,7 +167,7 @@ $(document).ready(function(){
   		var miniCount = 0;
   		var numProbes = 0
 
-  		if(curTab == "tab1") {
+  		if(curTab == "tab2") {
   			result = "#%chip_type=" + design + "\n#%level=gene\n#%header1=sequence name\n#%header2=\tprobeset_id\tunique hits/hits in probeset\thit percentage\n#%header3=\t\tprobe_id\tpercent identity\tstart\tstop\tevalue\tbit score\thybridization score\n"
   		}
 
@@ -234,7 +234,7 @@ $(document).ready(function(){
 
 		})
 
-		if(curTab == "tab1") {
+		if(curTab == "tab2") {
 			download('gene_level_results.tsv', result);
 		}
 		else {
@@ -258,7 +258,8 @@ $(document).ready(function(){
   		var previousProbe = ""
 
   		var val = this.value
-  		$("#tab1 #nopad tr").each(function () {
+  		$("#ghs").text("Minimum Hybridization Score: " + val)
+  		$("#tab2 #nopad tr").each(function () {
   			var parentRow = $(this).parents().eq(4).prev()
   			var firstNum, secondNum, secondHalf, newPerc, ratio
   			var probeName = $(this).find("td a").eq(0).text()
@@ -337,7 +338,8 @@ $(document).ready(function(){
   	$("#exonrange").on('change', function (event) {
   		var previousProbe = ""
   		var val = this.value
-  		$("#tab2 #nopad tr").each(function () {
+  		$("#ehs").text("Minimum Hybridization Score: " + val)
+  		$("#tab3 #nopad tr").each(function () {
   			var parentRow = $(this).parents().eq(4).prev()
   			var firstNum, secondNum, secondHalf, newPerc, ratio
   			var probeName = $(this).find("td a").eq(0).text()
@@ -447,7 +449,7 @@ function getQueryDetails() {
 function summarize() {
 	var summary = {"id" : "", "topg" : "", "tope" : "", "nump" : "", "numps" : "", "numtc" : ""}
 	var count = 0;
-	$("#tab1 #summary").each( function () {
+	$("#tab2 #summary").each( function () {
 
 		var id = "sum" + count
 		summary.id = $(this).attr("title")
@@ -455,21 +457,21 @@ function summarize() {
 		summary.nump = $(this).find("#nump").text()
 		summary.numtc = $(this).find("#numps").text()
 
-		$("#tab2 #summary").each( function() {
+		$("#tab3 #summary").each( function() {
 			if($(this).attr("title") == summary.id) {
 				summary.tope = $(this).find("#top").text()
 				summary.numps = $(this).find("#numps").text()
 			}
 		})
 
-		$("#tab5").append("<div id='" + id + "' </div>")
-		$("#tab5 #" + id).append("<h3>Sequence: " + summary.id + "</h3>")
-		$("#tab5 #" + id).append("<p>Top Transcript Cluster ID: <span id ='good'>" + summary.topg + "</span</p>")
-		$("#tab5 #" + id).append("<p>Top Probe Set ID: <span id ='good'>" + summary.tope + "</span></p>")
-		$("#tab5 #" + id).append("<p>Total Transcript Clusters Registering Hits: <span id ='good'>" + summary.numtc + "</span></p>")
-		$("#tab5 #" + id).append("<p>Total Probe Sets Registering Hits: <span id ='good'>" + summary.numps + "</span></p>")
-		$("#tab5 #" + id).append("<p>Total Probe Hits: <span id ='good'>"  + summary.nump + "</span></p>")
-		$("#tab5").append("<hr>")
+		$("#tab1").append("<div id='" + id + "' </div>")
+		$("#tab1 #" + id).append("<h3>Sequence: " + summary.id + "</h3>")
+		$("#tab1 #" + id).append("<p>Top Transcript Cluster ID: <span id ='good'>" + summary.topg + "</span</p>")
+		$("#tab1 #" + id).append("<p>Top Probe Set ID: <span id ='good'>" + summary.tope + "</span></p>")
+		$("#tab1 #" + id).append("<p>Total Transcript Clusters Registering Hits: <span id ='good'>" + summary.numtc + "</span></p>")
+		$("#tab1 #" + id).append("<p>Total Probe Sets Registering Hits: <span id ='good'>" + summary.numps + "</span></p>")
+		$("#tab1 #" + id).append("<p>Total Probe Hits: <span id ='good'>"  + summary.nump + "</span></p>")
+		$("#tab1").append("<hr>")
 
 		count += 1;
 		summary = {"id" : "", "topg" : "", "tope" : "", "nump" : "", "numps" : "", "numtc" : ""}

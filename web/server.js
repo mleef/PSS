@@ -33,7 +33,7 @@ var processing = false
 cur_db = ""
 
 // JSON variable to be passed to client based on program progression		
-var status = {"step" : "(1/4) Recieving Files..."}
+var status = {"step" : "(1/4) Recieving Data..."}
 
 // Numerical design identifier, to be used for generating href links for probesets/transcript clusters later on
 var design;
@@ -157,7 +157,7 @@ app.post("/upload",
 		 	
 		    form.on('progress', function(bytesReceived, bytesExpected) {
 		        var percent_complete = (bytesReceived / bytesExpected) * 100;
-		  		status = {"step" : "(1/4) Receiving Files", "percentage" : percent_complete} 
+		  		status = {"step" : "(1/4) Receiving Data...", "percentage" : percent_complete} 
 		    });
 		 
 		    form.on('error', function(err) {
@@ -170,13 +170,23 @@ app.post("/upload",
 		        var outfile = "temp" + timestamp
 		        var outpath = save + outfile
 		        console.log("1")
-		        /* Concatenate uploaded files then remove them */
-		        this.openedFiles.forEach( function (element) {
-		        	fileNames.push(element.name)
-		        	exec("cat " + element.path + " >> " + outpath, function (error, stdout, stderr) {
-			        	cleanup([element.path])
+
+
+		        if(sequenceText.length > 0) {
+		        	exec("echo '" + sequenceText + "' >> " + outpath, function (error, stdout, stderr) {
+		     			fileNames.push("None")
+		        	})
+		        }
+
+		        else {
+			        /* Concatenate uploaded files then remove them */
+			        this.openedFiles.forEach( function (element) {
+			        	fileNames.push(element.name)
+			        	exec("cat " + element.path + " >> " + outpath, function (error, stdout, stderr) {
+				        	cleanup([element.path])
+				        })
 			        })
-		        })
+			    }
 
 		        sleep.sleep(1)
 		        //console.log('python ' + scripts + 'line_breaks.py ' + outpath + ' > results' + timestamp)
@@ -196,6 +206,7 @@ app.post("/upload",
 					exonBlast(outfile, file1, html1, res)
 					processing = true
 				})
+				
 			});
 
 		}

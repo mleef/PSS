@@ -1,8 +1,11 @@
 
 	 html {
-    	height: 100%;
-    			font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 		}
+
+	*:focus {
+    outline: 0;
+	}
 	 #backbutton {
 	     line-height: 16px;
 	     font-size: 8pt;
@@ -36,6 +39,22 @@
 	     top:20px;
 	 }		
 
+	.binbutton {
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    border: 1px solid #000;
+	}
+
+	.binbutton:focus {
+		outline: 0;
+	}
+
+	.binbutton:hover {
+		background-color: green
+	}
+
+
 
 	.area {
   		fill: steelblue;
@@ -44,6 +63,7 @@
 
 	svg {
 	  font: 10px sans-serif;
+	  
 	}
 
 	.brush .extent {
@@ -275,6 +295,7 @@
       margin: 0 auto;
       background: #f1f1f1;
       padding-bottom: 20px;
+
 	}
 
 	#subtablecontainer {
@@ -297,6 +318,7 @@
       margin: 0 auto;
       background: #f1f1f1;
       padding: 30 30 30 30;
+      padding-left: 20px;
 	}
 
 	#sliderpanel {
