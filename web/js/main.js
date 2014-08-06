@@ -477,6 +477,10 @@ function summarize() {
 		summary = {"id" : "", "topg" : "", "tope" : "", "nump" : "", "numps" : "", "numtc" : ""}
 	})
 
+	if(count == 1) {
+		$("hr").remove()
+	}
+
 }
 
 

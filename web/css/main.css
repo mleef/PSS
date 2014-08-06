@@ -6,38 +6,7 @@
 	*:focus {
     outline: 0;
 	}
-	 #backbutton {
-	     line-height: 16px;
-	     font-size: 8pt;
-	     font-family: tahoma;
-	     margin-top: 3px;
-	     margin-right: 4px;
-	     position: relative;
-	     left: 1300px;
-	     top:20px;
-	 }	
 
-	 #downnpsbutton {
-	     line-height: 16px;
-	     font-size: 8pt;
-	     font-family: tahoma;
-	     margin-top: 3px;
-	     margin-right: 4px;
-	     position: relative;
-	     left: 802px;
-	     top:20px;
-	 }
-
-	 #downresbutton {
-	     line-height: 16px;
-	     font-size: 8pt;
-	     font-family: tahoma;
-	     margin-top: 3px;
-	     margin-right: 4px;
-	     position: relative;
-	     left: 802px;
-	     top:20px;
-	 }		
 
 	.binbutton {
     height: 30px;
@@ -63,13 +32,17 @@
 
 	svg {
 	  font: 10px sans-serif;
-	  
+
 	}
 
 	.brush .extent {
   		stroke: #fff;
   		fill-opacity: .125;
   		shape-rendering: crispEdges;
+	}
+
+	pre {
+		overflow: scroll;
 	}
 
 
@@ -176,7 +149,6 @@
 	#tabs_content_container {
 	    border: 1px solid #ccc;
 	    border-top: none;
-	    padding: 10px;
 	    width: 100%;
 
 	}
@@ -295,6 +267,8 @@
       margin: 0 auto;
       background: #f1f1f1;
       padding-bottom: 20px;
+      margin-top: 20px;
+
 
 	}
 
@@ -306,7 +280,7 @@
 		border: 2px;
       	border-radius: 25px;
 		display: block;
-		margin-left: 20%;
+		margin: 0 auto;
 	    background: #f1f1f1;
         padding: 20 20 20 20;
 	}
@@ -322,5 +296,6 @@
 	}
 
 	#sliderpanel {
-		float: left;
+		padding-left: 5px;
+		padding-bottom: 20px;
 	}

@@ -14,12 +14,10 @@
 <link rel="shortcut icon" href="http://www.google.com/s2/favicons?domain=www.affymetrix.com">
 
 </head>
+<body>
 <div id="title" style="text-align: center">
 	<h1 style="margin: 0 auto">Probe Set Search</h1>
 </div>
-<button id="backbutton" class="back">Search Again</button>
-<button id="downnpsbutton" class="downnps">Download Gene Level Novel Probe Grouping</button>
-<button id="downresbutton" class="downres">Download Gene Level Results</button>
 
 <div id="tabs_container">
     <ul id="tabs">
@@ -43,11 +41,16 @@
     	<h2 id="geneheader" style = "margin: 0 auto">Gene Level Results</h2>
 
     	<h4 style="word-spacing: 30px" id="geneinfo"></h3>
+
      	<div>
      		<p><div id="ghs">Minimum Hybridization Score: 38</div>38<input id="generange" type="range" min="38" max="45" step="1" value="38">45</p>
+     		<button id="backbutton" class="back">Search Again</button>
+			<button id="downnpsbutton" class="downnps">Download Gene Level Novel Probe Grouping</button>
+			<button id="downresbutton" class="downres">Download Gene Level Results</button>
 		</div>
 
-    	<div id="generesults" class= "f2">
+
+    	<div id="generesults" style="padding-bottom: 20px" class= "f2">
 
 
     	</div>
@@ -58,8 +61,11 @@
     	<h4 style="word-spacing: 30px" id="exoninfo"></h3>
      	<div>
      		<p><div id="ehs">Minimum Hybridization Score: 38</div>38<input id="exonrange" type="range" min="38" max="45" step="1" value="38">45</p>
+     		<button id="backbutton" class="back">Search Again</button>
+			<button id="downnpsbutton" class="downnps">Download Exon Level Novel Probe Grouping</button>
+			<button id="downresbutton" class="downres">Download Exon Level Results</button>
 		</div>
-        <div id="exonresults" class= "f1">
+        <div id="exonresults" style="padding-bottom: 20px" class= "f1">
 
 
     	</div>
@@ -71,7 +77,7 @@
     	</div>
     </div>
 
-     <div id="tab5" style="text-align: center" class="tab_content f4">
+     <div id="tab5" style="text-align: center; overflow: scroll" class="tab_content f4">
      	<h2 style = "margin: 0 auto; margin-bottom: 10px;" id="coverageheader">Probe Coverage Viewer</h2>
      	<div id = "sliderpanel">
 	     	<div id = "range1">
@@ -82,7 +88,7 @@
 			 <div id = "range2">
 			 	<!-- <p><div id="b2">Bin Size: 500</div>- <input id="s2" type="range" min="10" max="100" value="100"> +</p> -->
 			 	<div id="b2">Bin Size: 500</div>
-			 	<span><button id="bbm" class="binbutton" style="margin-right: 10px">-</button><button style="margin-left: 10px" id="bbp" class="binbutton">+</button>
+			 	<span><button id="bbm" class=" binbutton" style="margin-right: 10px">-</button><button style="margin-left: 10px" id="bbp" class="binbutton">+</button>
 			</div>
 			<!--  Set default slider values (not working) <button class="default">Defaults</button><br> -->
 			 <p></p>
@@ -107,4 +113,5 @@
 </div>
 <script src='js/histogram.js'></script>
 <script src='js/main.js'></script>
+</body>
 
