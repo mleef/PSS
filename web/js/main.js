@@ -466,6 +466,7 @@ function summarize() {
 
 		$("#tab1").append("<div id='" + id + "' </div>")
 		$("#tab1 #" + id).append("<h3>Sequence: " + summary.id + "</h3>")
+		$("#tab1 #" + id).append("<p>")
 		$("#tab1 #" + id).append("<p>Top Transcript Cluster ID: <span id ='good'>" + summary.topg + "</span</p>")
 		$("#tab1 #" + id).append("<p>Top Probe Set ID: <span id ='good'>" + summary.tope + "</span></p>")
 		$("#tab1 #" + id).append("<p>Total Transcript Clusters Registering Hits: <span id ='good'>" + summary.numtc + "</span></p>")
