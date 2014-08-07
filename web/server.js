@@ -9,7 +9,6 @@ var express = require("express"), http = require("http"), connect = require("con
     jquery = require('jquery'),
     exec = require('child_process').exec,
     sleep = require('sleep'),
-    bodyParser = require('body-parser'),
     app;
 
 
@@ -144,10 +143,7 @@ app = express(); http.createServer(app).listen(3000);
 // For caching purposes, disabled in developement
 //var oneYear = 31557600000;
 //app.use(express.static(__dirname, { maxAge: oneYear }));
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }));
-// app.use(bodyParser.json())
+
 app.use(express.static(__dirname));
 // set up our routes
 app.post("/upload", 
