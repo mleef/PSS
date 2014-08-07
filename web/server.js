@@ -128,7 +128,7 @@ var exonBlast = function(file_name, file1, html1, cur_db, clientID) {
 			        		throw err; 
 			    		} 
 			    		jobQueue[clientID].resp.end(html)
-			    		jobQueue[clientID].details.time.end= new Date().getTime();
+			    		jobQueue[clientID].details.time.end = new Date().getTime();
 			    		jobQueue[clientID].details.time.elapsed = (jobQueue[clientID].details.time.end - jobQueue[clientID].details.time.start)/1000
 			    		cleanup([queries + file_name + '.tsv', save + file_name, file1, html1, html1 + '.exon', html1 + '.gene', 'output.html'])
 					})

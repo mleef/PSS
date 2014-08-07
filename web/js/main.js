@@ -71,6 +71,7 @@ $(document).ready(function(){
 
 	//Helper function to link href probe ids to appropriate BLAST tab and the appropriate spot on the page
 	$(".subtable a").click(function() {
+		console.log($(this).text())
 		$("#tabs li").removeClass('active');
 		$("#tab4").addClass("active");
 		$(".tab_content").hide();
@@ -513,11 +514,13 @@ function sortRows() {
 
 	$('#' + curTab + ' .maintable').each( function () {
 		var rowDict = {}
-		var rows = $(this).find('tr').filter(function () {return  ($(this).text().indexOf("+") != -1 && $(this).text().indexOf("N") == -1) ||  ($(this).text().indexOf("-") != -1  && $(this).text().indexOf("N") == -1 )}).get();
+		var rows = $(this).find('tr').filter(function () {return  $(this).text().indexOf("+") != -1 ||  $(this).text().indexOf("-") != -1});
 		var hiddenRows = $(this).find('tr').filter(function () {return  $(this).text().indexOf("+") == -1 && $(this).text().indexOf("-") == -1})
 		$.each(hiddenRows, function(index, row) {
 			rowDict[$(row).attr("class")] = row
 		})
+
+
 
 
 		rows.sort( function (a, b) {
@@ -546,15 +549,17 @@ function sortRows() {
 		var tbody = $(this).children('tbody')
 		$.each(rows, function(index, row) {
 			var rowClass = $(row).attr("class")
-			$(tbody).append(row)
-			//$(tbody).append($(hiddenRows).filter(function () {return $(this).attr("class") == rowClass}))
-			$(tbody).append(rowDict[rowClass])
+			if(rowClass.length > 2) {
+				$(tbody).append(row)
+				//$(tbody).append($(hiddenRows).filter(function () {return $(this).attr("class") == rowClass}))
+				$(tbody).append(rowDict[rowClass])
+			}
 		})         
 
 	})
 
 
-	//Reestablishes checkbox listeners 
+	//Reestablishes checkbox/href listeners 
   	$(".checkboxes").on("click", function (event) {
   		var target = $(event.target)
   		if(target.attr("name") == 'probeset') {
@@ -564,6 +569,15 @@ function sortRows() {
 	 		$(boxes).each(function() {this.checked = !this.checked})
   		}
   	})
+
+  	$(".subtable a").click(function() {
+		console.log($(this).text())
+		$("#tabs li").removeClass('active');
+		$("#tab4").addClass("active");
+		$(".tab_content").hide();
+		var href = $(this).attr("href");
+		$("#tab4").fadeIn("slow");
+	})
 }
 
 

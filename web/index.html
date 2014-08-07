@@ -167,10 +167,9 @@
       //cl.show(); // Hidden by default
 
       if(valid) {
-        var myVar=setInterval(function(){statusCheck()},200);
-
+        var myVar = setInterval(function(){statusCheck()},200);
+        window.onunload=function(){clearInterval(myVar)};
         function statusCheck() {
-
           $.get("/status", {"id" : id}, function (data) {
               if(data["percentage"]) {
                 $("#status").text(data["step"] + "..." + data["percentage"] + "% complete")
