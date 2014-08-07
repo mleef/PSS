@@ -159,7 +159,7 @@
     cl.setFPS(30); // default is 24
     var first = true
     var timestamp = Date.now() || +new Date()
-    var id = getID(timestamp)
+    var id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
     document.cookie = "id=" + id;
     $(".form-section").append("<li><input type='hidden' name='id' value='" + id  +"'></li>")
 
@@ -224,9 +224,6 @@
 
     }
 
-    function getID(uniqueIndex) {
-      return uniqueIndex.toString(36);
-    }
 
     function getCookie(name) {
       var value = "; " + document.cookie;
