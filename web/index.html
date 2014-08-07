@@ -158,7 +158,10 @@
     cl.setSpeed(3); // default is 2
     cl.setFPS(30); // default is 24
     var first = true
-
+    var timestamp = Date.now() || +new Date()
+    var id = getID(timestamp)
+    document.cookie = "id=" + id;
+    $(".form-section").append("<li><input type='hidden' name='id' value='" + id  +"'></li>")
 
     $("#main").submit(function (event) {
       //cl.show(); // Hidden by default
@@ -168,7 +171,7 @@
 
         function statusCheck() {
 
-          $.get("/status", function (data) {
+          $.get("/status", {"id" : id}, function (data) {
               if(data["percentage"]) {
                 $("#status").text(data["step"] + "..." + data["percentage"] + "% complete")
               }
@@ -184,38 +187,8 @@
       }
   })
 
-
-
-
-    $("#pf").on('change keyup paste', function() {
-      if($("#pf").val().length > 0) {
-        paste = true
-      }
-      else {
-        paste = false
-      }
-    });
-
-    $("#input_8").on('change', function () {
-      if($("#input_8").val() != -1) {
-        designSelected = true
-      }
-      else {
-        designSelected = false
-      }
-    })
-
-    $("#input_10").on('change', function () {
-      if($("#input_10").val() != '') {
-        fileSelected = true
-      }
-      else {
-        fileSelected = false
-      }
-    })
-
     function validate() {
-
+      checkFields()
        if(!designSelected || (fileSelected && paste) || (!fileSelected && !paste)) {
           valid = false;
           alert("Submission Checklist:\n\n1) Select an array design.\n2) Uploaded sequence files OR paste sequences into text area.\n\nPerform the above steps for successful submission")
@@ -225,6 +198,40 @@
        }
 
        return valid
+    }
+
+    function checkFields() {
+      if($("#input_10").val() != '') {
+        fileSelected = true
+      }
+      else {
+        fileSelected = false
+      }
+
+      if($("#input_8").val() != -1) {
+        designSelected = true
+      }
+      else {
+        designSelected = false
+      }
+
+      if($("#pf").val().length > 0) {
+        paste = true
+      }
+      else {
+        paste = false
+      }
+
+    }
+
+    function getID(uniqueIndex) {
+      return uniqueIndex.toString(36);
+    }
+
+    function getCookie(name) {
+      var value = "; " + document.cookie;
+      var parts = value.split("; " + name + "=");
+      if (parts.length == 2) return parts.pop().split(";").shift();
     }
 
     

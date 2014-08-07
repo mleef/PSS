@@ -12,10 +12,11 @@ $(document).ready(function(){
 	$("td[colspan=8]").find("table").hide();
 
 	//Populate header with details from server
-	getQueryDetails()
+	
 
 	//Populate summary page
 	summarize()
+	getQueryDetails(getCookie("id"))
 
 	//Config object for scroll reveal, optional
 	var config = {
@@ -426,17 +427,21 @@ $(document).ready(function(){
 
 
 //Helper function for querying server for information about user's search parameters
-function getQueryDetails() {
+function getQueryDetails(id) {
 
-	$.get("/details", function (data) {
+	$.get("/details", {"id" : id}, function (data) {
 		var files = ""
 		data["files"].forEach( function (file) {
 			files += file + ","
 		})
 		var seqs = $("caption").length
 		design = data["design"]
-		$("#geneinfo").text("Design=" + data["design"] + " " + "Files=" + files.slice(0,-1) + " " + "Sequences=" + seqs/2)
-		$("#exoninfo").text("Design=" + data["design"] + " " + "Files=" + files.slice(0,-1) + " " + "Sequences=" + seqs/2)
+		time = data["time"]["elapsed"]
+		var minutes = parseInt( time / 60 ) % 60;
+		var seconds = time % 60;
+		var result = (minutes < 10 ? "0" + minutes : minutes) + "min-" + (seconds  < 10 ? "0" + seconds : seconds) + "sec";
+		$("#geneinfo").text("Design=" + data["design"] + " " + "Files=" + files.slice(0,-1) + " " + "Sequences=" + seqs/2 + " " + "Time=" + result)
+		$("#exoninfo").text("Design=" + data["design"] + " " + "Files=" + files.slice(0,-1) + " " + "Sequences=" + seqs/2 + " " + "Time=" + result)
 
 
 
@@ -484,6 +489,11 @@ function summarize() {
 
 }
 
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
 
 //Helper function to create a file for the user to download out of a javascript string
 function download(filename, text) {
