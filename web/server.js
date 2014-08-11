@@ -118,19 +118,19 @@ var exonBlast = function(file_name, file1, html1, cur_db, clientID) {
 				status = {"step" : "(4/4) Formatting output..."}
 				jobQueue[clientID].status = {"step" : "(4/4) Formatting output..."}
 				//sleep.sleep(1)
-				exec('python ' + scripts + 'join_blasts.py ' + html1 + ' ' + web + 'temp.html > ' + web + 'output.html' , function (error, stdout, stderr) {
+				exec('python ' + scripts + 'join_blasts.py ' + html1 + ' ' + web + 'temp.html > ' + web + clientID + 'output.html' , function (error, stdout, stderr) {
 					console.log("5")
 					console.log(stdout)
 					console.log(error)
 					console.log(stderr)
-					fs.readFile('./output.html', function (err, html) {
+					fs.readFile('./' + clientID + 'output.html', function (err, html) {
 			    		if (err) {
 			        		throw err; 
 			    		} 
 			    		jobQueue[clientID].resp.end(html)
 			    		jobQueue[clientID].details.time.end = new Date().getTime();
 			    		jobQueue[clientID].details.time.elapsed = (jobQueue[clientID].details.time.end - jobQueue[clientID].details.time.start)/1000
-			    		cleanup([queries + file_name + '.tsv', save + file_name, file1, html1, html1 + '.exon', html1 + '.gene', 'output.html'])
+			    		cleanup([queries + file_name + '.tsv', save + file_name, file1, html1, html1 + '.exon', html1 + '.gene', clientID + 'output.html'])
 					})
 				})
 			})
